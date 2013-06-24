@@ -115,14 +115,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="ClientHandler.cpp" />
     <ClCompile Include="MainFormController.cpp" />
     <ClCompile Include="ProjectDR.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClientHandler.h" />
     <ClInclude Include="Eigen\src\Cholesky\LDLT.h" />
     <ClInclude Include="Eigen\src\Cholesky\LLT.h" />
     <ClInclude Include="Eigen\src\Cholesky\LLT_MKL.h" />
@@ -357,10 +360,12 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MainFormController.h" />
+    <ClInclude Include="Marker.h" />
     <ClInclude Include="NatNetSDK\include\NatNetClient.h" />
     <ClInclude Include="NatNetSDK\include\NatNetServer.h" />
     <ClInclude Include="NatNetSDK\include\NatNetTypes.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
