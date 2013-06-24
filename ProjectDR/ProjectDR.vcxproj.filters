@@ -85,6 +85,12 @@
     <Filter Include="Header Files\Eigen\src\LU">
       <UniqueIdentifier>{a67a4948-b94d-43d1-bba5-48a45b55aa1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\NatNetSDK">
+      <UniqueIdentifier>{381d5c81-78a7-4f50-afe0-e4e46d94b8f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\NatNetSDK\include">
+      <UniqueIdentifier>{7bad6ade-676a-40f3-b55f-dff898e2e8fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -893,10 +899,24 @@
     <ClInclude Include="Eigen\src\UmfPackSupport\UmfPackSupport.h">
       <Filter>Header Files\Eigen\src\UmfPackSupport</Filter>
     </ClInclude>
+    <ClInclude Include="NatNetSDK\include\NatNetClient.h">
+      <Filter>Header Files\NatNetSDK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="NatNetSDK\include\NatNetTypes.h">
+      <Filter>Header Files\NatNetSDK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="NatNetSDK\include\NatNetServer.h">
+      <Filter>Header Files\NatNetSDK\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainForm.resX">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
