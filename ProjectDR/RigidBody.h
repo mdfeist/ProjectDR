@@ -12,8 +12,9 @@
 #include "Eigen\src\Geometry\RotationBase.h"
 #include "Eigen\src\Geometry\Quaternion.h"
 
-#include "NatNetSDK\include\NatNetTypes.h"
 #include "Marker.h"
+
+#include "NatNetSDK\include\NatNetTypes.h"
 
 /*
  * The RigidBody class handles transformation data

@@ -127,90 +127,6 @@
     <None Include="app.ico">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Eigen\Array.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\Cholesky.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\CholmodSupport.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\Core.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\Dense.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\Eigen.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\Eigen2Support.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\Eigenvalues.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\Geometry.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\Householder.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\IterativeLinearSolvers.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\Jacobi.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\LeastSquares.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\LU.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\OrderingMethods.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\PardisoSupport.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\PaStiXSupport.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\QR.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\QtAlignedMalloc.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\Sparse.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\SparseCholesky.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\SparseCore.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\StdDeque.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\StdList.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\StdVector.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\SuperLUSupport.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\SVD.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
-    <None Include="Eigen\UmfPackSupport.h">
-      <Filter>Header Files\Eigen</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ProjectDR.cpp">
@@ -952,6 +868,90 @@
     </ClInclude>
     <ClInclude Include="RigidBody.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\Array.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\CholmodSupport.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\Cholesky.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\Core.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\Eigenvalues.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\Dense.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\Eigen.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\Eigen2Support.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\Geometry.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\LU.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\Householder.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\IterativeLinearSolvers.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\Jacobi.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\LeastSquares.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\OrderingMethods.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\QtAlignedMalloc.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\PardisoSupport.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\PaStiXSupport.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\QR.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\Sparse.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\SparseCore.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\SparseCholesky.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\StdDeque.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\UmfPackSupport.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\StdList.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\StdVector.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\SuperLUSupport.h">
+      <Filter>Header Files\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\SVD.h">
+      <Filter>Header Files\Eigen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

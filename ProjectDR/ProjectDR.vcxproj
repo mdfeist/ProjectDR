@@ -83,34 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.ico" />
-    <None Include="Eigen\Array.h" />
-    <None Include="Eigen\Cholesky.h" />
-    <None Include="Eigen\CholmodSupport.h" />
-    <None Include="Eigen\Core.h" />
-    <None Include="Eigen\Dense.h" />
-    <None Include="Eigen\Eigen.h" />
-    <None Include="Eigen\Eigen2Support.h" />
-    <None Include="Eigen\Eigenvalues.h" />
-    <None Include="Eigen\Geometry.h" />
-    <None Include="Eigen\Householder.h" />
-    <None Include="Eigen\IterativeLinearSolvers.h" />
-    <None Include="Eigen\Jacobi.h" />
-    <None Include="Eigen\LeastSquares.h" />
-    <None Include="Eigen\LU.h" />
-    <None Include="Eigen\OrderingMethods.h" />
-    <None Include="Eigen\PardisoSupport.h" />
-    <None Include="Eigen\PaStiXSupport.h" />
-    <None Include="Eigen\QR.h" />
-    <None Include="Eigen\QtAlignedMalloc.h" />
-    <None Include="Eigen\Sparse.h" />
-    <None Include="Eigen\SparseCholesky.h" />
-    <None Include="Eigen\SparseCore.h" />
-    <None Include="Eigen\StdDeque.h" />
-    <None Include="Eigen\StdList.h" />
-    <None Include="Eigen\StdVector.h" />
-    <None Include="Eigen\SuperLUSupport.h" />
-    <None Include="Eigen\SVD.h" />
-    <None Include="Eigen\UmfPackSupport.h" />
+ <Content Include="NatNetLib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>    
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -355,6 +330,34 @@
     <ClInclude Include="Eigen\src\SVD\JacobiSVD_MKL.h" />
     <ClInclude Include="Eigen\src\SVD\UpperBidiagonalization.h" />
     <ClInclude Include="Eigen\src\UmfPackSupport\UmfPackSupport.h" />
+<ClInclude Include="Eigen\Array.h" />
+    <ClInclude Include="Eigen\Cholesky.h" />
+    <ClInclude Include="Eigen\CholmodSupport.h" />
+    <ClInclude Include="Eigen\Core.h" />
+    <ClInclude Include="Eigen\Dense.h" />
+    <ClInclude Include="Eigen\Eigen.h" />
+    <ClInclude Include="Eigen\Eigen2Support.h" />
+    <ClInclude Include="Eigen\Eigenvalues.h" />
+    <ClInclude Include="Eigen\Geometry.h" />
+    <ClInclude Include="Eigen\Householder.h" />
+    <ClInclude Include="Eigen\IterativeLinearSolvers.h" />
+    <ClInclude Include="Eigen\Jacobi.h" />
+    <ClInclude Include="Eigen\LeastSquares.h" />
+    <ClInclude Include="Eigen\LU.h" />
+    <ClInclude Include="Eigen\OrderingMethods.h" />
+    <ClInclude Include="Eigen\PardisoSupport.h" />
+    <ClInclude Include="Eigen\PaStiXSupport.h" />
+    <ClInclude Include="Eigen\QR.h" />
+    <ClInclude Include="Eigen\QtAlignedMalloc.h" />
+    <ClInclude Include="Eigen\Sparse.h" />
+    <ClInclude Include="Eigen\SparseCholesky.h" />
+    <ClInclude Include="Eigen\SparseCore.h" />
+    <ClInclude Include="Eigen\StdDeque.h" />
+    <ClInclude Include="Eigen\StdList.h" />
+    <ClInclude Include="Eigen\StdVector.h" />
+    <ClInclude Include="Eigen\SuperLUSupport.h" />
+    <ClInclude Include="Eigen\SVD.h" />
+    <ClInclude Include="Eigen\UmfPackSupport.h" />
     <ClInclude Include="FormController.h" />
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
