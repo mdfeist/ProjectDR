@@ -19,6 +19,7 @@ Thumbs.db
 *.ipch
 *.log
 Bin
+!ProjectDR/VTK/bin*/
 ProjectDR/Debug*/
 Debug*/
 *.sbr
