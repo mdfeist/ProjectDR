@@ -1,6 +1,8 @@
 #include "StdAfx.h"
 #include "ClientHandler.h"
 
+#include "MainFormController.h"
+
 ClientHandler* ClientHandler::m_pInstance = NULL; 
 
 #pragma warning( disable : 4996 )
@@ -68,53 +70,53 @@ int ClientHandler::connect() {
 
 	// Print Connection Information to the Output Log
 	sprintf_s(buf, "Connecting to Server...\n");
-	////MainFormController::getInstance()->optiTrackOutputLog(buf);
+	MainFormController::getInstance()->optiTrackOutputLog(buf);
 
 	if (this->optiTrackConnectionType == ConnectionType_Unicast) {
 		sprintf_s(buf, "Connection Type: Unicast\n");
-		////MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
 	} else if (this->optiTrackConnectionType == ConnectionType_Multicast) {
 		sprintf_s(buf, "Connection Type: Multicast\n");
-		////MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
 	} else {
 		sprintf_s(buf, "Connection Type: Unknown\n");
-		////MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
 	}
 
 	sprintf_s(buf, "Command port of server: %d\n", this->optiTrackServerCommandPort);
-	////MainFormController::getInstance()->optiTrackOutputLog(buf);
+	MainFormController::getInstance()->optiTrackOutputLog(buf);
 
 	sprintf_s(buf, "Data port of server: %d\n", this->optiTrackServerDataPort);
-	////MainFormController::getInstance()->optiTrackOutputLog(buf);
+	MainFormController::getInstance()->optiTrackOutputLog(buf);
 
     sprintf_s(buf, "Connecting to server at %s...\n", this->otptiTrackServerIPAddress);
-	////MainFormController::getInstance()->optiTrackOutputLog(buf);
+	MainFormController::getInstance()->optiTrackOutputLog(buf);
 
 	sprintf_s(buf, "Connecting from %s...\n", this->localIPAddress);
-	////MainFormController::getInstance()->optiTrackOutputLog(buf);
+	MainFormController::getInstance()->optiTrackOutputLog(buf);
 
     // Create NatNet Client
     iResult = initClient();
     if(iResult != ErrorCode_OK) {
         sprintf_s(buf, "Error initializing client.  See log for details.  Exiting\n");
-		////MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
         return 1;
     } else {
         sprintf_s(buf, "Client initialized and ready.\n");
-		////MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
     }
 	
 	// Check if successful at retrieving the NatNetClient from
 	// the ClientHandler.
 	if (!this->natnet) {
 		sprintf_s(buf, "Failed to get client from client handler.\n");
-		////MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
 		return 1;
 	}
 
 	// send/receive test request
 	sprintf_s(buf, "Sending Test Request\n");
-	////MainFormController::getInstance()->optiTrackOutputLog(buf);
+	MainFormController::getInstance()->optiTrackOutputLog(buf);
 
 	// Test Connection
 	void* response;
@@ -122,22 +124,22 @@ int ClientHandler::connect() {
 	iResult = this->natnet->SendMessageAndWait("TestRequest", &response, &nBytes);
 	if (iResult == ErrorCode_OK) {
 		sprintf_s(buf, "Received: %s\n", (char*)response);
-		////MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
 	}
 
 	// Retrieve Data Descriptions from server
 	sprintf_s(buf, "Requesting Data Descriptions...\n");
-	////MainFormController::getInstance()->optiTrackOutputLog(buf);
+	MainFormController::getInstance()->optiTrackOutputLog(buf);
 
 	sDataDescriptions* pDataDefs = NULL;
 	int nBodies = this->natnet->GetDataDescriptions(&pDataDefs);
 	if(!pDataDefs) {
 		sprintf_s(buf, "Unable to retrieve Data Descriptions.\n");
-		////MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
 		//return 1;
 	} else {
         sprintf_s(buf, "Received %d Data Descriptions:\n", pDataDefs->nDataDescriptions );
-		////MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
         for(int i=0; i < pDataDefs->nDataDescriptions; i++) {
             printf("Data Description # %d (type=%d)\n", i, pDataDefs->arrDataDescriptions[i].type);
             if(pDataDefs->arrDataDescriptions[i].type == Descriptor_MarkerSet) {
@@ -188,10 +190,10 @@ int ClientHandler::connect() {
 
 	// Ready to receive marker stream!
 	sprintf_s(buf, "Client is connected to server and listening for data...\n");
-	//////MainFormController::getInstance()->optiTrackOutputLog(buf);
+	MainFormController::getInstance()->optiTrackOutputLog(buf);
 
 	// Initialize the OptiTack DataView on the MainForm
-	//////MainFormController::getInstance()->optiTrackInitDataView();
+	//MainFormController::getInstance()->optiTrackInitDataView();
 
 	// Return Error Code OK
 	return ErrorCode_OK;
@@ -203,16 +205,16 @@ int ClientHandler::disconnect() {
 	// Done - clean up.
 	if (this->natnet) {
 		sprintf_s(buf, "Disconnecting from Server...\n");
-		//MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
 
 		// Disconnects from the server
 		this->natnet->Uninitialize();
 
 		sprintf_s(buf, "Client is Disconnected.\n");
-		//MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
 	} else {
 		sprintf_s(buf, "Client is already not connected to the server.\n");
-		//MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
 	}
 
 	this->natNetServerRunning = false;
@@ -241,7 +243,7 @@ int ClientHandler::initClient()
     this->natnet->NatNetVersion(ver);
 
     sprintf_s(buf, "NatNet Client (NatNet ver. %d.%d.%d.%d)\n", ver[0], ver[1], ver[2], ver[3]);
-	//MainFormController::getInstance()->optiTrackOutputLog(buf);
+	MainFormController::getInstance()->optiTrackOutputLog(buf);
 
     // Set callback handlers
     this->natnet->SetMessageCallback(MessageHandler);
@@ -256,7 +258,7 @@ int ClientHandler::initClient()
 		this->optiTrackServerCommandPort, this->optiTrackServerDataPort);
     if (retCode != ErrorCode_OK) {
         sprintf_s(buf, "Unable to connect to server.  Error code: %d. Exiting\n", retCode);
-		//MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
         return ErrorCode_Internal;
     } else {
         // print server info
@@ -265,29 +267,29 @@ int ClientHandler::initClient()
         this->natnet->GetServerDescription(&ServerDescription);
         if(!ServerDescription.HostPresent) {
             sprintf_s(buf, "Unable to connect to server. Host not present. Exiting.\n");
-			//MainFormController::getInstance()->optiTrackOutputLog(buf);
+			MainFormController::getInstance()->optiTrackOutputLog(buf);
             return 1;
         }
 
         sprintf_s(buf, "\nServer application info:\n");
-		//MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
 
         sprintf_s(buf, "Application: %s (ver. %d.%d.%d.%d)\n", ServerDescription.szHostApp, ServerDescription.HostAppVersion[0],
             ServerDescription.HostAppVersion[1],ServerDescription.HostAppVersion[2],ServerDescription.HostAppVersion[3]);
-		//MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
 
         sprintf_s(buf, "NatNet Version: %d.%d.%d.%d\n", ServerDescription.NatNetVersion[0], ServerDescription.NatNetVersion[1],
             ServerDescription.NatNetVersion[2], ServerDescription.NatNetVersion[3]);
-		//MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
 
         sprintf_s(buf, "Client IP:%s\n", this->localIPAddress);
-		//MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
 
         sprintf_s(buf, "Server IP:%s\n", this->otptiTrackServerIPAddress);
-		//MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
 
         sprintf_s(buf, "Server Name:%s\n\n", ServerDescription.szHostComputerName);
-		//MainFormController::getInstance()->optiTrackOutputLog(buf);
+		MainFormController::getInstance()->optiTrackOutputLog(buf);
     }
 
     return ErrorCode_OK;

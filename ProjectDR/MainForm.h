@@ -1,5 +1,7 @@
 #pragma once
 
+#include "FormEventHandler.h"
+
 namespace ProjectDR {
 
 	using namespace System;
@@ -42,6 +44,33 @@ namespace ProjectDR {
 	private: System::Windows::Forms::SplitContainer^  optiTrackMainSplitContainer;
 	private: System::Windows::Forms::TabPage^  tabPage1;
 	private: System::Windows::Forms::SplitContainer^  optiTrackSubSplitContainer;
+	private: System::Windows::Forms::TextBox^  optiTrackLocalIpAddressTextBox;
+	private: System::Windows::Forms::Label^  optiTrackLocalIpAddressLabel;
+	private: System::Windows::Forms::Label^  optiTrackLocalTitle;
+	private: System::Windows::Forms::ComboBox^  optiTrackConnectionTypeComboBox;
+	private: System::Windows::Forms::Label^  optiTrackConnectionTypeLabel;
+	private: System::Windows::Forms::TextBox^  optiTrackDataPortTextBox;
+	private: System::Windows::Forms::Label^  optiTrackDataPortLabel;
+	private: System::Windows::Forms::TextBox^  optiTrackCmdPortTextBox;
+	private: System::Windows::Forms::Label^  optiTrackCmdPortLabel;
+	private: System::Windows::Forms::TextBox^  optiTrackSeverIpAddressTextBox;
+	private: System::Windows::Forms::Label^  optiTrackSeverIpAddressLabel;
+	private: System::Windows::Forms::Label^  optiTrackServerTitleLabel;
+	private: System::Windows::Forms::Label^  optiTrackPropertiesLabel;
+	private: System::Windows::Forms::Button^  optiTrackDisConnect;
+	private: System::Windows::Forms::Button^  optiTrackConnectBtn;
+	private: System::Windows::Forms::DataGridView^  optiTrackDataGridView;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  optiTrackRigidBodyIDColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  optiTrackRigidBodyNameColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  optiTrackRigidBodyPositionXColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  optiTrackRigidBodyPositionYColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  optiTrackRigidBodyPositionZColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  optiTrackRigidBodyRotationXColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  optiTrackRigidBodyRotationYColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  optiTrackRigidBodyRotationZColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  optiTrackRigidBodyRotationWColumn;
+	private: System::Windows::Forms::TextBox^  optiTrackOutputLogTextBox;
+	private: System::Windows::Forms::Label^  optiTrackOutputLogLabel;
 
 	private:
 		/// <summary>
@@ -62,15 +91,46 @@ namespace ProjectDR {
 			this->optiTrackPage = (gcnew System::Windows::Forms::TabPage());
 			this->optiTrackMainSplitContainer = (gcnew System::Windows::Forms::SplitContainer());
 			this->optiTrackSubSplitContainer = (gcnew System::Windows::Forms::SplitContainer());
+			this->optiTrackDataGridView = (gcnew System::Windows::Forms::DataGridView());
+			this->optiTrackRigidBodyIDColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->optiTrackRigidBodyNameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->optiTrackRigidBodyPositionXColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->optiTrackRigidBodyPositionYColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->optiTrackRigidBodyPositionZColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->optiTrackRigidBodyRotationXColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->optiTrackRigidBodyRotationYColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->optiTrackRigidBodyRotationZColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->optiTrackRigidBodyRotationWColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->optiTrackOutputLogTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->optiTrackOutputLogLabel = (gcnew System::Windows::Forms::Label());
+			this->optiTrackDisConnect = (gcnew System::Windows::Forms::Button());
+			this->optiTrackConnectBtn = (gcnew System::Windows::Forms::Button());
+			this->optiTrackLocalIpAddressTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->optiTrackLocalIpAddressLabel = (gcnew System::Windows::Forms::Label());
+			this->optiTrackLocalTitle = (gcnew System::Windows::Forms::Label());
+			this->optiTrackConnectionTypeComboBox = (gcnew System::Windows::Forms::ComboBox());
+			this->optiTrackConnectionTypeLabel = (gcnew System::Windows::Forms::Label());
+			this->optiTrackDataPortTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->optiTrackDataPortLabel = (gcnew System::Windows::Forms::Label());
+			this->optiTrackCmdPortTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->optiTrackCmdPortLabel = (gcnew System::Windows::Forms::Label());
+			this->optiTrackSeverIpAddressTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->optiTrackSeverIpAddressLabel = (gcnew System::Windows::Forms::Label());
+			this->optiTrackServerTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->optiTrackPropertiesLabel = (gcnew System::Windows::Forms::Label());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
 			this->menuStrip->SuspendLayout();
 			this->tabControl->SuspendLayout();
 			this->optiTrackPage->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackMainSplitContainer))->BeginInit();
 			this->optiTrackMainSplitContainer->Panel1->SuspendLayout();
+			this->optiTrackMainSplitContainer->Panel2->SuspendLayout();
 			this->optiTrackMainSplitContainer->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackSubSplitContainer))->BeginInit();
+			this->optiTrackSubSplitContainer->Panel1->SuspendLayout();
+			this->optiTrackSubSplitContainer->Panel2->SuspendLayout();
 			this->optiTrackSubSplitContainer->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackDataGridView))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip
@@ -136,9 +196,24 @@ namespace ProjectDR {
 			// optiTrackMainSplitContainer.Panel2
 			// 
 			this->optiTrackMainSplitContainer->Panel2->BackColor = System::Drawing::Color::WhiteSmoke;
-			this->optiTrackMainSplitContainer->Panel2MinSize = 273;
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackDisConnect);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackConnectBtn);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackLocalIpAddressTextBox);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackLocalIpAddressLabel);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackLocalTitle);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackConnectionTypeComboBox);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackConnectionTypeLabel);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackDataPortTextBox);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackDataPortLabel);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackCmdPortTextBox);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackCmdPortLabel);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackSeverIpAddressTextBox);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackSeverIpAddressLabel);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackServerTitleLabel);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackPropertiesLabel);
+			this->optiTrackMainSplitContainer->Panel2MinSize = 225;
 			this->optiTrackMainSplitContainer->Size = System::Drawing::Size(792, 548);
-			this->optiTrackMainSplitContainer->SplitterDistance = 502;
+			this->optiTrackMainSplitContainer->SplitterDistance = 515;
 			this->optiTrackMainSplitContainer->TabIndex = 0;
 			// 
 			// optiTrackSubSplitContainer
@@ -151,14 +226,318 @@ namespace ProjectDR {
 			// optiTrackSubSplitContainer.Panel1
 			// 
 			this->optiTrackSubSplitContainer->Panel1->BackColor = System::Drawing::Color::White;
+			this->optiTrackSubSplitContainer->Panel1->Controls->Add(this->optiTrackDataGridView);
 			// 
 			// optiTrackSubSplitContainer.Panel2
 			// 
-			this->optiTrackSubSplitContainer->Panel2->BackColor = System::Drawing::Color::White;
+			this->optiTrackSubSplitContainer->Panel2->BackColor = System::Drawing::Color::LightGray;
+			this->optiTrackSubSplitContainer->Panel2->Controls->Add(this->optiTrackOutputLogTextBox);
+			this->optiTrackSubSplitContainer->Panel2->Controls->Add(this->optiTrackOutputLogLabel);
 			this->optiTrackSubSplitContainer->Panel2MinSize = 100;
-			this->optiTrackSubSplitContainer->Size = System::Drawing::Size(502, 548);
+			this->optiTrackSubSplitContainer->Size = System::Drawing::Size(515, 548);
 			this->optiTrackSubSplitContainer->SplitterDistance = 411;
 			this->optiTrackSubSplitContainer->TabIndex = 0;
+			// 
+			// optiTrackDataGridView
+			// 
+			this->optiTrackDataGridView->AllowUserToAddRows = false;
+			this->optiTrackDataGridView->AllowUserToDeleteRows = false;
+			this->optiTrackDataGridView->AllowUserToResizeColumns = false;
+			this->optiTrackDataGridView->AllowUserToResizeRows = false;
+			this->optiTrackDataGridView->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->optiTrackDataGridView->BackgroundColor = System::Drawing::SystemColors::ButtonFace;
+			this->optiTrackDataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->optiTrackDataGridView->CausesValidation = false;
+			this->optiTrackDataGridView->ClipboardCopyMode = System::Windows::Forms::DataGridViewClipboardCopyMode::Disable;
+			this->optiTrackDataGridView->ColumnHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
+			this->optiTrackDataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->optiTrackDataGridView->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(9) {this->optiTrackRigidBodyIDColumn, 
+				this->optiTrackRigidBodyNameColumn, this->optiTrackRigidBodyPositionXColumn, this->optiTrackRigidBodyPositionYColumn, this->optiTrackRigidBodyPositionZColumn, 
+				this->optiTrackRigidBodyRotationXColumn, this->optiTrackRigidBodyRotationYColumn, this->optiTrackRigidBodyRotationZColumn, this->optiTrackRigidBodyRotationWColumn});
+			this->optiTrackDataGridView->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->optiTrackDataGridView->EditMode = System::Windows::Forms::DataGridViewEditMode::EditProgrammatically;
+			this->optiTrackDataGridView->EnableHeadersVisualStyles = false;
+			this->optiTrackDataGridView->Location = System::Drawing::Point(0, 0);
+			this->optiTrackDataGridView->Name = L"optiTrackDataGridView";
+			this->optiTrackDataGridView->ReadOnly = true;
+			this->optiTrackDataGridView->RowHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
+			this->optiTrackDataGridView->RowHeadersWidth = 25;
+			this->optiTrackDataGridView->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
+			this->optiTrackDataGridView->ShowCellErrors = false;
+			this->optiTrackDataGridView->ShowCellToolTips = false;
+			this->optiTrackDataGridView->ShowEditingIcon = false;
+			this->optiTrackDataGridView->ShowRowErrors = false;
+			this->optiTrackDataGridView->Size = System::Drawing::Size(515, 411);
+			this->optiTrackDataGridView->TabIndex = 2;
+			// 
+			// optiTrackRigidBodyIDColumn
+			// 
+			this->optiTrackRigidBodyIDColumn->HeaderText = L"ID";
+			this->optiTrackRigidBodyIDColumn->Name = L"optiTrackRigidBodyIDColumn";
+			this->optiTrackRigidBodyIDColumn->ReadOnly = true;
+			// 
+			// optiTrackRigidBodyNameColumn
+			// 
+			this->optiTrackRigidBodyNameColumn->HeaderText = L"Name";
+			this->optiTrackRigidBodyNameColumn->Name = L"optiTrackRigidBodyNameColumn";
+			this->optiTrackRigidBodyNameColumn->ReadOnly = true;
+			// 
+			// optiTrackRigidBodyPositionXColumn
+			// 
+			this->optiTrackRigidBodyPositionXColumn->HeaderText = L"Position X";
+			this->optiTrackRigidBodyPositionXColumn->Name = L"optiTrackRigidBodyPositionXColumn";
+			this->optiTrackRigidBodyPositionXColumn->ReadOnly = true;
+			// 
+			// optiTrackRigidBodyPositionYColumn
+			// 
+			this->optiTrackRigidBodyPositionYColumn->HeaderText = L"Position Y";
+			this->optiTrackRigidBodyPositionYColumn->Name = L"optiTrackRigidBodyPositionYColumn";
+			this->optiTrackRigidBodyPositionYColumn->ReadOnly = true;
+			// 
+			// optiTrackRigidBodyPositionZColumn
+			// 
+			this->optiTrackRigidBodyPositionZColumn->HeaderText = L"Position Z";
+			this->optiTrackRigidBodyPositionZColumn->Name = L"optiTrackRigidBodyPositionZColumn";
+			this->optiTrackRigidBodyPositionZColumn->ReadOnly = true;
+			// 
+			// optiTrackRigidBodyRotationXColumn
+			// 
+			this->optiTrackRigidBodyRotationXColumn->HeaderText = L"Rotation X";
+			this->optiTrackRigidBodyRotationXColumn->Name = L"optiTrackRigidBodyRotationXColumn";
+			this->optiTrackRigidBodyRotationXColumn->ReadOnly = true;
+			// 
+			// optiTrackRigidBodyRotationYColumn
+			// 
+			this->optiTrackRigidBodyRotationYColumn->HeaderText = L"Rotation Y";
+			this->optiTrackRigidBodyRotationYColumn->Name = L"optiTrackRigidBodyRotationYColumn";
+			this->optiTrackRigidBodyRotationYColumn->ReadOnly = true;
+			// 
+			// optiTrackRigidBodyRotationZColumn
+			// 
+			this->optiTrackRigidBodyRotationZColumn->HeaderText = L"Rotation Z";
+			this->optiTrackRigidBodyRotationZColumn->Name = L"optiTrackRigidBodyRotationZColumn";
+			this->optiTrackRigidBodyRotationZColumn->ReadOnly = true;
+			// 
+			// optiTrackRigidBodyRotationWColumn
+			// 
+			this->optiTrackRigidBodyRotationWColumn->HeaderText = L"Rotation W";
+			this->optiTrackRigidBodyRotationWColumn->Name = L"optiTrackRigidBodyRotationWColumn";
+			this->optiTrackRigidBodyRotationWColumn->ReadOnly = true;
+			// 
+			// optiTrackOutputLogTextBox
+			// 
+			this->optiTrackOutputLogTextBox->AcceptsReturn = true;
+			this->optiTrackOutputLogTextBox->AcceptsTab = true;
+			this->optiTrackOutputLogTextBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->optiTrackOutputLogTextBox->BackColor = System::Drawing::SystemColors::ControlLightLight;
+			this->optiTrackOutputLogTextBox->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->optiTrackOutputLogTextBox->Location = System::Drawing::Point(3, 18);
+			this->optiTrackOutputLogTextBox->Multiline = true;
+			this->optiTrackOutputLogTextBox->Name = L"optiTrackOutputLogTextBox";
+			this->optiTrackOutputLogTextBox->ReadOnly = true;
+			this->optiTrackOutputLogTextBox->ScrollBars = System::Windows::Forms::ScrollBars::Both;
+			this->optiTrackOutputLogTextBox->Size = System::Drawing::Size(509, 112);
+			this->optiTrackOutputLogTextBox->TabIndex = 3;
+			// 
+			// optiTrackOutputLogLabel
+			// 
+			this->optiTrackOutputLogLabel->AutoSize = true;
+			this->optiTrackOutputLogLabel->BackColor = System::Drawing::Color::Transparent;
+			this->optiTrackOutputLogLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->optiTrackOutputLogLabel->ForeColor = System::Drawing::SystemColors::ControlText;
+			this->optiTrackOutputLogLabel->Location = System::Drawing::Point(5, 2);
+			this->optiTrackOutputLogLabel->Name = L"optiTrackOutputLogLabel";
+			this->optiTrackOutputLogLabel->Size = System::Drawing::Size(67, 13);
+			this->optiTrackOutputLogLabel->TabIndex = 2;
+			this->optiTrackOutputLogLabel->Text = L"Output Log";
+			// 
+			// optiTrackDisConnect
+			// 
+			this->optiTrackDisConnect->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->optiTrackDisConnect->BackColor = System::Drawing::Color::Gainsboro;
+			this->optiTrackDisConnect->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->optiTrackDisConnect->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->optiTrackDisConnect->Location = System::Drawing::Point(192, 520);
+			this->optiTrackDisConnect->Name = L"optiTrackDisConnect";
+			this->optiTrackDisConnect->Size = System::Drawing::Size(76, 23);
+			this->optiTrackDisConnect->TabIndex = 43;
+			this->optiTrackDisConnect->Text = L"Disconnect";
+			this->optiTrackDisConnect->UseVisualStyleBackColor = false;
+			this->optiTrackDisConnect->Click += gcnew System::EventHandler(this, &MainForm::optiTrackDisConnect_Click);
+			// 
+			// optiTrackConnectBtn
+			// 
+			this->optiTrackConnectBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
+			this->optiTrackConnectBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->optiTrackConnectBtn->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->optiTrackConnectBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->optiTrackConnectBtn->Location = System::Drawing::Point(9, 520);
+			this->optiTrackConnectBtn->Name = L"optiTrackConnectBtn";
+			this->optiTrackConnectBtn->Size = System::Drawing::Size(76, 23);
+			this->optiTrackConnectBtn->TabIndex = 42;
+			this->optiTrackConnectBtn->Text = L"Connect";
+			this->optiTrackConnectBtn->UseVisualStyleBackColor = false;
+			this->optiTrackConnectBtn->Click += gcnew System::EventHandler(this, &MainForm::optiTrackConnectBtn_Click);
+			// 
+			// optiTrackLocalIpAddressTextBox
+			// 
+			this->optiTrackLocalIpAddressTextBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->optiTrackLocalIpAddressTextBox->Location = System::Drawing::Point(124, 58);
+			this->optiTrackLocalIpAddressTextBox->Name = L"optiTrackLocalIpAddressTextBox";
+			this->optiTrackLocalIpAddressTextBox->Size = System::Drawing::Size(144, 22);
+			this->optiTrackLocalIpAddressTextBox->TabIndex = 41;
+			this->optiTrackLocalIpAddressTextBox->Text = L"127.0.0.1";
+			// 
+			// optiTrackLocalIpAddressLabel
+			// 
+			this->optiTrackLocalIpAddressLabel->AutoSize = true;
+			this->optiTrackLocalIpAddressLabel->BackColor = System::Drawing::Color::Transparent;
+			this->optiTrackLocalIpAddressLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, 
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->optiTrackLocalIpAddressLabel->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->optiTrackLocalIpAddressLabel->Location = System::Drawing::Point(6, 61);
+			this->optiTrackLocalIpAddressLabel->Name = L"optiTrackLocalIpAddressLabel";
+			this->optiTrackLocalIpAddressLabel->Size = System::Drawing::Size(63, 13);
+			this->optiTrackLocalIpAddressLabel->TabIndex = 40;
+			this->optiTrackLocalIpAddressLabel->Text = L"IP Address:";
+			// 
+			// optiTrackLocalTitle
+			// 
+			this->optiTrackLocalTitle->AutoSize = true;
+			this->optiTrackLocalTitle->BackColor = System::Drawing::Color::Transparent;
+			this->optiTrackLocalTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->optiTrackLocalTitle->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->optiTrackLocalTitle->Location = System::Drawing::Point(6, 38);
+			this->optiTrackLocalTitle->Name = L"optiTrackLocalTitle";
+			this->optiTrackLocalTitle->Size = System::Drawing::Size(85, 13);
+			this->optiTrackLocalTitle->TabIndex = 39;
+			this->optiTrackLocalTitle->Text = L"Local Machine:";
+			// 
+			// optiTrackConnectionTypeComboBox
+			// 
+			this->optiTrackConnectionTypeComboBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->optiTrackConnectionTypeComboBox->FormattingEnabled = true;
+			this->optiTrackConnectionTypeComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(2) {L"Multicast", L"Unicast"});
+			this->optiTrackConnectionTypeComboBox->Location = System::Drawing::Point(124, 204);
+			this->optiTrackConnectionTypeComboBox->Name = L"optiTrackConnectionTypeComboBox";
+			this->optiTrackConnectionTypeComboBox->Size = System::Drawing::Size(144, 21);
+			this->optiTrackConnectionTypeComboBox->TabIndex = 38;
+			this->optiTrackConnectionTypeComboBox->Text = L"Multicast";
+			// 
+			// optiTrackConnectionTypeLabel
+			// 
+			this->optiTrackConnectionTypeLabel->AutoSize = true;
+			this->optiTrackConnectionTypeLabel->BackColor = System::Drawing::Color::Transparent;
+			this->optiTrackConnectionTypeLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, 
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->optiTrackConnectionTypeLabel->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->optiTrackConnectionTypeLabel->Location = System::Drawing::Point(6, 204);
+			this->optiTrackConnectionTypeLabel->Name = L"optiTrackConnectionTypeLabel";
+			this->optiTrackConnectionTypeLabel->Size = System::Drawing::Size(96, 13);
+			this->optiTrackConnectionTypeLabel->TabIndex = 37;
+			this->optiTrackConnectionTypeLabel->Text = L"Connection Type:";
+			// 
+			// optiTrackDataPortTextBox
+			// 
+			this->optiTrackDataPortTextBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->optiTrackDataPortTextBox->Location = System::Drawing::Point(124, 172);
+			this->optiTrackDataPortTextBox->Name = L"optiTrackDataPortTextBox";
+			this->optiTrackDataPortTextBox->Size = System::Drawing::Size(144, 22);
+			this->optiTrackDataPortTextBox->TabIndex = 36;
+			this->optiTrackDataPortTextBox->Text = L"1511";
+			// 
+			// optiTrackDataPortLabel
+			// 
+			this->optiTrackDataPortLabel->AutoSize = true;
+			this->optiTrackDataPortLabel->BackColor = System::Drawing::Color::Transparent;
+			this->optiTrackDataPortLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->optiTrackDataPortLabel->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->optiTrackDataPortLabel->Location = System::Drawing::Point(6, 175);
+			this->optiTrackDataPortLabel->Name = L"optiTrackDataPortLabel";
+			this->optiTrackDataPortLabel->Size = System::Drawing::Size(58, 13);
+			this->optiTrackDataPortLabel->TabIndex = 35;
+			this->optiTrackDataPortLabel->Text = L"Data Port:";
+			// 
+			// optiTrackCmdPortTextBox
+			// 
+			this->optiTrackCmdPortTextBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->optiTrackCmdPortTextBox->Location = System::Drawing::Point(124, 144);
+			this->optiTrackCmdPortTextBox->Name = L"optiTrackCmdPortTextBox";
+			this->optiTrackCmdPortTextBox->Size = System::Drawing::Size(144, 22);
+			this->optiTrackCmdPortTextBox->TabIndex = 34;
+			this->optiTrackCmdPortTextBox->Text = L"1510";
+			// 
+			// optiTrackCmdPortLabel
+			// 
+			this->optiTrackCmdPortLabel->AutoSize = true;
+			this->optiTrackCmdPortLabel->BackColor = System::Drawing::Color::Transparent;
+			this->optiTrackCmdPortLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->optiTrackCmdPortLabel->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->optiTrackCmdPortLabel->Location = System::Drawing::Point(6, 147);
+			this->optiTrackCmdPortLabel->Name = L"optiTrackCmdPortLabel";
+			this->optiTrackCmdPortLabel->Size = System::Drawing::Size(86, 13);
+			this->optiTrackCmdPortLabel->TabIndex = 33;
+			this->optiTrackCmdPortLabel->Text = L"Command Port:";
+			// 
+			// optiTrackSeverIpAddressTextBox
+			// 
+			this->optiTrackSeverIpAddressTextBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->optiTrackSeverIpAddressTextBox->Location = System::Drawing::Point(124, 116);
+			this->optiTrackSeverIpAddressTextBox->Name = L"optiTrackSeverIpAddressTextBox";
+			this->optiTrackSeverIpAddressTextBox->Size = System::Drawing::Size(144, 22);
+			this->optiTrackSeverIpAddressTextBox->TabIndex = 32;
+			this->optiTrackSeverIpAddressTextBox->Text = L"127.0.0.1";
+			// 
+			// optiTrackSeverIpAddressLabel
+			// 
+			this->optiTrackSeverIpAddressLabel->AutoSize = true;
+			this->optiTrackSeverIpAddressLabel->BackColor = System::Drawing::Color::Transparent;
+			this->optiTrackSeverIpAddressLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, 
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->optiTrackSeverIpAddressLabel->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->optiTrackSeverIpAddressLabel->Location = System::Drawing::Point(6, 119);
+			this->optiTrackSeverIpAddressLabel->Name = L"optiTrackSeverIpAddressLabel";
+			this->optiTrackSeverIpAddressLabel->Size = System::Drawing::Size(63, 13);
+			this->optiTrackSeverIpAddressLabel->TabIndex = 31;
+			this->optiTrackSeverIpAddressLabel->Text = L"IP Address:";
+			// 
+			// optiTrackServerTitleLabel
+			// 
+			this->optiTrackServerTitleLabel->AutoSize = true;
+			this->optiTrackServerTitleLabel->BackColor = System::Drawing::Color::Transparent;
+			this->optiTrackServerTitleLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->optiTrackServerTitleLabel->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->optiTrackServerTitleLabel->Location = System::Drawing::Point(6, 96);
+			this->optiTrackServerTitleLabel->Name = L"optiTrackServerTitleLabel";
+			this->optiTrackServerTitleLabel->Size = System::Drawing::Size(94, 13);
+			this->optiTrackServerTitleLabel->TabIndex = 30;
+			this->optiTrackServerTitleLabel->Text = L"OptiTrack Server:";
+			// 
+			// optiTrackPropertiesLabel
+			// 
+			this->optiTrackPropertiesLabel->AutoSize = true;
+			this->optiTrackPropertiesLabel->BackColor = System::Drawing::Color::Transparent;
+			this->optiTrackPropertiesLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->optiTrackPropertiesLabel->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->optiTrackPropertiesLabel->Location = System::Drawing::Point(3, 10);
+			this->optiTrackPropertiesLabel->Name = L"optiTrackPropertiesLabel";
+			this->optiTrackPropertiesLabel->Size = System::Drawing::Size(71, 17);
+			this->optiTrackPropertiesLabel->TabIndex = 29;
+			this->optiTrackPropertiesLabel->Text = L"Properties";
 			// 
 			// tabPage1
 			// 
@@ -192,18 +571,101 @@ namespace ProjectDR {
 			this->tabControl->ResumeLayout(false);
 			this->optiTrackPage->ResumeLayout(false);
 			this->optiTrackMainSplitContainer->Panel1->ResumeLayout(false);
+			this->optiTrackMainSplitContainer->Panel2->ResumeLayout(false);
+			this->optiTrackMainSplitContainer->Panel2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackMainSplitContainer))->EndInit();
 			this->optiTrackMainSplitContainer->ResumeLayout(false);
+			this->optiTrackSubSplitContainer->Panel1->ResumeLayout(false);
+			this->optiTrackSubSplitContainer->Panel2->ResumeLayout(false);
+			this->optiTrackSubSplitContainer->Panel2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackSubSplitContainer))->EndInit();
 			this->optiTrackSubSplitContainer->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackDataGridView))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-private: void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
-			 
-		 }
+	// Abstract Delegate to change text
+	private: delegate void SetTextDelegate(String^ value);
+	// MainForm Load
+	private: void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
+
+			 }
+
+	// OptiTrack Getters/Setters
+	public: void setOptiTrackLocalIpAddressTextBox(System::String^ text) {
+				this->optiTrackLocalIpAddressTextBox->Text = text;
+			}
+
+	public: System::String^ getOptiTrackLocalIpAddressTextBox() {
+				return this->optiTrackLocalIpAddressTextBox->Text;
+			}
+
+	public: void setOptiTrackSeverIpAddressTextBox(System::String^ text) {
+				this->optiTrackSeverIpAddressTextBox->Text = text;
+			}
+
+	public: System::String^ getOptiTrackSeverIpAddressTextBox() {
+				return this->optiTrackSeverIpAddressTextBox->Text;
+			}
+
+	public: void setOptiTrackCmdPortTextBox(System::String^ text) {
+				this->optiTrackCmdPortTextBox->Text = text;
+			}
+
+	public: System::String^ getOptiTrackCmdPortTextBox() {
+				return this->optiTrackCmdPortTextBox->Text;
+			}
+
+	public: void setOptiTrackDataPortTextBox(System::String^ text) {
+				this->optiTrackDataPortTextBox->Text = text;
+			}
+
+	public: System::String^ getOptiTrackDataPortTextBox() {
+				return this->optiTrackDataPortTextBox->Text;
+			}
+
+	public: void setOptiTrackConnectionTypeComboBox(System::String^ text) {
+				this->optiTrackConnectionTypeComboBox->SelectedItem = text;
+			}
+
+	public: System::String^ getOptiTrackConnectionTypeComboBox() {
+				return (System::String^)this->optiTrackConnectionTypeComboBox->SelectedItem;
+			}
+
+	// OptiTrack Output Log
+	public: void optiTrackOutputLog(System::String^ text) {
+				if (this->optiTrackOutputLogTextBox->InvokeRequired) 
+				{
+					SetTextDelegate^ d = gcnew SetTextDelegate(this, &MainForm::optiTrackOutputLog);
+					this->Invoke(d, gcnew array<Object^> { text });
+				} 
+				else 
+				{
+					// Determine if the text being appended to dikablisOutputLogTextBox exceeds the MaxLength property.
+					if((unsigned int)(this->optiTrackOutputLogTextBox->TextLength + text->Length) > 
+						(unsigned int)this->optiTrackOutputLogTextBox->MaxLength) 
+					{
+						int over = (this->optiTrackOutputLogTextBox->TextLength + text->Length + 1) - 
+							this->optiTrackOutputLogTextBox->MaxLength;
+						this->optiTrackOutputLogTextBox->Text = this->optiTrackOutputLogTextBox->Text->Substring(over);
+					}
+
+					// Append the text
+					this->optiTrackOutputLogTextBox->AppendText(text->Replace("\n", Environment::NewLine));
+				}
+			}
+
+	// Connect to OptiTrack
+	private: System::Void optiTrackConnectBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				 FormEventHandler::connectToOptiTrack();
+			 }
+
+	// Disconnect to OptiTrack
+	private: System::Void optiTrackDisConnect_Click(System::Object^  sender, System::EventArgs^  e) {
+				 FormEventHandler::disconnectFromOptiTrack();
+			 }
 };
 }
 

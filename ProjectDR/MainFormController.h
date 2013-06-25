@@ -28,5 +28,14 @@ public:
 	void getFilePath(std::string& pathBuffer, std::string defaultPath);
 
 	bool propt(std::string& title, std::string& msg);
+
+	void setOptiTrackInfo();
+	void getOptiTrackInfo();
+
+	// Prints to the Output window in the OptiTrack Tab of the MainForm
+	void optiTrackOutputLog(std::string msg);
+
+	// Connect to OptiTrack
+	void optiTrackConnect();
 };
 

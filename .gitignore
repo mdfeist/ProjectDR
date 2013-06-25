@@ -21,8 +21,6 @@ Thumbs.db
 Bin
 ProjectDR/Debug*/
 Debug*/
-*.lib
-!NatNetLib.lib
 *.sbr
 obj/
 ProjectDR/Release*/
