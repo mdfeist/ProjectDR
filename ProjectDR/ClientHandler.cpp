@@ -193,7 +193,7 @@ int ClientHandler::connect() {
 	MainFormController::getInstance()->optiTrackOutputLog(buf);
 
 	// Initialize the OptiTack DataView on the MainForm
-	//MainFormController::getInstance()->optiTrackInitDataView();
+	MainFormController::getInstance()->optiTrackInitDataView();
 
 	// Return Error Code OK
 	return ErrorCode_OK;
@@ -383,7 +383,7 @@ void __cdecl DataHandler(sFrameOfMocapData* data, void* pUserData) {
 	}
 
 	// Update the OptiTrack page
-	//MainFormController::getInstance()->optiTrackUpdateData();
+	FormEventHandler::optiTrackUpdateData();
 }
 
 // MessageHandler receives NatNet error/debug messages

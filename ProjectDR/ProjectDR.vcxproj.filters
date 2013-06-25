@@ -8348,6 +8348,9 @@
     <ClInclude Include="VTK\include\vtk-6.0\vtkXMLStructuredGridWriter.h">
       <Filter>Header Files\VTK\include\vtk-6.0</Filter>
     </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc">

@@ -32,6 +32,8 @@ private:
 	std::vector<Marker> markers;			// Vector of all the markers
 
 public:
+	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
 	RigidBody(void);
 	~RigidBody(void);
 
@@ -54,6 +56,16 @@ public:
 	// Getter/Setters for the auto transform of the Rigid Body.
 	Eigen::Vector3f getPosition() { return this->position; }
 	Eigen::Quaternionf getRotation() { return this->rotation; }
+	
+	float& x() { return this->position.x(); }
+	float& y() { return this->position.y(); }
+	float& z() { return this->position.z(); }
+
+	float& qx() { return this->rotation.x(); }
+	float& qy() { return this->rotation.y(); }
+	float& qz() { return this->rotation.z(); }
+	float& qw() { return this->rotation.w(); }
+
 	// Update the transformation of the Rigid Body
 	void addFrame(Eigen::Vector3f position, Eigen::Quaternionf& rotation);
 };

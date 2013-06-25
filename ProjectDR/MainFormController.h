@@ -34,7 +34,9 @@ public:
 
 	// Prints to the Output window in the OptiTrack Tab of the MainForm
 	void optiTrackOutputLog(std::string msg);
-
+	// List the Rigid Bodies in a grid view
+	void optiTrackInitDataView();
+	void optiTrackUpdateData();
 	// Connect to OptiTrack
 	void optiTrackConnect();
 };

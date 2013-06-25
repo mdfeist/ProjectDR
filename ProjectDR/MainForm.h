@@ -1,6 +1,15 @@
 #pragma once
 
+#include "Debug.h"
+
+#include <string>
+#include <vector>
+#include <exception>
+#include <msclr\marshal_cppstd.h>
+
 #include "FormEventHandler.h"
+#include "ClientHandler.h"
+#include "RigidBody.h"
 
 namespace ProjectDR {
 
@@ -10,6 +19,8 @@ namespace ProjectDR {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Diagnostics;
+	using namespace msclr::interop;
 
 	/// <summary>
 	/// Summary for MainForm
@@ -85,6 +96,9 @@ namespace ProjectDR {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->menuStrip = (gcnew System::Windows::Forms::MenuStrip());
 			this->projectDRToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->tabControl = (gcnew System::Windows::Forms::TabControl());
@@ -244,6 +258,10 @@ namespace ProjectDR {
 			this->optiTrackDataGridView->AllowUserToDeleteRows = false;
 			this->optiTrackDataGridView->AllowUserToResizeColumns = false;
 			this->optiTrackDataGridView->AllowUserToResizeRows = false;
+			dataGridViewCellStyle1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(234)), 
+				static_cast<System::Int32>(static_cast<System::Byte>(234)), static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			dataGridViewCellStyle1->ForeColor = System::Drawing::Color::Black;
+			this->optiTrackDataGridView->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			this->optiTrackDataGridView->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
 			this->optiTrackDataGridView->BackgroundColor = System::Drawing::SystemColors::ButtonFace;
 			this->optiTrackDataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
@@ -254,6 +272,15 @@ namespace ProjectDR {
 			this->optiTrackDataGridView->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(9) {this->optiTrackRigidBodyIDColumn, 
 				this->optiTrackRigidBodyNameColumn, this->optiTrackRigidBodyPositionXColumn, this->optiTrackRigidBodyPositionYColumn, this->optiTrackRigidBodyPositionZColumn, 
 				this->optiTrackRigidBodyRotationXColumn, this->optiTrackRigidBodyRotationYColumn, this->optiTrackRigidBodyRotationZColumn, this->optiTrackRigidBodyRotationWColumn});
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::MenuText;
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->optiTrackDataGridView->DefaultCellStyle = dataGridViewCellStyle2;
 			this->optiTrackDataGridView->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->optiTrackDataGridView->EditMode = System::Windows::Forms::DataGridViewEditMode::EditProgrammatically;
 			this->optiTrackDataGridView->EnableHeadersVisualStyles = false;
@@ -263,6 +290,8 @@ namespace ProjectDR {
 			this->optiTrackDataGridView->RowHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
 			this->optiTrackDataGridView->RowHeadersWidth = 25;
 			this->optiTrackDataGridView->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
+			dataGridViewCellStyle3->ForeColor = System::Drawing::Color::Black;
+			this->optiTrackDataGridView->RowsDefaultCellStyle = dataGridViewCellStyle3;
 			this->optiTrackDataGridView->ShowCellErrors = false;
 			this->optiTrackDataGridView->ShowCellToolTips = false;
 			this->optiTrackDataGridView->ShowEditingIcon = false;
@@ -586,11 +615,33 @@ namespace ProjectDR {
 
 		}
 #pragma endregion
+	// Local Variables
+	private: std::vector<RigidBody*>* optiTrackRigidBodyVector;
+	// Abstract Delegate
+	private: delegate void SetDelegate();
 	// Abstract Delegate to change text
 	private: delegate void SetTextDelegate(String^ value);
+	// Abstract Delegate to change integer value
+	private: delegate void SetIntDelegate(int value);
+	// Abstract Delegate to change unsigned integer value
+	private: delegate void SetUIntDelegate(unsigned int value);
 	// MainForm Load
 	private: void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
+				 //this->SetStyle(ControlStyles::OptimizedDoubleBuffer, true);
+				 this->SetStyle(ControlStyles::UserPaint, true);
+				 this->SetStyle(ControlStyles::AllPaintingInWmPaint, true); 
+				 this->SetStyle(ControlStyles::DoubleBuffer, true);
+				 this->SetStyle(ControlStyles::ResizeRedraw, true);
 
+				 this->optiTrackDataGridView->CellValueNeeded += gcnew
+					 DataGridViewCellValueEventHandler( this, &MainForm::optiTrackDataGridView_CellValueNeeded );
+
+				 for (int i = 0; i < this->optiTrackDataGridView->ColumnCount; i++)
+				 {
+					 this->optiTrackDataGridView->Columns[i]->SortMode = DataGridViewColumnSortMode::NotSortable;
+				 }
+
+				 this->optiTrackDataGridView->VirtualMode = true;
 			 }
 
 	// OptiTrack Getters/Setters
@@ -666,6 +717,136 @@ namespace ProjectDR {
 	private: System::Void optiTrackDisConnect_Click(System::Object^  sender, System::EventArgs^  e) {
 				 FormEventHandler::disconnectFromOptiTrack();
 			 }
+
+	// OptiTrack Data View
+	public: void optiTrackInitDataView() {
+				if (this->optiTrackRigidBodyVector)
+					delete this->optiTrackRigidBodyVector;
+
+				this->optiTrackRigidBodyVector = new std::vector<RigidBody*>();
+
+				if (!ClientHandler::getInstance()->lock())
+					return;
+				
+				RigidBodyMap bodyMap = ClientHandler::getInstance()->getRigidBodyMap();
+				this->optiTrackDataGridView->RowCount = (unsigned int)bodyMap.size();
+
+				for (RigidBody_iterator it = bodyMap.begin(); it != bodyMap.end(); ++it) {
+					this->optiTrackRigidBodyVector->push_back(it->second);
+				}
+
+				ClientHandler::getInstance()->unlock();
+			}
+
+	public: void optiTrackUpdateData() {
+				static bool isUpdating = false;
+				
+				if (isUpdating)
+					return;
+
+				isUpdating = true;
+
+				static float fps = (1000.f/10.f);
+				static float dwCurrentTime = 0.f;
+				static float dwElapsedTime = 0.f;
+				static float dwLastUpdateTime = 0.f;
+
+				// Get Current Time
+				SYSTEMTIME time;
+				GetSystemTime(&time);
+				dwCurrentTime = (float)(time.wHour*60.f*60.f*1000.f + time.wMinute*60.f*1000.f + time.wSecond*1000.f + time.wMilliseconds);
+				// Calculate time Elapsed time
+				dwElapsedTime = dwCurrentTime - dwLastUpdateTime;
+				
+				// If the elapsed time is less then the fps
+				if (dwElapsedTime > fps)
+				{
+					// Start update
+					// Check if the main tab control needs invoke.
+					// If not then check to see if the OptiTrack tab
+					// is selected.
+					if (this->tabControl->InvokeRequired) {
+						SetDelegate^ d = gcnew SetDelegate(this, &MainForm::optiTrackUpdateData);
+						BeginInvoke(d, nullptr);
+					} else if (this->tabControl->SelectedIndex == 0) {
+						// Check if the OptiTrack DataGridView needs invoke.
+						// If not then update the view.
+						if (this->optiTrackDataGridView->InvokeRequired) {
+							SetDelegate^ d = gcnew SetDelegate(this, &MainForm::optiTrackUpdateData);
+							BeginInvoke(d, nullptr);
+						} else {
+							// Lock the client
+							if (!ClientHandler::getInstance()->lock())
+								return;
+
+							// Try to update the view
+							try {
+								this->optiTrackDataGridView->SuspendLayout();
+								this->optiTrackDataGridView->Invalidate();
+								this->optiTrackDataGridView->ResumeLayout();
+
+								// Set LastUpdateTime to CurrentTime
+								dwLastUpdateTime = dwCurrentTime;
+							}
+							catch(Exception^) {
+								Debug::WriteLine("Error: Exception when trying to redraw the OptiTrack DataGridView.");
+							}
+
+							// Unlock client
+							ClientHandler::getInstance()->unlock();
+						}
+					}
+				} // End of update
+
+				isUpdating = false;
+			}
+
+	private: void optiTrackDataGridView_CellValueNeeded(System::Object^ /*sender*/,
+       System::Windows::Forms::DataGridViewCellValueEventArgs^ e )
+			{
+				if (this->optiTrackRigidBodyVector)
+				{
+					if ((int)e->RowIndex >= (int)this->optiTrackRigidBodyVector->size())
+						return;
+
+					RigidBody* body = this->optiTrackRigidBodyVector->at(e->RowIndex);
+
+					int id = body->getID();
+					String^ name = gcnew String(body->getName());
+					
+					switch(e->ColumnIndex)
+					{
+					case 0:
+						e->Value = Convert::ToString(id);
+						break;
+					case 1 :
+						e->Value = name;
+						break;
+					case 2:
+						e->Value = Convert::ToString(body->x());
+						break;
+					case 3:
+						e->Value = Convert::ToString(body->y());
+						break;
+					case 4:
+						e->Value = Convert::ToString(body->z());
+						break;
+					case 5:
+						e->Value = Convert::ToString(body->qx());
+						break;
+					case 6:
+						e->Value = Convert::ToString(body->qy());
+						break;
+					case 7:
+						e->Value = Convert::ToString(body->qz());
+						break;
+					case 8:
+						e->Value = Convert::ToString(body->qw());
+						break;
+					}
+				}
+				
+			}
 };
 }
 

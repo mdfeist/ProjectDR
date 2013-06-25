@@ -101,7 +101,16 @@ void MainFormController::optiTrackOutputLog(std::string msg) {
 	this->form->optiTrackOutputLog(gcnew String(msg.c_str()));
 }
 
+void MainFormController::optiTrackInitDataView() {
+	this->form->optiTrackInitDataView();
+}
+
+void MainFormController::optiTrackUpdateData() {
+	this->form->optiTrackUpdateData(); 
+}
+
 void MainFormController::optiTrackConnect() {
 	this->getOptiTrackInfo();
 	ClientHandler::getInstance()->connect();
 }
+

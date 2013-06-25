@@ -119,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientHandler.h" />
+    <ClInclude Include="Debug.h" />
     <ClInclude Include="Eigen\src\Cholesky\LDLT.h" />
     <ClInclude Include="Eigen\src\Cholesky\LLT.h" />
     <ClInclude Include="Eigen\src\Cholesky\LLT_MKL.h" />

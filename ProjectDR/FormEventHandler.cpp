@@ -12,3 +12,11 @@ void FormEventHandler::connectToOptiTrack() {
 void FormEventHandler::disconnectFromOptiTrack() {
 	ClientHandler::getInstance()->disconnect();
 }
+
+void FormEventHandler::optiTrackInitDataView() {
+	MainFormController::getInstance()->optiTrackInitDataView();
+}
+
+void FormEventHandler::optiTrackUpdateData() {
+	MainFormController::getInstance()->optiTrackUpdateData();
+}
