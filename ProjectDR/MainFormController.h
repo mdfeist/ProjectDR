@@ -13,22 +13,25 @@
 
 #include "FormController.h"
 #include "MainForm.h"
-
+/*
 using namespace System;
 using namespace System::IO;
 using namespace System::Windows::Forms;
-
-public ref class MainFormController sealed :
-	public FormController<MainFormController^ volatile, ProjectDR::MainForm^>
+*/
+public class MainFormController :
+	public FormController<MainFormController, ProjectDR::MainForm>
 {
 public:
-	void showError(std::string& msg);
+	void createCallbacks();
+
+	/*
+	void showError(const std::string& msg);
 	std::string getSpecialFolderMyDocuments();
 	void getFilePath(std::string& pathBuffer);
-	void getFilePath(std::string& pathBuffer, std::string defaultPath);
+	void getFilePath(std::string& pathBuffer, const std::string& defaultPath);
 
-	bool propt(std::string& title, std::string& msg);
-
+	bool propt(const std::string& title, const std::string& msg);
+	*/
 	void setOptiTrackInfo();
 	void getOptiTrackInfo();
 

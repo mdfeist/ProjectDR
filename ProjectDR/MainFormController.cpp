@@ -3,7 +3,18 @@
 
 #include "ClientHandler.h"
 
-void MainFormController::showError(std::string& msg) {
+MainFormController* FormController<MainFormController, ProjectDR::MainForm>::m_pInstance = NULL;
+
+void OptiTrackOutputLogCallback(const std::string& msg, void* pointer) {
+	MainFormController* self = static_cast<MainFormController*>(pointer);
+	self->optiTrackOutputLog(msg);
+}
+
+void MainFormController::createCallbacks() {
+	ClientHandler::getInstance()->setOutputLogCallback(OptiTrackOutputLogCallback, this);
+}
+/*
+void MainFormController::showError(const std::string& msg) {
 	MessageBox::Show(gcnew String(msg.c_str()), "Error", 
     MessageBoxButtons::OK, MessageBoxIcon::Warning);
 }
@@ -17,7 +28,7 @@ void MainFormController::getFilePath(std::string& pathBuffer) {
 	getFilePath(pathBuffer, "");
 }
 
-void MainFormController::getFilePath(std::string& pathBuffer, std::string defaultPath) {
+void MainFormController::getFilePath(std::string& pathBuffer, const std::string& defaultPath) {
 	SaveFileDialog^ dialog = gcnew SaveFileDialog;
 
 	dialog->DefaultExt = "xml";
@@ -36,13 +47,14 @@ void MainFormController::getFilePath(std::string& pathBuffer, std::string defaul
 	}
 }
 
-bool MainFormController::propt(std::string& title, std::string& msg) {
+bool MainFormController::propt(const std::string& title, const std::string& msg) {
 	if (MessageBox::Show(gcnew String(msg.c_str()), gcnew String(title.c_str()), MessageBoxButtons::YesNo) == DialogResult::Yes) {
 		return true;
 	} else {
 		return false;
 	}
 }
+*/
 
 void MainFormController::setOptiTrackInfo() {
 
@@ -97,7 +109,7 @@ void MainFormController::getOptiTrackInfo() {
 		ClientHandler::getInstance()->setOptiTrackServerConnectionType(ConnectionType_Unicast);
 }
 
-void MainFormController::optiTrackOutputLog(std::string msg) {
+void MainFormController::optiTrackOutputLog(const std::string msg) {
 	this->form->optiTrackOutputLog(gcnew String(msg.c_str()));
 }
 

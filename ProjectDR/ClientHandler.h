@@ -60,6 +60,13 @@ public:
 	RigidBody* getRigidBody(int id);
 	// Get all RigidBody's in a map
 	RigidBodyMap getRigidBodyMap();
+
+	// Callback Functions
+	void setOutputLogCallback(void (*functionPtr)(const std::string&, void*), void* object) {
+		outputLogObject = object;
+		outputLogFunction = functionPtr;
+	}
+
 protected:
 	ClientHandler(void);
 	~ClientHandler(void);
@@ -93,5 +100,9 @@ private:
 	int initClient();
 	// Resets the NatNet Client connection
 	void resetClient();
+
+	// Callback Functions
+	void *outputLogObject;
+	void (*outputLogFunction)( const std::string&, void* );
 };
 

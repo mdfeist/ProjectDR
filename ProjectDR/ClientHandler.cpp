@@ -70,7 +70,7 @@ int ClientHandler::connect() {
 
 	// Print Connection Information to the Output Log
 	sprintf_s(buf, "Connecting to Server...\n");
-	MainFormController::getInstance()->optiTrackOutputLog(buf);
+	this->outputLogFunction(buf, outputLogObject);
 
 	if (this->optiTrackConnectionType == ConnectionType_Unicast) {
 		sprintf_s(buf, "Connection Type: Unicast\n");
