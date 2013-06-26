@@ -8,8 +8,6 @@
 #include "stdafx.h"
 #include <msclr\auto_gcroot.h>
 
-using namespace System;
-
 template<class ControllerType, class FormType>
 public class FormController abstract
 {
@@ -17,6 +15,7 @@ public:
 	static ControllerType* getInstance() {
 		if(!m_pInstance) {
 			m_pInstance = new ControllerType();
+			m_pInstance->init();
 		}
 		return m_pInstance;
 	}
@@ -40,14 +39,14 @@ public:
 		form->BringToFront();
 	}
 
-	virtual void init() {};
-
 protected:
-	FormController() { this->init(); };
+	FormController() { this->initialized = false; };
 	~FormController() {};
 
 	msclr::auto_gcroot<FormType^> form;
 
+	bool initialized;
+	virtual void init() { this->initialized = true; };
 private:
 	static ControllerType* m_pInstance;
 };

@@ -67,6 +67,18 @@ public:
 		outputLogFunction = functionPtr;
 	}
 
+	void setInitDataCallback(void (*functionPtr)(void*), void* object) {
+		initDataObject = object;
+		initDataFunction = functionPtr;
+	}
+
+	void setUpdateDataCallback(void (*functionPtr)(void*), void* object) {
+		updateDataObject = object;
+		updateDataFunction = functionPtr;
+	}
+
+	void updateData();
+
 protected:
 	ClientHandler(void);
 	~ClientHandler(void);
@@ -101,8 +113,13 @@ private:
 	// Resets the NatNet Client connection
 	void resetClient();
 
-	// Callback Functions
 	void *outputLogObject;
 	void (*outputLogFunction)( const std::string&, void* );
+
+	void *initDataObject;
+	void (*initDataFunction)(void*);
+
+	void *updateDataObject;
+	void (*updateDataFunction)(void*);
 };
 

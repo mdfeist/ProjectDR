@@ -3,6 +3,8 @@
 
 #include "ClientHandler.h"
 
+using namespace System;
+
 MainFormController* FormController<MainFormController, ProjectDR::MainForm>::m_pInstance = NULL;
 
 void OptiTrackOutputLogCallback(const std::string& msg, void* pointer) {
@@ -10,103 +12,33 @@ void OptiTrackOutputLogCallback(const std::string& msg, void* pointer) {
 	self->optiTrackOutputLog(msg);
 }
 
-void MainFormController::createCallbacks() {
-	ClientHandler::getInstance()->setOutputLogCallback(OptiTrackOutputLogCallback, this);
-}
-/*
-void MainFormController::showError(const std::string& msg) {
-	MessageBox::Show(gcnew String(msg.c_str()), "Error", 
-    MessageBoxButtons::OK, MessageBoxIcon::Warning);
+void OptiTrackInitDataViewCallback(void* pointer) {
+	MainFormController* self = static_cast<MainFormController*>(pointer);
+	self->optiTrackInitDataView();
 }
 
-std::string MainFormController::getSpecialFolderMyDocuments() {
-	msclr::interop::marshal_context context;
-	return context.marshal_as<std::string>(Environment::GetFolderPath(Environment::SpecialFolder::MyDocuments));
+void OptiTrackUpdateDatawCallback(void* pointer) {
+	MainFormController* self = static_cast<MainFormController*>(pointer);
+	self->optiTrackUpdateData();
 }
 
-void MainFormController::getFilePath(std::string& pathBuffer) {
-	getFilePath(pathBuffer, "");
-}
-
-void MainFormController::getFilePath(std::string& pathBuffer, const std::string& defaultPath) {
-	SaveFileDialog^ dialog = gcnew SaveFileDialog;
-
-	dialog->DefaultExt = "xml";
-	dialog->Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
-	dialog->FilterIndex = 2;
-	dialog->RestoreDirectory = true;
-
-	if (defaultPath != "") {
-		dialog->InitialDirectory = gcnew String(defaultPath.c_str());
+void MainFormController::init(void) {
+	if (!this->initialized) {
+		createForm();
+		ClientHandler::getInstance()->setOutputLogCallback(OptiTrackOutputLogCallback, this);
+		ClientHandler::getInstance()->setInitDataCallback(OptiTrackInitDataViewCallback, this);
+		ClientHandler::getInstance()->setUpdateDataCallback(OptiTrackUpdateDatawCallback, this);
 	}
-	
-	if ( dialog->ShowDialog() == ::DialogResult::OK )
-	{
-		msclr::interop::marshal_context context;
-		pathBuffer = context.marshal_as<std::string>(dialog->FileName);
-	}
-}
 
-bool MainFormController::propt(const std::string& title, const std::string& msg) {
-	if (MessageBox::Show(gcnew String(msg.c_str()), gcnew String(title.c_str()), MessageBoxButtons::YesNo) == DialogResult::Yes) {
-		return true;
-	} else {
-		return false;
-	}
+	FormController::init();
 }
-*/
 
 void MainFormController::setOptiTrackInfo() {
-
-	char buf[128];
-	// Local Ip Address
-	ClientHandler::getInstance()->getLocalIpAddress(buf);
-	this->form->setOptiTrackLocalIpAddressTextBox( gcnew String(buf) );
-
-	// Server Ip Address
-	ClientHandler::getInstance()->getOptiTrackServerIpAddress(buf);
-	this->form->setOptiTrackSeverIpAddressTextBox( gcnew String(buf) );
-
-	// Command Port
-	String ^cmdPort = Convert::ToString(ClientHandler::getInstance()->getOptiTrackServerCommandPort());
-	this->form->setOptiTrackCmdPortTextBox( cmdPort );
-
-	// Data Port
-	String ^dataPort = Convert::ToString(ClientHandler::getInstance()->getOptiTrackServerDataPort());
-	this->form->setOptiTrackDataPortTextBox( dataPort );
-
-	// Connection Type
-	if (ClientHandler::getInstance()->getOptiTrackServerConnectionType() == ConnectionType_Multicast)
-		this->form->setOptiTrackConnectionTypeComboBox( "Multicast" );
-	else if (ClientHandler::getInstance()->getOptiTrackServerConnectionType() == ConnectionType_Unicast)
-		this->form->setOptiTrackConnectionTypeComboBox( "Unicast" );
+	this->form->setOptiTrackInfo();
 }
 
 void MainFormController::getOptiTrackInfo() {
-	msclr::interop::marshal_context context;
-
-	// Local Ip Address
-	String^ localIP = this->form->getOptiTrackLocalIpAddressTextBox();
-	ClientHandler::getInstance()->setLocalIpAddress( context.marshal_as<std::string>(localIP).c_str() );
-
-	// Server Ip Address
-	String^ serverIP = this->form->getOptiTrackSeverIpAddressTextBox();
-	ClientHandler::getInstance()->setOptiTrackServerIpAddress( context.marshal_as<std::string>(serverIP).c_str() );
-
-	// Command Port
-	String^ commandPort = this->form->getOptiTrackCmdPortTextBox();
-	ClientHandler::getInstance()->setOptiTrackServerCommandPort(System::Int32::Parse(commandPort));
-
-	// Data Port
-	String^ dataPort = this->form->getOptiTrackDataPortTextBox();
-	ClientHandler::getInstance()->setOptiTrackServerDataPort(System::Int32::Parse(dataPort));
-
-	// Connection Type
-	String^ connectionType = this->form->getOptiTrackConnectionTypeComboBox();
-	if (!String::Compare(connectionType, "Multicast"))
-		ClientHandler::getInstance()->setOptiTrackServerConnectionType(ConnectionType_Multicast);
-	else if (!String::Compare(connectionType, "Unicast"))
-		ClientHandler::getInstance()->setOptiTrackServerConnectionType(ConnectionType_Unicast);
+	this->form->getOptiTrackInfo();
 }
 
 void MainFormController::optiTrackOutputLog(const std::string msg) {

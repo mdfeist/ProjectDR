@@ -1,8 +1,6 @@
 #include "StdAfx.h"
 #include "ClientHandler.h"
 
-#include "MainFormController.h"
-
 ClientHandler* ClientHandler::m_pInstance = NULL; 
 
 #pragma warning( disable : 4996 )
@@ -29,6 +27,15 @@ ClientHandler::ClientHandler(void) {
 		//(LPSECURITY_ATTRIBUTES)SYNCHRONIZE, 
 		FALSE, 
 		NULL);
+
+	this->outputLogObject = NULL;
+	this->outputLogFunction = NULL;
+
+	this->initDataObject = NULL;
+	this->initDataFunction = NULL;
+
+	this->updateDataObject = NULL;
+	this->updateDataFunction = NULL;
 }
 
 
@@ -68,94 +75,87 @@ int ClientHandler::connect() {
 	// for the output log.
 	char buf[2048];
 
-	// Print Connection Information to the Output Log
-	sprintf_s(buf, "Connecting to Server...\n");
-	this->outputLogFunction(buf, outputLogObject);
+	if (this->outputLogFunction) {
+		// Print Connection Information to the Output Log
+		sprintf_s(buf, "Connecting to Server...\n");
+		this->outputLogFunction(buf, outputLogObject);
 
-	if (this->optiTrackConnectionType == ConnectionType_Unicast) {
-		sprintf_s(buf, "Connection Type: Unicast\n");
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
-	} else if (this->optiTrackConnectionType == ConnectionType_Multicast) {
-		sprintf_s(buf, "Connection Type: Multicast\n");
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
-	} else {
-		sprintf_s(buf, "Connection Type: Unknown\n");
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
+		if (this->optiTrackConnectionType == ConnectionType_Unicast) {
+			sprintf_s(buf, "Connection Type: Unicast\n");
+			this->outputLogFunction(buf, outputLogObject);
+		} else if (this->optiTrackConnectionType == ConnectionType_Multicast) {
+			sprintf_s(buf, "Connection Type: Multicast\n");
+			this->outputLogFunction(buf, outputLogObject);
+		} else {
+			sprintf_s(buf, "Connection Type: Unknown\n");
+			this->outputLogFunction(buf, outputLogObject);
+		}
+
+		sprintf_s(buf, "Command port of server: %d\n", this->optiTrackServerCommandPort);
+		this->outputLogFunction(buf, outputLogObject);
+
+		sprintf_s(buf, "Data port of server: %d\n", this->optiTrackServerDataPort);
+		this->outputLogFunction(buf, outputLogObject);
+
+		sprintf_s(buf, "Connecting to server at %s...\n", this->otptiTrackServerIPAddress);
+		this->outputLogFunction(buf, outputLogObject);
+
+		sprintf_s(buf, "Connecting from %s...\n", this->localIPAddress);
+		this->outputLogFunction(buf, outputLogObject);
 	}
-
-	sprintf_s(buf, "Command port of server: %d\n", this->optiTrackServerCommandPort);
-	MainFormController::getInstance()->optiTrackOutputLog(buf);
-
-	sprintf_s(buf, "Data port of server: %d\n", this->optiTrackServerDataPort);
-	MainFormController::getInstance()->optiTrackOutputLog(buf);
-
-    sprintf_s(buf, "Connecting to server at %s...\n", this->otptiTrackServerIPAddress);
-	MainFormController::getInstance()->optiTrackOutputLog(buf);
-
-	sprintf_s(buf, "Connecting from %s...\n", this->localIPAddress);
-	MainFormController::getInstance()->optiTrackOutputLog(buf);
 
     // Create NatNet Client
     iResult = initClient();
-    if(iResult != ErrorCode_OK) {
-        sprintf_s(buf, "Error initializing client.  See log for details.  Exiting\n");
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
-        return 1;
-    } else {
-        sprintf_s(buf, "Client initialized and ready.\n");
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
-    }
 	
+	// Print any error messages
+	if (this->outputLogFunction) {
+		if(iResult != ErrorCode_OK) {
+			sprintf_s(buf, "Error initializing client.  See log for details.  Exiting\n");
+			this->outputLogFunction(buf, outputLogObject);
+		} else {
+			sprintf_s(buf, "Client initialized and ready.\n");
+			this->outputLogFunction(buf, outputLogObject);
+		}
+	}
+
+	// Exit due to error
+	if(iResult != ErrorCode_OK)
+		return 1;
+
 	// Check if successful at retrieving the NatNetClient from
 	// the ClientHandler.
 	if (!this->natnet) {
-		sprintf_s(buf, "Failed to get client from client handler.\n");
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
+		if (this->outputLogFunction) {
+			sprintf_s(buf, "Failed to get client from client handler.\n");
+			this->outputLogFunction(buf, outputLogObject);
+		}
 		return 1;
 	}
 
 	// send/receive test request
-	sprintf_s(buf, "Sending Test Request\n");
-	MainFormController::getInstance()->optiTrackOutputLog(buf);
+	if (this->outputLogFunction) {
+		sprintf_s(buf, "Sending Test Request\n");
+		this->outputLogFunction(buf, outputLogObject);
+	}
 
 	// Test Connection
 	void* response;
 	int nBytes;
 	iResult = this->natnet->SendMessageAndWait("TestRequest", &response, &nBytes);
-	if (iResult == ErrorCode_OK) {
-		sprintf_s(buf, "Received: %s\n", (char*)response);
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
-	}
-
-	// Retrieve Data Descriptions from server
-	sprintf_s(buf, "Requesting Data Descriptions...\n");
-	MainFormController::getInstance()->optiTrackOutputLog(buf);
 
 	sDataDescriptions* pDataDefs = NULL;
 	int nBodies = this->natnet->GetDataDescriptions(&pDataDefs);
 	if(!pDataDefs) {
-		sprintf_s(buf, "Unable to retrieve Data Descriptions.\n");
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
 		//return 1;
 	} else {
-        sprintf_s(buf, "Received %d Data Descriptions:\n", pDataDefs->nDataDescriptions );
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
-        for(int i=0; i < pDataDefs->nDataDescriptions; i++) {
-            printf("Data Description # %d (type=%d)\n", i, pDataDefs->arrDataDescriptions[i].type);
-            if(pDataDefs->arrDataDescriptions[i].type == Descriptor_MarkerSet) {
-                // MarkerSet
-                sMarkerSetDescription* pMS = pDataDefs->arrDataDescriptions[i].Data.MarkerSetDescription;
-                printf("MarkerSet Name : %s\n", pMS->szName);
-                for(int i=0; i < pMS->nMarkers; i++)
-                    printf("%s\n", pMS->szMarkerNames[i]);
-
-            } else if(pDataDefs->arrDataDescriptions[i].type == Descriptor_RigidBody) {
-                // RigidBody
-                sRigidBodyDescription* pRB = pDataDefs->arrDataDescriptions[i].Data.RigidBodyDescription;
-                printf("RigidBody Name : %s\n", pRB->szName);
-                printf("RigidBody ID : %d\n", pRB->ID);
-                printf("RigidBody Parent ID : %d\n", pRB->parentID);
-                printf("Parent Offset : %3.2f,%3.2f,%3.2f\n", pRB->offsetx, pRB->offsety, pRB->offsetz);
+		for(int i=0; i < pDataDefs->nDataDescriptions; i++) {
+			if(pDataDefs->arrDataDescriptions[i].type == Descriptor_MarkerSet) {
+				// MarkerSet
+				//sMarkerSetDescription* pMS = pDataDefs->arrDataDescriptions[i].Data.MarkerSetDescription;
+				//printf("MarkerSet Name : %s\n", pMS->szName);
+			} else if(pDataDefs->arrDataDescriptions[i].type == Descriptor_RigidBody) {
+				// RigidBody
+				sRigidBodyDescription* pRB = pDataDefs->arrDataDescriptions[i].Data.RigidBodyDescription;
 
 				RigidBody* body = new RigidBody();
 				body->setID(pRB->ID);
@@ -164,24 +164,71 @@ int ClientHandler::connect() {
 				if (!this->addRigidBody(body->getID(), body))
 					delete body;
 
-            } else if(pDataDefs->arrDataDescriptions[i].type == Descriptor_Skeleton) {
-                // Skeleton
-                sSkeletonDescription* pSK = pDataDefs->arrDataDescriptions[i].Data.SkeletonDescription;
-                printf("Skeleton Name : %s\n", pSK->szName);
-                printf("Skeleton ID : %d\n", pSK->skeletonID);
-                printf("RigidBody (Bone) Count : %d\n", pSK->nRigidBodies);
-                for(int j=0; j < pSK->nRigidBodies; j++) {
-                    sRigidBodyDescription* pRB = &pSK->RigidBodies[j];
-                    printf("  RigidBody Name : %s\n", pRB->szName);
-                    printf("  RigidBody ID : %d\n", pRB->ID);
-                    printf("  RigidBody Parent ID : %d\n", pRB->parentID);
-                    printf("  Parent Offset : %3.2f,%3.2f,%3.2f\n", pRB->offsetx, pRB->offsety, pRB->offsetz);
-                }
-            } else {
-                printf("Unknown data type.");
-                // Unknown
-            }
-        }      
+			} else if(pDataDefs->arrDataDescriptions[i].type == Descriptor_Skeleton) {
+				// Skeleton
+				//for(int j=0; j < pSK->nRigidBodies; j++) {
+				//sRigidBodyDescription* pRB = &pSK->RigidBodies[j];
+			} else {
+				// Unknown
+			}
+		}
+	}
+
+	if (this->outputLogFunction) {
+		// Retrieve Data Descriptions from server
+		sprintf_s(buf, "Requesting Data Descriptions...\n");
+		this->outputLogFunction(buf, outputLogObject);
+
+		if(!pDataDefs) {
+			sprintf_s(buf, "Unable to retrieve Data Descriptions.\n");
+			this->outputLogFunction(buf, outputLogObject);
+			//return 1;
+		} else {
+			sprintf_s(buf, "Received %d Data Descriptions:\n", pDataDefs->nDataDescriptions );
+			this->outputLogFunction(buf, outputLogObject);
+			for(int i=0; i < pDataDefs->nDataDescriptions; i++) {
+				printf("Data Description # %d (type=%d)\n", i, pDataDefs->arrDataDescriptions[i].type);
+				if(pDataDefs->arrDataDescriptions[i].type == Descriptor_MarkerSet) {
+					// MarkerSet
+					sMarkerSetDescription* pMS = pDataDefs->arrDataDescriptions[i].Data.MarkerSetDescription;
+					printf("MarkerSet Name : %s\n", pMS->szName);
+					for(int i=0; i < pMS->nMarkers; i++)
+						printf("%s\n", pMS->szMarkerNames[i]);
+
+				} else if(pDataDefs->arrDataDescriptions[i].type == Descriptor_RigidBody) {
+					// RigidBody
+					sRigidBodyDescription* pRB = pDataDefs->arrDataDescriptions[i].Data.RigidBodyDescription;
+					printf("RigidBody Name : %s\n", pRB->szName);
+					printf("RigidBody ID : %d\n", pRB->ID);
+					printf("RigidBody Parent ID : %d\n", pRB->parentID);
+					printf("Parent Offset : %3.2f,%3.2f,%3.2f\n", pRB->offsetx, pRB->offsety, pRB->offsetz);
+
+					RigidBody* body = new RigidBody();
+					body->setID(pRB->ID);
+					body->setName(pRB->szName);
+
+					if (!this->addRigidBody(body->getID(), body))
+						delete body;
+
+				} else if(pDataDefs->arrDataDescriptions[i].type == Descriptor_Skeleton) {
+					// Skeleton
+					sSkeletonDescription* pSK = pDataDefs->arrDataDescriptions[i].Data.SkeletonDescription;
+					printf("Skeleton Name : %s\n", pSK->szName);
+					printf("Skeleton ID : %d\n", pSK->skeletonID);
+					printf("RigidBody (Bone) Count : %d\n", pSK->nRigidBodies);
+					for(int j=0; j < pSK->nRigidBodies; j++) {
+						sRigidBodyDescription* pRB = &pSK->RigidBodies[j];
+						printf("  RigidBody Name : %s\n", pRB->szName);
+						printf("  RigidBody ID : %d\n", pRB->ID);
+						printf("  RigidBody Parent ID : %d\n", pRB->parentID);
+						printf("  Parent Offset : %3.2f,%3.2f,%3.2f\n", pRB->offsetx, pRB->offsety, pRB->offsetz);
+					}
+				} else {
+					printf("Unknown data type.");
+					// Unknown
+				}
+			}      
+		}
 	}
 
 	// Set the Flag tell that the NatNetClient is connected
@@ -189,32 +236,37 @@ int ClientHandler::connect() {
 	this->natNetServerRunning = true;
 
 	// Ready to receive marker stream!
-	sprintf_s(buf, "Client is connected to server and listening for data...\n");
-	MainFormController::getInstance()->optiTrackOutputLog(buf);
+	if (this->outputLogFunction) {
+		sprintf_s(buf, "Client is connected to server and listening for data...\n");
+		this->outputLogFunction(buf, outputLogObject);
+	}
 
-	// Initialize the OptiTack DataView on the MainForm
-	MainFormController::getInstance()->optiTrackInitDataView();
+	if (this->initDataFunction) {
+		// Initialize the OptiTack Data
+		initDataFunction(initDataObject);
+	}
 
 	// Return Error Code OK
 	return ErrorCode_OK;
 }
 
 int ClientHandler::disconnect() {
-	char buf[2048];
-
 	// Done - clean up.
 	if (this->natnet) {
-		sprintf_s(buf, "Disconnecting from Server...\n");
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
+		if (this->outputLogFunction) {
+			this->outputLogFunction("Disconnecting from Server...\n", outputLogObject);
+		}
 
 		// Disconnects from the server
 		this->natnet->Uninitialize();
 
-		sprintf_s(buf, "Client is Disconnected.\n");
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
+		if (this->outputLogFunction) {
+			this->outputLogFunction("Client is Disconnected.\n", outputLogObject);
+		}
 	} else {
-		sprintf_s(buf, "Client is already not connected to the server.\n");
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
+		if (this->outputLogFunction) {
+			this->outputLogFunction("Client is already not connected to the server.\n", outputLogObject);
+		}
 	}
 
 	this->natNetServerRunning = false;
@@ -242,8 +294,10 @@ int ClientHandler::initClient()
     unsigned char ver[4];
     this->natnet->NatNetVersion(ver);
 
-    sprintf_s(buf, "NatNet Client (NatNet ver. %d.%d.%d.%d)\n", ver[0], ver[1], ver[2], ver[3]);
-	MainFormController::getInstance()->optiTrackOutputLog(buf);
+	if (this->outputLogFunction) {
+		sprintf_s(buf, "NatNet Client (NatNet ver. %d.%d.%d.%d)\n", ver[0], ver[1], ver[2], ver[3]);
+		this->outputLogFunction(buf, outputLogObject);
+	}
 
     // Set callback handlers
     this->natnet->SetMessageCallback(MessageHandler);
@@ -257,8 +311,10 @@ int ClientHandler::initClient()
     int retCode = natnet->Initialize(this->localIPAddress, this->otptiTrackServerIPAddress, 
 		this->optiTrackServerCommandPort, this->optiTrackServerDataPort);
     if (retCode != ErrorCode_OK) {
-        sprintf_s(buf, "Unable to connect to server.  Error code: %d. Exiting\n", retCode);
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
+		if (this->outputLogFunction) {
+			sprintf_s(buf, "Unable to connect to server.  Error code: %d. Exiting\n", retCode);
+			this->outputLogFunction(buf, outputLogObject);
+		}
         return ErrorCode_Internal;
     } else {
         // print server info
@@ -266,30 +322,34 @@ int ClientHandler::initClient()
         memset(&ServerDescription, 0, sizeof(ServerDescription));
         this->natnet->GetServerDescription(&ServerDescription);
         if(!ServerDescription.HostPresent) {
-            sprintf_s(buf, "Unable to connect to server. Host not present. Exiting.\n");
-			MainFormController::getInstance()->optiTrackOutputLog(buf);
+			if (this->outputLogFunction) {
+				sprintf_s(buf, "Unable to connect to server. Host not present. Exiting.\n");
+				this->outputLogFunction(buf, outputLogObject);
+			}
             return 1;
         }
 
-        sprintf_s(buf, "\nServer application info:\n");
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
+		if (this->outputLogFunction) {
+			sprintf_s(buf, "\nServer application info:\n");
+			this->outputLogFunction(buf, outputLogObject);
 
-        sprintf_s(buf, "Application: %s (ver. %d.%d.%d.%d)\n", ServerDescription.szHostApp, ServerDescription.HostAppVersion[0],
-            ServerDescription.HostAppVersion[1],ServerDescription.HostAppVersion[2],ServerDescription.HostAppVersion[3]);
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
+			sprintf_s(buf, "Application: %s (ver. %d.%d.%d.%d)\n", ServerDescription.szHostApp, ServerDescription.HostAppVersion[0],
+				ServerDescription.HostAppVersion[1],ServerDescription.HostAppVersion[2],ServerDescription.HostAppVersion[3]);
+			this->outputLogFunction(buf, outputLogObject);
 
-        sprintf_s(buf, "NatNet Version: %d.%d.%d.%d\n", ServerDescription.NatNetVersion[0], ServerDescription.NatNetVersion[1],
-            ServerDescription.NatNetVersion[2], ServerDescription.NatNetVersion[3]);
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
+			sprintf_s(buf, "NatNet Version: %d.%d.%d.%d\n", ServerDescription.NatNetVersion[0], ServerDescription.NatNetVersion[1],
+				ServerDescription.NatNetVersion[2], ServerDescription.NatNetVersion[3]);
+			this->outputLogFunction(buf, outputLogObject);
 
-        sprintf_s(buf, "Client IP:%s\n", this->localIPAddress);
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
+			sprintf_s(buf, "Client IP:%s\n", this->localIPAddress);
+			this->outputLogFunction(buf, outputLogObject);
 
-        sprintf_s(buf, "Server IP:%s\n", this->otptiTrackServerIPAddress);
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
+			sprintf_s(buf, "Server IP:%s\n", this->otptiTrackServerIPAddress);
+			this->outputLogFunction(buf, outputLogObject);
 
-        sprintf_s(buf, "Server Name:%s\n\n", ServerDescription.szHostComputerName);
-		MainFormController::getInstance()->optiTrackOutputLog(buf);
+			sprintf_s(buf, "Server Name:%s\n\n", ServerDescription.szHostComputerName);
+			this->outputLogFunction(buf, outputLogObject);
+		}
     }
 
     return ErrorCode_OK;
@@ -297,21 +357,25 @@ int ClientHandler::initClient()
 
 void ClientHandler::resetClient() {
 	if (!this->natnet) {
-		printf("Failed to get client from client handler during reset.\n");
+		if (this->outputLogFunction)
+			this->outputLogFunction("Failed to get client from client handler during reset.\n", outputLogObject);
 		return;
 	}
 
 	int iSuccess;
 
-	printf("\nre-setting Client\n\n.");
+	if (this->outputLogFunction)
+		this->outputLogFunction("\nre-setting Client\n\n.", outputLogObject);
 
 	iSuccess = this->natnet->Uninitialize();
 	if(iSuccess != 0)
-		printf("error un-initting Client\n");
+		if (this->outputLogFunction)
+			this->outputLogFunction("error un-initting Client\n", outputLogObject);
 
 	iSuccess = this->natnet->Initialize(this->localIPAddress, this->otptiTrackServerIPAddress);
 	if(iSuccess != 0)
-		printf("error re-initting Client\n");
+		if (this->outputLogFunction)
+			this->outputLogFunction("error re-initting Client\n", outputLogObject);
 }
 
 #pragma unmanaged
@@ -382,8 +446,9 @@ void __cdecl DataHandler(sFrameOfMocapData* data, void* pUserData) {
 		}
 	}
 
-	// Update the OptiTrack page
-	FormEventHandler::optiTrackUpdateData();
+	// Update the OptiTrack data
+	pClient->updateData();
+
 }
 
 // MessageHandler receives NatNet error/debug messages
@@ -391,6 +456,12 @@ void __cdecl MessageHandler(int msgType, char* msg) {
 	//printf("\n%s\n", msg);
 }
 #pragma managed
+
+void ClientHandler::updateData() {
+	if (this->updateDataFunction) {
+		updateDataFunction(updateDataObject);
+	}
+}
 
 // Add a Rigid Body to the ClientHandler
 bool ClientHandler::addRigidBody(int id, RigidBody* rigidBody) {

@@ -15,8 +15,6 @@ int main(array<System::String ^> ^args)
 	// Create the MainForm using MainFormController
 	MainForm^ mainForm = MainFormController::getInstance()->createForm();
 
-	MainFormController::getInstance()->createCallbacks();
-
 	// Create the main window and run it
 	Application::Run(mainForm);
 	return 0;

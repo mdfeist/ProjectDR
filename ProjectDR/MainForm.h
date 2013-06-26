@@ -7,7 +7,6 @@
 #include <exception>
 #include <msclr\marshal_cppstd.h>
 
-#include "FormEventHandler.h"
 #include "ClientHandler.h"
 #include "RigidBody.h"
 
@@ -618,15 +617,15 @@ namespace ProjectDR {
 	// Local Variables
 	private: std::vector<RigidBody*>* optiTrackRigidBodyVector;
 	// Abstract Delegate
-	private: delegate void SetDelegate();
+	private: delegate System::Void SetDelegate();
 	// Abstract Delegate to change text
-	private: delegate void SetTextDelegate(String^ value);
+	private: delegate System::Void SetTextDelegate(String^ value);
 	// Abstract Delegate to change integer value
-	private: delegate void SetIntDelegate(int value);
+	private: delegate System::Void SetIntDelegate(int value);
 	// Abstract Delegate to change unsigned integer value
-	private: delegate void SetUIntDelegate(unsigned int value);
+	private: delegate System::Void SetUIntDelegate(unsigned int value);
 	// MainForm Load
-	private: void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
 				 //this->SetStyle(ControlStyles::OptimizedDoubleBuffer, true);
 				 this->SetStyle(ControlStyles::UserPaint, true);
 				 this->SetStyle(ControlStyles::AllPaintingInWmPaint, true); 
@@ -645,7 +644,7 @@ namespace ProjectDR {
 			 }
 
 	// OptiTrack Getters/Setters
-	public: void setOptiTrackLocalIpAddressTextBox(System::String^ text) {
+	public: System::Void setOptiTrackLocalIpAddressTextBox(System::String^ text) {
 				this->optiTrackLocalIpAddressTextBox->Text = text;
 			}
 
@@ -653,7 +652,7 @@ namespace ProjectDR {
 				return this->optiTrackLocalIpAddressTextBox->Text;
 			}
 
-	public: void setOptiTrackSeverIpAddressTextBox(System::String^ text) {
+	public: System::Void setOptiTrackSeverIpAddressTextBox(System::String^ text) {
 				this->optiTrackSeverIpAddressTextBox->Text = text;
 			}
 
@@ -661,7 +660,7 @@ namespace ProjectDR {
 				return this->optiTrackSeverIpAddressTextBox->Text;
 			}
 
-	public: void setOptiTrackCmdPortTextBox(System::String^ text) {
+	public: System::Void setOptiTrackCmdPortTextBox(System::String^ text) {
 				this->optiTrackCmdPortTextBox->Text = text;
 			}
 
@@ -669,7 +668,7 @@ namespace ProjectDR {
 				return this->optiTrackCmdPortTextBox->Text;
 			}
 
-	public: void setOptiTrackDataPortTextBox(System::String^ text) {
+	public: System::Void setOptiTrackDataPortTextBox(System::String^ text) {
 				this->optiTrackDataPortTextBox->Text = text;
 			}
 
@@ -677,7 +676,7 @@ namespace ProjectDR {
 				return this->optiTrackDataPortTextBox->Text;
 			}
 
-	public: void setOptiTrackConnectionTypeComboBox(System::String^ text) {
+	public: System::Void setOptiTrackConnectionTypeComboBox(System::String^ text) {
 				this->optiTrackConnectionTypeComboBox->SelectedItem = text;
 			}
 
@@ -686,7 +685,7 @@ namespace ProjectDR {
 			}
 
 	// OptiTrack Output Log
-	public: void optiTrackOutputLog(System::String^ text) {
+	public: System::Void optiTrackOutputLog(System::String^ text) {
 				if (this->optiTrackOutputLogTextBox->InvokeRequired) 
 				{
 					SetTextDelegate^ d = gcnew SetTextDelegate(this, &MainForm::optiTrackOutputLog);
@@ -708,18 +707,72 @@ namespace ProjectDR {
 				}
 			}
 
+	public: System::Void getOptiTrackInfo() {
+				 msclr::interop::marshal_context context;
+
+				 // Local Ip Address
+				 String^ localIP = this->getOptiTrackLocalIpAddressTextBox();
+				 ClientHandler::getInstance()->setLocalIpAddress( context.marshal_as<std::string>(localIP).c_str() );
+
+				 // Server Ip Address
+				 String^ serverIP = this->getOptiTrackSeverIpAddressTextBox();
+				 ClientHandler::getInstance()->setOptiTrackServerIpAddress( context.marshal_as<std::string>(serverIP).c_str() );
+
+				 // Command Port
+				 String^ commandPort = this->getOptiTrackCmdPortTextBox();
+				 ClientHandler::getInstance()->setOptiTrackServerCommandPort(System::Int32::Parse(commandPort));
+
+				 // Data Port
+				 String^ dataPort = this->getOptiTrackDataPortTextBox();
+				 ClientHandler::getInstance()->setOptiTrackServerDataPort(System::Int32::Parse(dataPort));
+
+				 // Connection Type
+				 String^ connectionType = this->getOptiTrackConnectionTypeComboBox();
+				 if (!String::Compare(connectionType, "Multicast"))
+					 ClientHandler::getInstance()->setOptiTrackServerConnectionType(ConnectionType_Multicast);
+				 else if (!String::Compare(connectionType, "Unicast"))
+					 ClientHandler::getInstance()->setOptiTrackServerConnectionType(ConnectionType_Unicast);
+			 }
+
+	public: System::Void setOptiTrackInfo() {
+
+				char buf[128];
+				// Local Ip Address
+				ClientHandler::getInstance()->getLocalIpAddress(buf);
+				this->setOptiTrackLocalIpAddressTextBox( gcnew String(buf) );
+
+				// Server Ip Address
+				ClientHandler::getInstance()->getOptiTrackServerIpAddress(buf);
+				this->setOptiTrackSeverIpAddressTextBox( gcnew String(buf) );
+
+				// Command Port
+				String ^cmdPort = Convert::ToString(ClientHandler::getInstance()->getOptiTrackServerCommandPort());
+				this->setOptiTrackCmdPortTextBox( cmdPort );
+
+				// Data Port
+				String ^dataPort = Convert::ToString(ClientHandler::getInstance()->getOptiTrackServerDataPort());
+				this->setOptiTrackDataPortTextBox( dataPort );
+
+				// Connection Type
+				if (ClientHandler::getInstance()->getOptiTrackServerConnectionType() == ConnectionType_Multicast)
+					this->setOptiTrackConnectionTypeComboBox( "Multicast" );
+				else if (ClientHandler::getInstance()->getOptiTrackServerConnectionType() == ConnectionType_Unicast)
+					this->setOptiTrackConnectionTypeComboBox( "Unicast" );
+			}
+
 	// Connect to OptiTrack
 	private: System::Void optiTrackConnectBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-				 FormEventHandler::connectToOptiTrack();
+				getOptiTrackInfo();
+				ClientHandler::getInstance()->connect();
 			 }
 
 	// Disconnect to OptiTrack
 	private: System::Void optiTrackDisConnect_Click(System::Object^  sender, System::EventArgs^  e) {
-				 FormEventHandler::disconnectFromOptiTrack();
+				 ClientHandler::getInstance()->disconnect();
 			 }
 
 	// OptiTrack Data View
-	public: void optiTrackInitDataView() {
+	public: System::Void optiTrackInitDataView() {
 				if (this->optiTrackRigidBodyVector)
 					delete this->optiTrackRigidBodyVector;
 
@@ -738,7 +791,7 @@ namespace ProjectDR {
 				ClientHandler::getInstance()->unlock();
 			}
 
-	public: void optiTrackUpdateData() {
+	public: System::Void optiTrackUpdateData() {
 				static bool isUpdating = false;
 				
 				if (isUpdating)
@@ -801,7 +854,7 @@ namespace ProjectDR {
 				isUpdating = false;
 			}
 
-	private: void optiTrackDataGridView_CellValueNeeded(System::Object^ /*sender*/,
+	private: System::Void optiTrackDataGridView_CellValueNeeded(System::Object^ /*sender*/,
        System::Windows::Forms::DataGridViewCellValueEventArgs^ e )
 			{
 				if (this->optiTrackRigidBodyVector)
