@@ -3,6 +3,8 @@
 #include "stdafx.h"
 #include "MainFormController.h"
 
+#include "Render.h"
+
 using namespace ProjectDR;
 
 [STAThreadAttribute]
@@ -14,6 +16,9 @@ int main(array<System::String ^> ^args)
 
 	// Create the MainForm using MainFormController
 	MainForm^ mainForm = MainFormController::getInstance()->createForm();
+
+	Render* render = new Render();
+	render->RunTest();
 
 	// Create the main window and run it
 	Application::Run(mainForm);

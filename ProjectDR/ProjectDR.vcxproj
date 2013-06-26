@@ -41,9 +41,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -51,10 +53,11 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;NATNETLIB_IMPORTS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>VTK\include\vtk-6.0\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>NatNetLib.lib</AdditionalDependencies>
+      <AdditionalDependencies>NatNetLib.lib;vtkRenderingCore-6.0.lib;vtkRenderingFreeType-6.0.lib;vtkRenderingFreeTypeOpenGL-6.0.lib;vtkRenderingOpenGL-6.0.lib;vtkRenderingVolume-6.0.lib;vtkRenderingVolumeOpenGL-6.0.lib;vtkInteractionStyle-6.0.lib;vtkInteractionWidgets-6.0.lib;vtkCommonCore-6.0.lib;vtkCommonExecutionModel-6.0.lib;vtkCommonSystem-6.0.lib;vtkFiltersSources-6.0.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
       <AdditionalLibraryDirectories>NatNetSDK\lib;VTK\lib</AdditionalLibraryDirectories>
@@ -68,16 +71,17 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NATNETLIB_IMPORTS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>VTK\include\vtk-6.0\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>NatNetLib.lib</AdditionalDependencies>
+      <AdditionalDependencies>NatNetLib.lib;vtkRenderingCore-6.0.lib;vtkRenderingFreeType-6.0.lib;vtkRenderingFreeTypeOpenGL-6.0.lib;vtkRenderingOpenGL-6.0.lib;vtkRenderingVolume-6.0.lib;vtkRenderingVolumeOpenGL-6.0.lib;vtkInteractionStyle-6.0.lib;vtkInteractionWidgets-6.0.lib;vtkCommonCore-6.0.lib;vtkCommonExecutionModel-6.0.lib;vtkCommonSystem-6.0.lib;vtkFiltersSources-6.0.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
       <AdditionalLibraryDirectories>NatNetSDK\lib;VTK\lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>"xcopy /y "$(ProjectDir)VTK\bin\*.dll" "$(OutDir)" </Command>
+      <Command>xcopy /Y "$(ProjectDir)VTK\bin\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -111,6 +115,7 @@
     <ClCompile Include="FormEventHandler.cpp" />
     <ClCompile Include="MainFormController.cpp" />
     <ClCompile Include="ProjectDR.cpp" />
+    <ClCompile Include="Render.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -387,9 +392,11 @@
     <ClInclude Include="NatNetSDK\include\NatNetClient.h" />
     <ClInclude Include="NatNetSDK\include\NatNetServer.h" />
     <ClInclude Include="NatNetSDK\include\NatNetTypes.h" />
+    <ClInclude Include="Render.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="vtkCommandDelegator.h" />
     <ClInclude Include="VTK\include\vtk-6.0\alglib\ap.h" />
     <ClInclude Include="VTK\include\vtk-6.0\alglib\apvt.h" />
     <ClInclude Include="VTK\include\vtk-6.0\alglib\bdsvd.h" />

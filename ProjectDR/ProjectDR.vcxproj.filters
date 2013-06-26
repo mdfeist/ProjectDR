@@ -276,6 +276,9 @@
     <ClCompile Include="FormEventHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Render.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -8349,6 +8352,12 @@
       <Filter>Header Files\VTK\include\vtk-6.0</Filter>
     </ClInclude>
     <ClInclude Include="Debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Render.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vtkCommandDelegator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
