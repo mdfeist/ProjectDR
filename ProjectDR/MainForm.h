@@ -2,6 +2,7 @@
 
 #include "Debug.h"
 
+#include <Windows.h>
 #include <string>
 #include <vector>
 #include <exception>
@@ -642,6 +643,10 @@ namespace ProjectDR {
 
 				 this->optiTrackDataGridView->VirtualMode = true;
 			 }
+
+	public: HWND GetWindowID() {
+				return (HWND)this->tabPage1->Handle.ToPointer();
+			}
 
 	// OptiTrack Getters/Setters
 	public: System::Void setOptiTrackLocalIpAddressTextBox(System::String^ text) {

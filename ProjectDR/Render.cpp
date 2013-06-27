@@ -3,38 +3,41 @@
 
 Render::Render(void)
 {
+	pRen = vtkRenderer::New();
 	pRenWin = vtkWin32OpenGLRenderWindow::New();
-	CS = vtkCriticalSection::New();
-	pCam = NULL;
-}
+	pRenWin->AddRenderer( pRen );
 
+	CS = vtkCriticalSection::New();
+	
+	pCam = pRen->GetActiveCamera();
+}
 
 Render::~Render(void)
 {
 }
 
-static DWORD WINAPI ThreadCallbackFunction(LPVOID lpParameter)
+static DWORD WINAPI threadCallbackFunction(LPVOID lpParameter)
 {
       Render *This = static_cast<Render *>(lpParameter);
 
       // Start the render window interactor in the background
-      This->InternalRunInteractor();
+      This->internalRunInteractor();
       return 0;
 }
 
 
-void Render::LockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData)
+void Render::lockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData)
 {
-      CS->Lock();
+	CS->Lock();
 }
 
-void Render::UnlockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData)
+void Render::unlockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData)
 {
-      CS->Unlock();
+	CS->Unlock();
 }
 
 
-void Render::RunInteractorInBackground()
+void Render::runInBackground()
 {
       // Start up the thread
       LPSECURITY_ATTRIBUTES attr = NULL;
@@ -42,24 +45,23 @@ void Render::RunInteractorInBackground()
       DWORD dwCreationFlags = 0;
       LPDWORD noThreadID = NULL;
 
-      HANDLE m_hThreadHandle = CreateThread(attr, stackSize, ThreadCallbackFunction,
+      HANDLE m_hThreadHandle = CreateThread(attr, stackSize, threadCallbackFunction,
             this, dwCreationFlags, noThreadID);
 }
 
-void Render::InternalRunInteractor()
+void Render::internalRunInteractor()
 {
       // Called in background thread.
       pIRen->Initialize();
       pIRen->Start();
 }
 
-void Render::CameraAzimuth(double rot)
-{
-      // Rotate camera here. Called by main thread
-      CS->Lock();
-      pCam->Azimuth(rot);
-      pRenWin->Render();
-      CS->Unlock();
+void Render::setBackground(float r, float g, float b) {
+	pRen->SetBackground( r, g, b );
+}
+
+void Render::addActor(vtkActor* actor) {
+	pRen->AddActor( actor );
 }
 
 void Render::setWindow(HWND handle) {
@@ -72,23 +74,8 @@ void Render::setWindowSize(int x, int y, int width, int height) {
 	pRenWin->SetSize( width, height );
 }
 
-void Render::RunTest()
-{
-	vtkConeSource *cone = vtkConeSource::New();
-	cone->SetHeight( 3.0 );
-	cone->SetRadius( 1.0 );
-	cone->SetResolution( 10 );
-	vtkPolyDataMapper *coneMapper = vtkPolyDataMapper::New();
-	coneMapper->SetInputConnection( cone->GetOutputPort() );
-	vtkActor *coneActor = vtkActor::New();
-	coneActor->SetMapper( coneMapper );
-
-	pRen = vtkRenderer::New();
-	pRen->AddActor( coneActor );
-	pRen->SetBackground( 0.1, 0.2, 0.4 );
-	
-	pRenWin->AddRenderer( pRen );
-	
+void Render::runTest()
+{	
 	pIRen = vtkWin32RenderWindowInteractor::New();
 	pIRen->SetRenderWindow(pRenWin);
 
@@ -96,14 +83,12 @@ void Render::RunTest()
 		vtkInteractorStyleTrackballCamera::New();
 	pIRen->SetInteractorStyle(style);
 
-	pCam = pRen->GetActiveCamera();
-
 	pStartInteractionCommand = vtkCommandDelegator<Render>::New();
-	pStartInteractionCommand->RegisterCallback(this, &Render::LockCriticalSection);
+	pStartInteractionCommand->RegisterCallback(this, &Render::lockCriticalSection);
 	pEndInteractionCommand = vtkCommandDelegator<Render>::New();
-	pEndInteractionCommand->RegisterCallback(this, &Render::UnlockCriticalSection);
+	pEndInteractionCommand->RegisterCallback(this, &Render::unlockCriticalSection);
 	style->AddObserver(vtkCommand::StartInteractionEvent,pStartInteractionCommand);
 	style->AddObserver(vtkCommand::EndInteractionEvent, pEndInteractionCommand);
-
-	RunInteractorInBackground();
+	
+	runInBackground();
 }

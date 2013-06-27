@@ -23,18 +23,19 @@ public:
 	Render(void);
 	~Render(void);
 
-	void LockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData);
-	void UnlockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData);
+	void lockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData);
+	void unlockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData);
 
-	void RunInteractorInBackground();
-	void InternalRunInteractor();
+	void runInBackground();
+	void internalRunInteractor();
 
-	void CameraAzimuth(double rot);
+	void setBackground(float r, float g, float b);
+	void addActor(vtkActor* actor);
 
 	void setWindow(HWND handle);
 	void setWindowSize(int x, int y, int width, int height);
 
-	void RunTest();
+	void runTest();
 private:
 	vtkRenderer* pRen;
 	vtkWin32OpenGLRenderWindow* pRenWin;

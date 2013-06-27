@@ -44,8 +44,19 @@ int main(array<System::String ^> ^args)
 	renderWin->Show();
 	
 	// Render Test
+	vtkConeSource *cone = vtkConeSource::New();
+	cone->SetHeight( 3.0 );
+	cone->SetRadius( 1.0 );
+	cone->SetResolution( 10 );
+	vtkPolyDataMapper *coneMapper = vtkPolyDataMapper::New();
+	coneMapper->SetInputConnection( cone->GetOutputPort() );
+	vtkActor *coneActor = vtkActor::New();
+	coneActor->SetMapper( coneMapper );
+
 	Render* render = new Render();
+	render->addActor( coneActor );
 	render->setWindow(renderWin->GetWindowID());
+	render->setBackground( 0.0, 0.0, 0.0 );
 
 	for each (Screen^ screen in Screen::AllScreens) {
 		if (!screen->Primary) {
@@ -54,7 +65,7 @@ int main(array<System::String ^> ^args)
 		}
 	}
 
-	render->RunTest();
+	render->runTest();
 
 	// Create the main window and run it
 	Application::Run(mainForm);
