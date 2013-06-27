@@ -8,6 +8,10 @@
 
 #include "RenderWindow.h"
 
+#include "vtkConeSource.h"
+#include "vtkPolyDataMapper.h"
+#include "vtkActor.h" 
+
 #include "Render.h"
 
 #pragma comment(lib, "user32.lib")

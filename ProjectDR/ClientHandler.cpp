@@ -1,6 +1,8 @@
 #include "StdAfx.h"
 #include "ClientHandler.h"
 
+#include "RigidBody.h"
+
 ClientHandler* ClientHandler::m_pInstance = NULL; 
 
 #pragma warning( disable : 4996 )

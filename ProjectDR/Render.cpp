@@ -1,6 +1,17 @@
 #include "StdAfx.h"
 #include "Render.h"
 
+#include "vtkCriticalSection.h"
+#include "vtkProperty.h" 
+#include "vtkActor.h" 
+#include "vtkWin32OpenGLRenderWindow.h" 
+#include "vtkWin32RenderWindowInteractor.h"
+#include "vtkRenderer.h" 
+#include "vtkInteractorStyleTrackballCamera.h"
+#include "vtkCamera.h"
+#include "vtkSmartPointer.h"
+#include "vtkCommandDelegator.h"
+
 Render::Render(void)
 {
 	pRen = vtkRenderer::New();

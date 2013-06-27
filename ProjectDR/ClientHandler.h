@@ -7,10 +7,11 @@
 #include <vector>
 
 #include "ClientHandlerDelegator.h"
-#include "RigidBody.h"
 
 #include "NatNetSDK\include\NatNetTypes.h"
 #include "NatNetSDK\include\NatNetClient.h"
+
+class RigidBody;
 
 typedef std::map<int, RigidBody*> RigidBodyMap;
 typedef RigidBodyMap::iterator RigidBody_iterator;

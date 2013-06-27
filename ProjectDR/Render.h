@@ -4,18 +4,15 @@
 #define vtkRenderingCore_AUTOINIT 4(vtkInteractionStyle,vtkRenderingFreeType,vtkRenderingFreeTypeOpenGL,vtkRenderingOpenGL)
 #define vtkRenderingVolume_AUTOINIT 1(vtkRenderingVolumeOpenGL)
 
-#include "vtkCriticalSection.h"
-#include "vtkConeSource.h"
-#include "vtkPolyDataMapper.h"
-#include "vtkProperty.h" 
-#include "vtkActor.h" 
-#include "vtkWin32OpenGLRenderWindow.h" 
-#include "vtkWin32RenderWindowInteractor.h"
-#include "vtkRenderer.h" 
-#include "vtkInteractorStyleTrackballCamera.h"
-#include "vtkCamera.h"
-#include "vtkSmartPointer.h"
+#include "vtkObject.h"
 #include "vtkCommandDelegator.h"
+
+class vtkCriticalSection;
+class vtkActor;
+class vtkCamera;
+class vtkWin32OpenGLRenderWindow;
+class vtkWin32RenderWindowInteractor;
+class vtkRenderer;
 
 class Render
 {
@@ -39,7 +36,7 @@ public:
 private:
 	vtkRenderer* pRen;
 	vtkWin32OpenGLRenderWindow* pRenWin;
-	vtkRenderWindowInteractor* pIRen;
+	vtkWin32RenderWindowInteractor* pIRen;
 
 	vtkCamera* pCam;
 
