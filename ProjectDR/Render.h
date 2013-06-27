@@ -9,9 +9,9 @@
 #include "vtkPolyDataMapper.h"
 #include "vtkProperty.h" 
 #include "vtkActor.h" 
-#include "vtkRenderWindow.h" 
+#include "vtkWin32OpenGLRenderWindow.h" 
+#include "vtkWin32RenderWindowInteractor.h"
 #include "vtkRenderer.h" 
-#include "vtkRenderWindowInteractor.h"
 #include "vtkInteractorStyleTrackballCamera.h"
 #include "vtkCamera.h"
 #include "vtkSmartPointer.h"
@@ -31,10 +31,13 @@ public:
 
 	void CameraAzimuth(double rot);
 
+	void setWindow(HWND handle);
+	void setWindowSize(int x, int y, int width, int height);
+
 	void RunTest();
 private:
 	vtkRenderer* pRen;
-	vtkRenderWindow* pRenWin;
+	vtkWin32OpenGLRenderWindow* pRenWin;
 	vtkRenderWindowInteractor* pIRen;
 
 	vtkCamera* pCam;
@@ -43,5 +46,7 @@ private:
 
 	vtkCommandDelegator<Render>* pStartInteractionCommand;
 	vtkCommandDelegator<Render>* pEndInteractionCommand;
+
+	HWND windowID;
 };
 

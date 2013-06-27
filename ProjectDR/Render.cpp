@@ -3,8 +3,9 @@
 
 Render::Render(void)
 {
-	 CS = vtkCriticalSection::New();
-     pCam = NULL;
+	pRenWin = vtkWin32OpenGLRenderWindow::New();
+	CS = vtkCriticalSection::New();
+	pCam = NULL;
 }
 
 
@@ -25,12 +26,10 @@ static DWORD WINAPI ThreadCallbackFunction(LPVOID lpParameter)
 void Render::LockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData)
 {
       CS->Lock();
-      fprintf(stderr,"Interactor about to render\n");
 }
 
 void Render::UnlockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData)
 {
-      fprintf(stderr,"Interactor done rendering\n");
       CS->Unlock();
 }
 
@@ -54,20 +53,24 @@ void Render::InternalRunInteractor()
       pIRen->Start();
 }
 
-
-
 void Render::CameraAzimuth(double rot)
 {
       // Rotate camera here. Called by main thread
       CS->Lock();
-      fprintf(stderr, "About to rotate camera\n");
       pCam->Azimuth(rot);
       pRenWin->Render();
-      fprintf(stderr,"Done rotating camera\n");
       CS->Unlock();
-
 }
 
+void Render::setWindow(HWND handle) {
+	this->windowID = handle;
+	pRenWin->SetParentId( handle );
+}
+
+void Render::setWindowSize(int x, int y, int width, int height) {
+	SetWindowPos(this->windowID, HWND_TOP, x, y, width, height, SWP_SHOWWINDOW);
+	pRenWin->SetSize( width, height );
+}
 
 void Render::RunTest()
 {
@@ -83,11 +86,10 @@ void Render::RunTest()
 	pRen = vtkRenderer::New();
 	pRen->AddActor( coneActor );
 	pRen->SetBackground( 0.1, 0.2, 0.4 );
-	pRenWin = vtkRenderWindow::New();
+	
 	pRenWin->AddRenderer( pRen );
-	pRenWin->SetSize( 300, 300 );
-
-	pIRen = vtkRenderWindowInteractor::New();
+	
+	pIRen = vtkWin32RenderWindowInteractor::New();
 	pIRen->SetRenderWindow(pRenWin);
 
 	vtkInteractorStyleTrackballCamera *style =

@@ -1,10 +1,19 @@
 // ProjectDR.cpp : main project file.
 
 #include "stdafx.h"
+#include <Windows.h>
+
 #include "ClientHandler.h"
 #include "MainFormController.h"
 
+#include "RenderWindow.h"
+
 #include "Render.h"
+
+#pragma comment(lib, "user32.lib")
+
+using namespace System::Drawing;
+using namespace System::Windows::Forms;
 
 using namespace ProjectDR;
 
@@ -31,8 +40,20 @@ int main(array<System::String ^> ^args)
 	updateDelegate->RegisterCallback(MainFormController::getInstance(), ClientHandlerCallbackID::UPDATE_DATA, &MainFormController::optiTrackUpdateDataCallback);
 	ClientHandler::getInstance()->addObserver(updateDelegate);
 
+	RenderWindow^ renderWin = gcnew RenderWindow();
+	renderWin->Show();
+	
 	// Render Test
 	Render* render = new Render();
+	render->setWindow(renderWin->GetWindowID());
+
+	for each (Screen^ screen in Screen::AllScreens) {
+		if (!screen->Primary) {
+			System::Drawing::Rectangle rect = screen->WorkingArea;
+			render->setWindowSize(rect.X, rect.Y, rect.Width, rect.Height);
+		}
+	}
+
 	render->RunTest();
 
 	// Create the main window and run it
