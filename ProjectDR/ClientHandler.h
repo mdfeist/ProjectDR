@@ -4,7 +4,9 @@
 #include <process.h>
 
 #include <map>
+#include <vector>
 
+#include "ClientHandlerDelegator.h"
 #include "RigidBody.h"
 
 #include "NatNetSDK\include\NatNetTypes.h"
@@ -62,20 +64,7 @@ public:
 	RigidBodyMap getRigidBodyMap();
 
 	// Callback Functions
-	void setOutputLogCallback(void (*functionPtr)(const std::string&, void*), void* object) {
-		outputLogObject = object;
-		outputLogFunction = functionPtr;
-	}
-
-	void setInitDataCallback(void (*functionPtr)(void*), void* object) {
-		initDataObject = object;
-		initDataFunction = functionPtr;
-	}
-
-	void setUpdateDataCallback(void (*functionPtr)(void*), void* object) {
-		updateDataObject = object;
-		updateDataFunction = functionPtr;
-	}
+	void addObserver(ClientHandlerCallback* observer);
 
 	void updateData();
 
@@ -113,13 +102,12 @@ private:
 	// Resets the NatNet Client connection
 	void resetClient();
 
-	void *outputLogObject;
-	void (*outputLogFunction)( const std::string&, void* );
+	// Callbacks
+	std::vector<ClientHandlerCallback*> outputLogCallbacks;
+	std::vector<ClientHandlerCallback*> initDataCallbacks;
+	std::vector<ClientHandlerCallback*> updateDataCallbacks;
 
-	void *initDataObject;
-	void (*initDataFunction)(void*);
-
-	void *updateDataObject;
-	void (*updateDataFunction)(void*);
+	void outputLog(std::string msg);
+	void initData();
 };
 

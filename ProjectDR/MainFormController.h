@@ -12,17 +12,18 @@
 
 #include "FormController.h"
 #include "MainForm.h"
-/*
-using namespace System;
-using namespace System::IO;
-using namespace System::Windows::Forms;
-*/
+
 public class MainFormController :
 	public FormController<MainFormController, ProjectDR::MainForm>
 {
 public:
 	void setOptiTrackInfo();
 	void getOptiTrackInfo();
+
+	// Callbacks
+	void optiTrackOutputLogCallback(void* msg);
+	void optiTrackInitDataViewCallback(void*);
+	void optiTrackUpdateDataCallback(void*);
 
 	// Prints to the Output window in the OptiTrack Tab of the MainForm
 	void optiTrackOutputLog(std::string msg);
@@ -31,7 +32,5 @@ public:
 	void optiTrackUpdateData();
 	// Connect to OptiTrack
 	void optiTrackConnect();
-
-	virtual void init() override;
 };
 

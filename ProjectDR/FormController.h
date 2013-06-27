@@ -15,7 +15,6 @@ public:
 	static ControllerType* getInstance() {
 		if(!m_pInstance) {
 			m_pInstance = new ControllerType();
-			m_pInstance->init();
 		}
 		return m_pInstance;
 	}
@@ -40,13 +39,10 @@ public:
 	}
 
 protected:
-	FormController() { this->initialized = false; };
+	FormController() {};
 	~FormController() {};
 
 	msclr::auto_gcroot<FormType^> form;
-
-	bool initialized;
-	virtual void init() { this->initialized = true; };
 private:
 	static ControllerType* m_pInstance;
 };

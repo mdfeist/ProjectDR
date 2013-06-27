@@ -112,7 +112,7 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="ClientHandler.cpp" />
-    <ClCompile Include="FormEventHandler.cpp" />
+    <ClCompile Include="FormEvents.cpp" />
     <ClCompile Include="MainFormController.cpp" />
     <ClCompile Include="ProjectDR.cpp" />
     <ClCompile Include="Render.cpp" />
@@ -124,6 +124,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientHandler.h" />
+    <ClInclude Include="ClientHandlerCallback.h" />
+    <ClInclude Include="ClientHandlerDelegator.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Eigen\src\Cholesky\LDLT.h" />
     <ClInclude Include="Eigen\src\Cholesky\LLT.h" />
@@ -387,7 +389,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MainFormController.h" />
-    <ClInclude Include="FormEventHandler.h" />
+    <ClInclude Include="FormEvents.h" />
     <ClInclude Include="Marker.h" />
     <ClInclude Include="NatNetSDK\include\NatNetClient.h" />
     <ClInclude Include="NatNetSDK\include\NatNetServer.h" />

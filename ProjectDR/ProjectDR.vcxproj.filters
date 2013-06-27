@@ -273,10 +273,10 @@
     <ClCompile Include="RigidBody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FormEventHandler.cpp">
+    <ClCompile Include="Render.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Render.cpp">
+    <ClCompile Include="FormEvents.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1084,9 +1084,6 @@
     </ClInclude>
     <ClInclude Include="Eigen\SVD.h">
       <Filter>Header Files\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="FormEventHandler.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VTK\include\vtk-6.0\alglib\ap.h">
       <Filter>Header Files\VTK\include\vtk-6.0\alglib</Filter>
@@ -8358,6 +8355,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vtkCommandDelegator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientHandlerDelegator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientHandlerCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FormEvents.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -7,30 +7,16 @@ using namespace System;
 
 MainFormController* FormController<MainFormController, ProjectDR::MainForm>::m_pInstance = NULL;
 
-void OptiTrackOutputLogCallback(const std::string& msg, void* pointer) {
-	MainFormController* self = static_cast<MainFormController*>(pointer);
-	self->optiTrackOutputLog(msg);
+void MainFormController::optiTrackOutputLogCallback(void* msg) {
+	this->form->optiTrackOutputLog(gcnew String((char*)msg));
 }
 
-void OptiTrackInitDataViewCallback(void* pointer) {
-	MainFormController* self = static_cast<MainFormController*>(pointer);
-	self->optiTrackInitDataView();
+void MainFormController::optiTrackInitDataViewCallback(void*) {
+	this->optiTrackInitDataView();
 }
 
-void OptiTrackUpdateDatawCallback(void* pointer) {
-	MainFormController* self = static_cast<MainFormController*>(pointer);
-	self->optiTrackUpdateData();
-}
-
-void MainFormController::init(void) {
-	if (!this->initialized) {
-		createForm();
-		ClientHandler::getInstance()->setOutputLogCallback(OptiTrackOutputLogCallback, this);
-		ClientHandler::getInstance()->setInitDataCallback(OptiTrackInitDataViewCallback, this);
-		ClientHandler::getInstance()->setUpdateDataCallback(OptiTrackUpdateDatawCallback, this);
-	}
-
-	FormController::init();
+void MainFormController::optiTrackUpdateDataCallback(void*) {
+	this->optiTrackUpdateData();
 }
 
 void MainFormController::setOptiTrackInfo() {
