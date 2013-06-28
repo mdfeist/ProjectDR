@@ -51,7 +51,7 @@ int main(array<System::String ^> ^args)
 
 	for each (Screen^ screen in Screen::AllScreens) {
 		if (!screen->Primary) {
-			//render->setFullScreen(screen);
+			render->setFullScreen(screen);
 		}
 	}
 
@@ -59,8 +59,6 @@ int main(array<System::String ^> ^args)
 	render->waitForInit();
 	render->setBackground( 0.0, 0.0, 0.0 );
 	render->addActor( coneActor );
-
-	//render->runInteractor();
 
 	// Create the main window and run it
 	Application::Run(mainForm);
