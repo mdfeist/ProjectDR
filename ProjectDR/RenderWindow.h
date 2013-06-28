@@ -1,6 +1,8 @@
 #pragma once
 #include <Windows.h>
 
+#include "vtkWin32OpenGLRenderWindow.h"
+
 namespace ProjectDR {
 
 	using namespace System;
@@ -57,12 +59,14 @@ namespace ProjectDR {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(284, 262);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::Sizable;
+			this->SizeChanged += gcnew System::EventHandler(this, &RenderWindow::ResizeEnd);
 			this->Name = L"RenderWindow";
 			this->Text = L"RenderWindow";
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
+	private: vtkWin32OpenGLRenderWindow* pRenWin;
 	private: delegate void SetDelegate();
 	public: System::Void FullScreen() {
 				if (this->InvokeRequired) {
@@ -73,6 +77,16 @@ namespace ProjectDR {
 				}
 			}
 
+	public: System::Void attachWindow(vtkWin32OpenGLRenderWindow* win) {
+				pRenWin = win;
+			}
+
+	private: System::Void ResizeEnd(System::Object^ sender, System::EventArgs^ e) {
+				 if (pRenWin) {
+					 Control^ control = (Control^)sender;
+					 pRenWin->SetSize( control->Size.Width, control->Size.Height );
+				 }
+			 }
 	public: HWND GetWindowID() {
 				 return (HWND)this->Handle.ToPointer();
 			 }

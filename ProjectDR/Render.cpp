@@ -65,6 +65,7 @@ void Render::initRenderer() {
 	pRenWin = vtkWin32OpenGLRenderWindow::New();
 	pRenWin->AddRenderer( pRen );
 	pRenWin->SetParentId( windowID );
+	renderWin->attachWindow( pRenWin );
 
 	if (screen) {
 		renderWin->FullScreen();

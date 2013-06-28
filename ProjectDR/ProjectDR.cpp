@@ -47,7 +47,7 @@ int main(array<System::String ^> ^args)
 	vtkActor *coneActor = vtkActor::New();
 	coneActor->SetMapper( coneMapper );
 
-	Render* render = new Render();
+	RenderInteractor* render = new RenderInteractor();
 
 	for each (Screen^ screen in Screen::AllScreens) {
 		if (!screen->Primary) {
