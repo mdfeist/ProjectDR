@@ -115,6 +115,7 @@
     <ClCompile Include="MainFormController.cpp" />
     <ClCompile Include="ProjectDR.cpp" />
     <ClCompile Include="Render.cpp" />
+    <ClCompile Include="RenderInteractor.cpp" />
     <ClCompile Include="RenderWindow.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -395,12 +396,15 @@
     <ClInclude Include="NatNetSDK\include\NatNetServer.h" />
     <ClInclude Include="NatNetSDK\include\NatNetTypes.h" />
     <ClInclude Include="Render.h" />
+    <ClInclude Include="RenderInteractor.h" />
     <ClInclude Include="RenderWindow.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="resource.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="Runnable.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Thread.h" />
     <ClInclude Include="vtkCommandDelegator.h" />
     <ClInclude Include="VTK\include\vtk-6.0\alglib\ap.h" />
     <ClInclude Include="VTK\include\vtk-6.0\alglib\apvt.h" />

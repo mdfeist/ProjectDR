@@ -56,15 +56,26 @@ namespace ProjectDR {
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(284, 262);
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::Sizable;
 			this->Name = L"RenderWindow";
 			this->Text = L"RenderWindow";
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
+	private: delegate void SetDelegate();
+	public: System::Void FullScreen() {
+				if (this->InvokeRequired) {
+						SetDelegate^ d = gcnew SetDelegate(this, &ProjectDR::RenderWindow::FullScreen);
+						BeginInvoke(d, nullptr);
+				} else {
+					this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
+				}
+			}
+
 	public: HWND GetWindowID() {
 				 return (HWND)this->Handle.ToPointer();
 			 }
 	};
 }
+

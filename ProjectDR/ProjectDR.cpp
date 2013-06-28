@@ -6,18 +6,11 @@
 #include "ClientHandler.h"
 #include "MainFormController.h"
 
-#include "RenderWindow.h"
-
 #include "vtkConeSource.h"
 #include "vtkPolyDataMapper.h"
 #include "vtkActor.h" 
 
-#include "Render.h"
-
-#pragma comment(lib, "user32.lib")
-
-using namespace System::Drawing;
-using namespace System::Windows::Forms;
+#include "RenderInteractor.h"
 
 using namespace ProjectDR;
 
@@ -43,14 +36,11 @@ int main(array<System::String ^> ^args)
 	ClientHandlerDelegator<MainFormController>* updateDelegate = new ClientHandlerDelegator<MainFormController>();
 	updateDelegate->RegisterCallback(MainFormController::getInstance(), ClientHandlerCallbackID::UPDATE_DATA, &MainFormController::optiTrackUpdateDataCallback);
 	ClientHandler::getInstance()->addObserver(updateDelegate);
-
-	RenderWindow^ renderWin = gcnew RenderWindow();
-	renderWin->Show();
 	
 	// Render Test
 	vtkConeSource *cone = vtkConeSource::New();
-	cone->SetHeight( 3.0 );
-	cone->SetRadius( 1.0 );
+	cone->SetHeight( 1.5 );
+	cone->SetRadius( 0.5 );
 	cone->SetResolution( 10 );
 	vtkPolyDataMapper *coneMapper = vtkPolyDataMapper::New();
 	coneMapper->SetInputConnection( cone->GetOutputPort() );
@@ -58,18 +48,19 @@ int main(array<System::String ^> ^args)
 	coneActor->SetMapper( coneMapper );
 
 	Render* render = new Render();
-	render->addActor( coneActor );
-	render->setWindow(renderWin->GetWindowID());
-	render->setBackground( 0.0, 0.0, 0.0 );
 
 	for each (Screen^ screen in Screen::AllScreens) {
 		if (!screen->Primary) {
-			System::Drawing::Rectangle rect = screen->WorkingArea;
-			render->setWindowSize(rect.X, rect.Y, rect.Width, rect.Height);
+			//render->setFullScreen(screen);
 		}
 	}
 
-	render->runTest();
+	render->start();
+	render->waitForInit();
+	render->setBackground( 0.0, 0.0, 0.0 );
+	render->addActor( coneActor );
+
+	//render->runInteractor();
 
 	// Create the main window and run it
 	Application::Run(mainForm);

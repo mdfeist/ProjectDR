@@ -4,102 +4,91 @@
 #include "vtkCriticalSection.h"
 #include "vtkProperty.h" 
 #include "vtkActor.h" 
-#include "vtkWin32OpenGLRenderWindow.h" 
-#include "vtkWin32RenderWindowInteractor.h"
 #include "vtkRenderer.h" 
-#include "vtkInteractorStyleTrackballCamera.h"
+#include "vtkWin32OpenGLRenderWindow.h"
+#include "vtkWin32RenderWindowInteractor.h"
 #include "vtkCamera.h"
 #include "vtkSmartPointer.h"
 #include "vtkCommandDelegator.h"
+#include "vtkInteractorObserver.h"
 
-Render::Render(void)
-{
-	pRen = vtkRenderer::New();
-	pRenWin = vtkWin32OpenGLRenderWindow::New();
-	pRenWin->AddRenderer( pRen );
+#pragma comment(lib, "user32.lib")
 
+using namespace System::Drawing;
+
+Render::Render(void) {
 	CS = vtkCriticalSection::New();
-	
-	pCam = pRen->GetActiveCamera();
+	pCam = NULL;
+
+	initialized = false;
 }
 
 Render::~Render(void)
 {
+
 }
 
-static DWORD WINAPI threadCallbackFunction(LPVOID lpParameter)
-{
-      Render *This = static_cast<Render *>(lpParameter);
+void Render::waitForInit() {
+	while (!initialized) {
+		Sleep(17);
+	}
+}
 
-      // Start the render window interactor in the background
-      This->internalRunInteractor();
-      return 0;
+void Render::setFullScreen(Screen^ screen) {
+	this->screen = screen;
 }
 
 
-void Render::lockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData)
-{
+void Render::setBackground(float r, float g, float b) {
 	CS->Lock();
-}
-
-void Render::unlockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData)
-{
+	pRen->SetBackground( r, g, b );
 	CS->Unlock();
 }
 
-
-void Render::runInBackground()
-{
-      // Start up the thread
-      LPSECURITY_ATTRIBUTES attr = NULL;
-      SIZE_T stackSize = 0; // default = 1 MB
-      DWORD dwCreationFlags = 0;
-      LPDWORD noThreadID = NULL;
-
-      HANDLE m_hThreadHandle = CreateThread(attr, stackSize, threadCallbackFunction,
-            this, dwCreationFlags, noThreadID);
-}
-
-void Render::internalRunInteractor()
-{
-      // Called in background thread.
-      pIRen->Initialize();
-      pIRen->Start();
-}
-
-void Render::setBackground(float r, float g, float b) {
-	pRen->SetBackground( r, g, b );
-}
-
 void Render::addActor(vtkActor* actor) {
-	pRen->AddActor( actor );
+	CS->Lock();
+	pRen->AddActor(actor);
+	CS->Unlock();
 }
 
-void Render::setWindow(HWND handle) {
-	this->windowID = handle;
-	pRenWin->SetParentId( handle );
+void Render::render() {
+	pIRen->Initialize();
+	pRenWin->Render();
+	pIRen->Start();
 }
 
-void Render::setWindowSize(int x, int y, int width, int height) {
-	SetWindowPos(this->windowID, HWND_TOP, x, y, width, height, SWP_SHOWWINDOW);
-	pRenWin->SetSize( width, height );
-}
+void Render::initRenderer() {
+	renderWin = gcnew ProjectDR::RenderWindow();
+	windowID = renderWin->GetWindowID();
 
-void Render::runTest()
-{	
+	pRen = vtkRenderer::New();
+	pRenWin = vtkWin32OpenGLRenderWindow::New();
+	pRenWin->AddRenderer( pRen );
+	pRenWin->SetParentId( windowID );
+
+	if (screen) {
+		renderWin->FullScreen();
+		System::Drawing::Rectangle rect = screen->WorkingArea;
+		SetWindowPos(windowID, HWND_TOP, rect.X, rect.Y, rect.Width, rect.Height, SWP_SHOWWINDOW);
+		pRenWin->SetSize( rect.Width, rect.Height );
+	}
+
+	pRen->SetBackground( 0.0, 0.0, 0.0 );
+	pCam = pRen->GetActiveCamera();
+
 	pIRen = vtkWin32RenderWindowInteractor::New();
 	pIRen->SetRenderWindow(pRenWin);
+}
 
-	vtkInteractorStyleTrackballCamera *style =
-		vtkInteractorStyleTrackballCamera::New();
-	pIRen->SetInteractorStyle(style);
+DWORD Render::runThread() {
+	initRenderer();
+	pIRen->SetInteractorStyle(0);
 
-	pStartInteractionCommand = vtkCommandDelegator<Render>::New();
-	pStartInteractionCommand->RegisterCallback(this, &Render::lockCriticalSection);
-	pEndInteractionCommand = vtkCommandDelegator<Render>::New();
-	pEndInteractionCommand->RegisterCallback(this, &Render::unlockCriticalSection);
-	style->AddObserver(vtkCommand::StartInteractionEvent,pStartInteractionCommand);
-	style->AddObserver(vtkCommand::EndInteractionEvent, pEndInteractionCommand);
-	
-	runInBackground();
+	renderWin->Show();
+
+	initialized = true;
+
+	render();
+
+	return 0;
 }

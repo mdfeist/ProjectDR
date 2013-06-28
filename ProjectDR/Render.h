@@ -1,11 +1,14 @@
 #pragma once
 #include <Windows.h>
+#include <msclr\auto_gcroot.h>
 
 #define vtkRenderingCore_AUTOINIT 4(vtkInteractionStyle,vtkRenderingFreeType,vtkRenderingFreeTypeOpenGL,vtkRenderingOpenGL)
 #define vtkRenderingVolume_AUTOINIT 1(vtkRenderingVolumeOpenGL)
 
+#include "Thread.h"
+#include "RenderWindow.h"
+
 #include "vtkObject.h"
-#include "vtkCommandDelegator.h"
 
 class vtkCriticalSection;
 class vtkActor;
@@ -14,37 +17,39 @@ class vtkWin32OpenGLRenderWindow;
 class vtkWin32RenderWindowInteractor;
 class vtkRenderer;
 
-class Render
+using namespace System::Windows::Forms;
+
+class Render : public Thread
 {
 public:
 	Render(void);
 	~Render(void);
 
-	void lockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData);
-	void unlockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData);
-
-	void runInBackground();
-	void internalRunInteractor();
-
 	void setBackground(float r, float g, float b);
 	void addActor(vtkActor* actor);
 
-	void setWindow(HWND handle);
-	void setWindowSize(int x, int y, int width, int height);
+	void setFullScreen(Screen^ screen);
 
-	void runTest();
-private:
+	void waitForInit();
+protected:
+	virtual DWORD runThread();
+	virtual void render();
+
+	void initRenderer();
+
+	HWND windowID;
+
+	vtkCamera* pCam;
+	vtkCriticalSection* CS;
+
 	vtkRenderer* pRen;
 	vtkWin32OpenGLRenderWindow* pRenWin;
 	vtkWin32RenderWindowInteractor* pIRen;
+	msclr::auto_gcroot<ProjectDR::RenderWindow^> renderWin;
 
-	vtkCamera* pCam;
+	bool initialized;
 
-	vtkCriticalSection* CS;
-
-	vtkCommandDelegator<Render>* pStartInteractionCommand;
-	vtkCommandDelegator<Render>* pEndInteractionCommand;
-
-	HWND windowID;
+	msclr::auto_gcroot<Screen^> screen;
 };
+
 

@@ -5,8 +5,7 @@ template <class Class>
 class vtkCommandDelegator : public vtkCommand
 {
 public:
-	 static vtkCommandDelegator *New()
-		{return new vtkCommandDelegator;};
+	 static vtkCommandDelegator *New() { return new vtkCommandDelegator; }
 
 	 void RegisterCallback(Class* object, void (Class::*callback)(vtkObject*, unsigned long, void*)) {
 		 this->object = object;
