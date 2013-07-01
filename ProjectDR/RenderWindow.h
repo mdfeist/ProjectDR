@@ -57,11 +57,11 @@ namespace ProjectDR {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackColor = System::Drawing::Color::Black;
 			this->ClientSize = System::Drawing::Size(284, 262);
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::Sizable;
-			this->SizeChanged += gcnew System::EventHandler(this, &RenderWindow::ResizeEnd);
 			this->Name = L"RenderWindow";
 			this->Text = L"RenderWindow";
+			this->SizeChanged += gcnew System::EventHandler(this, &RenderWindow::ResizeEnd);
 			this->ResumeLayout(false);
 
 		}

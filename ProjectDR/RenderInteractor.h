@@ -16,8 +16,8 @@ public:
 protected:
 	virtual DWORD runThread();
 private:
-	vtkCommandDelegator<RenderInteractor>* pStartInteractionCommand;
-	vtkCommandDelegator<RenderInteractor>* pEndInteractionCommand;
+	vtkSmartPointer<vtkCommandDelegator<RenderInteractor>> pStartInteractionCommand;
+	vtkSmartPointer<vtkCommandDelegator<RenderInteractor>> pEndInteractionCommand;
 };
 
 

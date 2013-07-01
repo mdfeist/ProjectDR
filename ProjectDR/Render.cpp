@@ -11,13 +11,14 @@
 #include "vtkSmartPointer.h"
 #include "vtkCommandDelegator.h"
 #include "vtkInteractorObserver.h"
+#include "vtkInteractorStyleUser.h"
 
 #pragma comment(lib, "user32.lib")
 
 using namespace System::Drawing;
 
 Render::Render(void) {
-	CS = vtkCriticalSection::New();
+	CS = vtkSmartPointer<vtkCriticalSection>::New();
 	pCam = NULL;
 
 	initialized = false;
@@ -61,8 +62,8 @@ void Render::initRenderer() {
 	renderWin = gcnew ProjectDR::RenderWindow();
 	windowID = renderWin->GetWindowID();
 
-	pRen = vtkRenderer::New();
-	pRenWin = vtkWin32OpenGLRenderWindow::New();
+	pRen = vtkSmartPointer<vtkRenderer>::New();
+	pRenWin = vtkSmartPointer<vtkWin32OpenGLRenderWindow>::New();
 	pRenWin->AddRenderer( pRen );
 	pRenWin->SetParentId( windowID );
 	renderWin->attachWindow( pRenWin );
@@ -77,13 +78,16 @@ void Render::initRenderer() {
 	pRen->SetBackground( 0.0, 0.0, 0.0 );
 	pCam = pRen->GetActiveCamera();
 
-	pIRen = vtkWin32RenderWindowInteractor::New();
+	pIRen = vtkSmartPointer<vtkWin32RenderWindowInteractor>::New();
 	pIRen->SetRenderWindow(pRenWin);
 }
 
 DWORD Render::runThread() {
 	initRenderer();
-	pIRen->SetInteractorStyle(0);
+
+	vtkSmartPointer<vtkInteractorStyleUser> style =
+		vtkSmartPointer<vtkInteractorStyleUser>::New();
+	pIRen->SetInteractorStyle(style);
 
 	renderWin->Show();
 

@@ -9,6 +9,7 @@
 #include "RenderWindow.h"
 
 #include "vtkObject.h"
+#include "vtkSmartPointer.h"
 
 class vtkCriticalSection;
 class vtkActor;
@@ -39,12 +40,12 @@ protected:
 
 	HWND windowID;
 
-	vtkCamera* pCam;
-	vtkCriticalSection* CS;
+	vtkSmartPointer<vtkCamera> pCam;
+	vtkSmartPointer<vtkCriticalSection> CS;
 
-	vtkRenderer* pRen;
-	vtkWin32OpenGLRenderWindow* pRenWin;
-	vtkWin32RenderWindowInteractor* pIRen;
+	vtkSmartPointer<vtkRenderer> pRen;
+	vtkSmartPointer<vtkWin32OpenGLRenderWindow> pRenWin;
+	vtkSmartPointer<vtkWin32RenderWindowInteractor> pIRen;
 	msclr::auto_gcroot<ProjectDR::RenderWindow^> renderWin;
 
 	bool initialized;

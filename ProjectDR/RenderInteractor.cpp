@@ -38,13 +38,13 @@ void RenderInteractor::unlockCriticalSection(vtkObject *caller, unsigned long ev
 DWORD RenderInteractor::runThread() {
 	initRenderer();
 
-	vtkInteractorStyleTrackballCamera *style =
-		vtkInteractorStyleTrackballCamera::New();
+	vtkSmartPointer<vtkInteractorStyleTrackballCamera> style =
+		vtkSmartPointer<vtkInteractorStyleTrackballCamera>::New();
 	pIRen->SetInteractorStyle(style);
 
-	pStartInteractionCommand = vtkCommandDelegator<RenderInteractor>::New();
+	pStartInteractionCommand = vtkSmartPointer<vtkCommandDelegator<RenderInteractor>>::New();
 	pStartInteractionCommand->RegisterCallback(this, &RenderInteractor::lockCriticalSection);
-	pEndInteractionCommand = vtkCommandDelegator<RenderInteractor>::New();
+	pEndInteractionCommand = vtkSmartPointer<vtkCommandDelegator<RenderInteractor>>::New();
 	pEndInteractionCommand->RegisterCallback(this, &RenderInteractor::unlockCriticalSection);
 	style->AddObserver(vtkCommand::StartInteractionEvent,pStartInteractionCommand);
 	style->AddObserver(vtkCommand::EndInteractionEvent, pEndInteractionCommand);
