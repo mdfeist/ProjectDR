@@ -16,22 +16,17 @@
 
 using namespace System::Drawing;
 
-RenderInteractor::RenderInteractor(void) : Render()
-{
+RenderInteractor::RenderInteractor(void) : Render() {
 }
 
-
-RenderInteractor::~RenderInteractor(void)
-{
+RenderInteractor::~RenderInteractor(void) {
 }
 
-void RenderInteractor::lockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData)
-{
+void RenderInteractor::lockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData) {
 	CS->Lock();
 }
 
-void RenderInteractor::unlockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData)
-{
+void RenderInteractor::unlockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData) {
 	CS->Unlock();
 }
 

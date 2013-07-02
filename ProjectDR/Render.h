@@ -30,13 +30,14 @@ public:
 	void addActor(vtkActor* actor);
 
 	void setFullScreen(Screen^ screen);
-
-	void waitForInit();
+	
+	void start();
 protected:
 	virtual DWORD runThread();
 	virtual void render();
 
 	void initRenderer();
+	void waitForInit();
 
 	HWND windowID;
 

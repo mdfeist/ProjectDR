@@ -56,7 +56,6 @@ int main(array<System::String ^> ^args)
 	}
 
 	render->start();
-	render->waitForInit();
 	render->setBackground( 0.0, 0.0, 0.0 );
 	render->addActor( coneActor );
 

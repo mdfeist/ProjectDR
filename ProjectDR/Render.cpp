@@ -24,9 +24,13 @@ Render::Render(void) {
 	initialized = false;
 }
 
-Render::~Render(void)
-{
+Render::~Render(void) {
 
+}
+
+void Render::start() {
+	Thread::start();
+	waitForInit();
 }
 
 void Render::waitForInit() {
