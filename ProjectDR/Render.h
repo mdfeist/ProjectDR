@@ -10,13 +10,15 @@
 
 #include "vtkObject.h"
 #include "vtkSmartPointer.h"
+#include "vtkCommandDelegator.h"
 
 class vtkCriticalSection;
-class vtkActor;
+class vtkProp;
 class vtkCamera;
 class vtkWin32OpenGLRenderWindow;
 class vtkWin32RenderWindowInteractor;
 class vtkRenderer;
+class vtkInteractorStyle;
 
 using namespace System::Windows::Forms;
 
@@ -26,23 +28,31 @@ public:
 	Render(void);
 	~Render(void);
 
+	void lockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData);
+	void unlockCriticalSection(vtkObject *caller, unsigned long eventID, void *callData);
+
 	void setBackground(float r, float g, float b);
-	void addActor(vtkActor* actor);
+	void addActor(vtkProp* p);
 
 	void setFullScreen(Screen^ screen);
+	vtkCamera* getCamera();
 	
 	void start();
+
+	bool lock();
+	void unlock();
 protected:
 	virtual DWORD runThread();
-	virtual void render();
+	virtual void startRender();
 
 	void initRenderer();
 	void waitForInit();
 
+	HANDLE g_hMutex;
+
 	HWND windowID;
 
 	vtkSmartPointer<vtkCamera> pCam;
-	vtkSmartPointer<vtkCriticalSection> CS;
 
 	vtkSmartPointer<vtkRenderer> pRen;
 	vtkSmartPointer<vtkWin32OpenGLRenderWindow> pRenWin;
@@ -52,6 +62,11 @@ protected:
 	bool initialized;
 
 	msclr::auto_gcroot<Screen^> screen;
+
+	vtkSmartPointer<vtkInteractorStyle> style;
+	vtkSmartPointer<vtkCommandDelegator<Render>> pStartInteractionCommand;
+	vtkSmartPointer<vtkCommandDelegator<Render>> pEndInteractionCommand;
 };
+
 
 
