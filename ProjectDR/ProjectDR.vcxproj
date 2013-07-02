@@ -110,7 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="CameraCalibrationForm.cpp" />
+    <ClCompile Include="CameraCalibrationFormController.cpp" />
     <ClCompile Include="ClientHandler.cpp" />
     <ClCompile Include="FormEvents.cpp" />
     <ClCompile Include="MainFormController.cpp" />
@@ -128,6 +128,7 @@
     <ClInclude Include="CameraCalibrationForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="CameraCalibrationFormController.h" />
     <ClInclude Include="ClientHandler.h" />
     <ClInclude Include="ClientHandlerCallback.h" />
     <ClInclude Include="ClientHandlerDelegator.h" />
@@ -2836,6 +2837,9 @@
     <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CameraCalibrationForm.resx">
+      <DependentUpon>CameraCalibrationForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resX">
       <DependentUpon>MainForm.h</DependentUpon>
       <SubType>Designer</SubType>

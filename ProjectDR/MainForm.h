@@ -10,6 +10,7 @@
 
 #include "ClientHandler.h"
 #include "RigidBody.h"
+#include "CameraCalibrationFormController.h"
 
 namespace ProjectDR {
 
@@ -916,6 +917,7 @@ namespace ProjectDR {
 				
 			}
 private: System::Void cameraCalibrationToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+			 CameraCalibrationFormController::getInstance()->Show();
 		 }
 };
 }

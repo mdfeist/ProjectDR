@@ -284,7 +284,7 @@
     <ClCompile Include="RenderInteractor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CameraCalibrationForm.cpp">
+    <ClCompile Include="CameraCalibrationFormController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -8387,6 +8387,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CameraCalibrationForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraCalibrationFormController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
