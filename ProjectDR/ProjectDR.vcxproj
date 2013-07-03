@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="CameraCalibration.cpp" />
     <ClCompile Include="CameraCalibrationFormController.cpp" />
     <ClCompile Include="ClientHandler.cpp" />
     <ClCompile Include="FormEvents.cpp" />
@@ -125,6 +126,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraCalibration.h" />
     <ClInclude Include="CameraCalibrationForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -2832,6 +2834,7 @@
     <ClInclude Include="VTK\include\vtk-6.0\vtk_png.h" />
     <ClInclude Include="VTK\include\vtk-6.0\vtk_tiff.h" />
     <ClInclude Include="VTK\include\vtk-6.0\vtk_zlib.h" />
+    <ClInclude Include="WizardPages.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

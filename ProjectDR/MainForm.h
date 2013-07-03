@@ -99,10 +99,12 @@ namespace ProjectDR {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle6 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->menuStrip = (gcnew System::Windows::Forms::MenuStrip());
 			this->projectDRToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->calibrationToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->cameraCalibrationToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->tabControl = (gcnew System::Windows::Forms::TabControl());
 			this->optiTrackPage = (gcnew System::Windows::Forms::TabPage());
 			this->optiTrackMainSplitContainer = (gcnew System::Windows::Forms::SplitContainer());
@@ -135,8 +137,6 @@ namespace ProjectDR {
 			this->optiTrackServerTitleLabel = (gcnew System::Windows::Forms::Label());
 			this->optiTrackPropertiesLabel = (gcnew System::Windows::Forms::Label());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
-			this->calibrationToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->cameraCalibrationToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip->SuspendLayout();
 			this->tabControl->SuspendLayout();
 			this->optiTrackPage->SuspendLayout();
@@ -172,6 +172,21 @@ namespace ProjectDR {
 			this->projectDRToolStripMenuItem->Size = System::Drawing::Size(71, 20);
 			this->projectDRToolStripMenuItem->Text = L"ProjectDR";
 			// 
+			// calibrationToolStripMenuItem
+			// 
+			this->calibrationToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->cameraCalibrationToolStripMenuItem});
+			this->calibrationToolStripMenuItem->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->calibrationToolStripMenuItem->Name = L"calibrationToolStripMenuItem";
+			this->calibrationToolStripMenuItem->Size = System::Drawing::Size(77, 20);
+			this->calibrationToolStripMenuItem->Text = L"Calibration";
+			// 
+			// cameraCalibrationToolStripMenuItem
+			// 
+			this->cameraCalibrationToolStripMenuItem->Name = L"cameraCalibrationToolStripMenuItem";
+			this->cameraCalibrationToolStripMenuItem->Size = System::Drawing::Size(176, 22);
+			this->cameraCalibrationToolStripMenuItem->Text = L"Camera Calibration";
+			this->cameraCalibrationToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::cameraCalibrationToolStripMenuItem_Click);
+			// 
 			// tabControl
 			// 
 			this->tabControl->Controls->Add(this->optiTrackPage);
@@ -194,6 +209,7 @@ namespace ProjectDR {
 			this->optiTrackPage->BackColor = System::Drawing::Color::Gainsboro;
 			this->optiTrackPage->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
 			this->optiTrackPage->Controls->Add(this->optiTrackMainSplitContainer);
+			this->optiTrackPage->ForeColor = System::Drawing::SystemColors::Window;
 			this->optiTrackPage->Location = System::Drawing::Point(4, 24);
 			this->optiTrackPage->Margin = System::Windows::Forms::Padding(0);
 			this->optiTrackPage->Name = L"optiTrackPage";
@@ -263,10 +279,10 @@ namespace ProjectDR {
 			this->optiTrackDataGridView->AllowUserToDeleteRows = false;
 			this->optiTrackDataGridView->AllowUserToResizeColumns = false;
 			this->optiTrackDataGridView->AllowUserToResizeRows = false;
-			dataGridViewCellStyle5->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(234)), 
+			dataGridViewCellStyle3->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(234)), 
 				static_cast<System::Int32>(static_cast<System::Byte>(234)), static_cast<System::Int32>(static_cast<System::Byte>(255)));
-			dataGridViewCellStyle5->ForeColor = System::Drawing::Color::Black;
-			this->optiTrackDataGridView->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle3->ForeColor = System::Drawing::Color::Black;
+			this->optiTrackDataGridView->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
 			this->optiTrackDataGridView->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
 			this->optiTrackDataGridView->BackgroundColor = System::Drawing::SystemColors::ButtonFace;
 			this->optiTrackDataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
@@ -286,8 +302,8 @@ namespace ProjectDR {
 			this->optiTrackDataGridView->RowHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
 			this->optiTrackDataGridView->RowHeadersWidth = 25;
 			this->optiTrackDataGridView->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
-			dataGridViewCellStyle6->ForeColor = System::Drawing::Color::Black;
-			this->optiTrackDataGridView->RowsDefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle4->ForeColor = System::Drawing::Color::Black;
+			this->optiTrackDataGridView->RowsDefaultCellStyle = dataGridViewCellStyle4;
 			this->optiTrackDataGridView->ShowCellErrors = false;
 			this->optiTrackDataGridView->ShowCellToolTips = false;
 			this->optiTrackDataGridView->ShowEditingIcon = false;
@@ -384,7 +400,6 @@ namespace ProjectDR {
 			// 
 			this->optiTrackDisConnect->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->optiTrackDisConnect->BackColor = System::Drawing::Color::Gainsboro;
-			this->optiTrackDisConnect->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->optiTrackDisConnect->ForeColor = System::Drawing::SystemColors::MenuText;
 			this->optiTrackDisConnect->Location = System::Drawing::Point(192, 520);
 			this->optiTrackDisConnect->Name = L"optiTrackDisConnect";
@@ -398,7 +413,6 @@ namespace ProjectDR {
 			// 
 			this->optiTrackConnectBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->optiTrackConnectBtn->BackColor = System::Drawing::Color::Gainsboro;
-			this->optiTrackConnectBtn->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->optiTrackConnectBtn->ForeColor = System::Drawing::SystemColors::MenuText;
 			this->optiTrackConnectBtn->Location = System::Drawing::Point(9, 520);
 			this->optiTrackConnectBtn->Name = L"optiTrackConnectBtn";
@@ -573,21 +587,6 @@ namespace ProjectDR {
 			this->tabPage1->Size = System::Drawing::Size(792, 548);
 			this->tabPage1->TabIndex = 1;
 			this->tabPage1->Text = L"tabPage1";
-			// 
-			// calibrationToolStripMenuItem
-			// 
-			this->calibrationToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->cameraCalibrationToolStripMenuItem});
-			this->calibrationToolStripMenuItem->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->calibrationToolStripMenuItem->Name = L"calibrationToolStripMenuItem";
-			this->calibrationToolStripMenuItem->Size = System::Drawing::Size(77, 20);
-			this->calibrationToolStripMenuItem->Text = L"Calibration";
-			// 
-			// cameraCalibrationToolStripMenuItem
-			// 
-			this->cameraCalibrationToolStripMenuItem->Name = L"cameraCalibrationToolStripMenuItem";
-			this->cameraCalibrationToolStripMenuItem->Size = System::Drawing::Size(176, 22);
-			this->cameraCalibrationToolStripMenuItem->Text = L"Camera Calibration";
-			this->cameraCalibrationToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::cameraCalibrationToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
