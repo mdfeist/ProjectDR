@@ -5,8 +5,8 @@
 #include <iostream>
 
 #pragma unmanaged
-#include "VolumeLoader.h"
-#include "Volume.h"
+#include "Camera.h"
+#include "RenderManager.h"
 #pragma managed
 
 extern "C" {
@@ -40,79 +40,40 @@ Renderer::Renderer(System::Windows::Forms::Form ^ parentForm,
 	if(m_hDC)
 		CreatePixelFormat(m_hDC);
 
-	if ( glewInit() != GLEW_OK )						// Init GLEW
-	{
-		std::cout << "Failed to initialize GLEW." << std::endl;
-		return;
-	}
-
-	if ( !glewIsSupported("GL_VERSION_1_5") && !glewIsSupported( "GL_ARB_vertex_buffer_object" ) )
-	{
-		std::cout << "ARB_vertex_buffer_object not supported!" << std::endl;
-		return;
-	}
-
-	glewGetExtension("glMultiTexCoord2fvARB");  
-	if(glewGetExtension("GL_EXT_framebuffer_object") ) std::cout << "GL_EXT_framebuffer_object support " << std::endl;
-	if(glewGetExtension("GL_EXT_renderbuffer_object")) std::cout << "GL_EXT_renderbuffer_object support " << std::endl;
-	if(glewGetExtension("GL_ARB_vertex_buffer_object")) std::cout << "GL_ARB_vertex_buffer_object support" << std::endl;
-	if(GL_ARB_multitexture) std::cout << "GL_ARB_multitexture support \n" << std::endl;
-	
-	if (glewGetExtension("GL_ARB_fragment_shader")      != GL_TRUE ||
-		glewGetExtension("GL_ARB_vertex_shader")        != GL_TRUE ||
-		glewGetExtension("GL_ARB_shader_objects")       != GL_TRUE ||
-		glewGetExtension("GL_ARB_shading_language_100") != GL_TRUE)
-	{
-		 std::cout << "Driver does not support OpenGL Shading Language" << std::endl;
-	}
-
-	glEnable (GL_TEXTURE_2D);
-	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
-	glClearColor(1.f, 0.f, 0.f, 0.f);					// Set Background Color
-	glClearDepth(1.0f);									// Depth Buffer Setup
-	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
-	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
-	glDisable(GL_LIGHTING);
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
+	manager = new RenderManager();
+	manager->initGL();
 
 	camera = new Camera();
 	camera->setFOV(45.f);
-
-	char volumeFile[] = "C:/Users/mdfeist/Desktop/ANGIO.raw";
-	VolumeLoader* volumeLoader = new VolumeLoader();
-	//volumeLoader->loadVolume(volumeFile);
-	volumeLoader->loadRaw(volumeFile);
-
-	volume = new Volume();
-	volume->setAxisAngle(-M_PI/2.0, 1.f, 0.f, 0.f);
-	volume->setVolumeData(volumeLoader);
-	volume->setup();
-	volume->init();
 }
 
 Renderer::~Renderer(System::Void)
 {
+	delete camera;
+
 	this->DestroyHandle();
 }
 
-System::Void Renderer::addActor(Actor* a) {						// Add actor to scene
-	System::Object ^o = gcnew System::IntPtr(a);				// a is boxed in o
-	System::IntPtr i = safe_cast<System::IntPtr>(o);			// Unbox the IntPtr
-	actors.Add(i);
-	//actors.push_back(a);										// Push actor into actors vector
-}
-
-Camera* Renderer::getActiveCamera() {
+Camera* Renderer::getActiveCamera() 
+{
 	return camera;
 }
+RenderManager* Renderer::getManager() 
+{
+	return manager;
+}
+
 
 System::Void Renderer::Resize(GLsizei iWidth, GLsizei iHeight)
 {
-	camera->setWidth(iWidth);
-	camera->setHeight(iHeight);
+	if (iHeight <= 0)						// Check if iHeight is less than or equal to zero
+		iHeight = 1;						// If true then change iHeight to one to protect against zero divide
+
+	camera->setWidth(iWidth);				// Update camera width
+	camera->setHeight(iHeight);				// Update camera height
 
 	glViewport(0, 0, iWidth, iHeight);		// Set Viewport
-	double aspect_ratio = (double)iWidth /(double) iHeight;
+	double aspect_ratio = (double)iWidth / (double) iHeight;
 	glMatrixMode(GL_PROJECTION);			// Select The Projection Matrix
 	glLoadIdentity();						// Reset The Projection Matrix
 
@@ -192,5 +153,5 @@ System::Void Renderer::Render(System::Void)
 	glTranslatef(0, 0, -2.25);										// Set Camera Position
 	glRotatef(25, 1, 0, 0);
 
-	volume->render(camera);											// Render actor
+	manager->render(camera);										// Render scene
 }

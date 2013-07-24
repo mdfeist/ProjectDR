@@ -28,7 +28,7 @@ VolumeLoader::~VolumeLoader(void) {
 		delete [] data;
 }
 
-int VolumeLoader::loadRaw(char *directory) {								// Loads raw volume data from a file
+int VolumeLoader::loadRaw(const char *directory) {							// Loads raw volume data from a file
 	FILE* dataFile = NULL;
 	fopen_s(&dataFile, directory, "rb");									// Opens file
 
@@ -38,7 +38,7 @@ int VolumeLoader::loadRaw(char *directory) {								// Loads raw volume data fro
 			data = NULL;													// Set pointer to NULL
 		}
 
-		std::cout << "- Saved File Found" << std::endl; 
+		std::cout << "- Loading: " << directory << std::endl; 
 		fread(&spacingX, sizeof(float), 1, dataFile);						// Read X spacing size
 		fread(&spacingY, sizeof(float), 1, dataFile);						// Read Y spacing size 
 		fread(&spacingZ, sizeof(float), 1, dataFile);						// Read Z spacing size
@@ -68,12 +68,14 @@ int VolumeLoader::loadRaw(char *directory) {								// Loads raw volume data fro
 		fclose(dataFile);													// Close file
 
 		return EXIT_SUCCESS;
+	} else {
+		std::cout << "- Unable to open: " << directory << std::endl;
 	}
 
 	return EXIT_FAILURE;
 }
 
-int VolumeLoader::loadVolume(char *directory) {								// Loads DICOM files
+int VolumeLoader::loadVolume(const char *directory) {						// Loads DICOM files
 	/*
 	typedef signed short    PixelType;										// How each pixel is stored
 	const unsigned int      Dimension = 3;									// The number of dimensions of the data

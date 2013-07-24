@@ -57,11 +57,10 @@ namespace ProjectDR {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(284, 262);
 			this->Name = L"OpenGLView";
-			this->Text = L"OpenGLView";
+			this->Text = L"OpenGL View";
 			this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &OpenGLView::OpenGLView_Paint);
 			this->Resize += gcnew System::EventHandler(this, &OpenGLView::OpenGLView_Resize);
 			this->ResumeLayout(false);
-
 		}
 #pragma endregion
 	private: System::Void OpenGLView_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {

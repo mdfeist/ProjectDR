@@ -42,8 +42,8 @@ int main(array<System::String ^> ^args)
 	ClientHandler::getInstance()->addObserver(updateDelegate);
 	
 	// Render Test
-	OpenGLView^ glView = gcnew OpenGLView();
-	glView->Show();
+	//OpenGLView^ glView = gcnew OpenGLView();
+	//glView->Show();
 
 	// Create the main window and run it
 	Application::Run(mainForm);

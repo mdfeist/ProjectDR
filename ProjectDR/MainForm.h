@@ -11,6 +11,9 @@
 #include "ClientHandler.h"
 #include "RigidBody.h"
 #include "CameraCalibrationFormController.h"
+#include "VolumeRenderManager.h"
+
+#include "ProgressSpinner.h"
 
 namespace ProjectDR {
 
@@ -54,7 +57,8 @@ namespace ProjectDR {
 	private: System::Windows::Forms::TabControl^  tabControl;
 	private: System::Windows::Forms::TabPage^  optiTrackPage;
 	private: System::Windows::Forms::SplitContainer^  optiTrackMainSplitContainer;
-	private: System::Windows::Forms::TabPage^  tabPage1;
+	private: System::Windows::Forms::TabPage^  VolumeTab;
+
 	private: System::Windows::Forms::SplitContainer^  optiTrackSubSplitContainer;
 	private: System::Windows::Forms::TextBox^  optiTrackLocalIpAddressTextBox;
 	private: System::Windows::Forms::Label^  optiTrackLocalIpAddressLabel;
@@ -85,6 +89,15 @@ namespace ProjectDR {
 	private: System::Windows::Forms::Label^  optiTrackOutputLogLabel;
 	private: System::Windows::Forms::ToolStripMenuItem^  calibrationToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  cameraCalibrationToolStripMenuItem;
+	private: System::Windows::Forms::Label^  volumePathLabel;
+
+	private: System::Windows::Forms::TextBox^  volumePathTextBox;
+	private: System::Windows::Forms::Button^  loadVolumeBtn;
+	private: System::Windows::Forms::Button^  browseForVolumeBtn;
+	private: System::ComponentModel::BackgroundWorker^  backgroundWorker1;
+	private: System::Windows::Forms::Button^  volumeRemoveBtn;
+
+
 
 	private:
 		/// <summary>
@@ -99,8 +112,8 @@ namespace ProjectDR {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->menuStrip = (gcnew System::Windows::Forms::MenuStrip());
 			this->projectDRToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->calibrationToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -136,7 +149,13 @@ namespace ProjectDR {
 			this->optiTrackSeverIpAddressLabel = (gcnew System::Windows::Forms::Label());
 			this->optiTrackServerTitleLabel = (gcnew System::Windows::Forms::Label());
 			this->optiTrackPropertiesLabel = (gcnew System::Windows::Forms::Label());
-			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
+			this->VolumeTab = (gcnew System::Windows::Forms::TabPage());
+			this->loadVolumeBtn = (gcnew System::Windows::Forms::Button());
+			this->browseForVolumeBtn = (gcnew System::Windows::Forms::Button());
+			this->volumePathTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->volumePathLabel = (gcnew System::Windows::Forms::Label());
+			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
+			this->volumeRemoveBtn = (gcnew System::Windows::Forms::Button());
 			this->menuStrip->SuspendLayout();
 			this->tabControl->SuspendLayout();
 			this->optiTrackPage->SuspendLayout();
@@ -149,6 +168,7 @@ namespace ProjectDR {
 			this->optiTrackSubSplitContainer->Panel2->SuspendLayout();
 			this->optiTrackSubSplitContainer->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackDataGridView))->BeginInit();
+			this->VolumeTab->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// menuStrip
@@ -190,7 +210,7 @@ namespace ProjectDR {
 			// tabControl
 			// 
 			this->tabControl->Controls->Add(this->optiTrackPage);
-			this->tabControl->Controls->Add(this->tabPage1);
+			this->tabControl->Controls->Add(this->VolumeTab);
 			this->tabControl->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->tabControl->HotTrack = true;
 			this->tabControl->ImeMode = System::Windows::Forms::ImeMode::NoControl;
@@ -279,10 +299,10 @@ namespace ProjectDR {
 			this->optiTrackDataGridView->AllowUserToDeleteRows = false;
 			this->optiTrackDataGridView->AllowUserToResizeColumns = false;
 			this->optiTrackDataGridView->AllowUserToResizeRows = false;
-			dataGridViewCellStyle3->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(234)), 
+			dataGridViewCellStyle1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(234)), 
 				static_cast<System::Int32>(static_cast<System::Byte>(234)), static_cast<System::Int32>(static_cast<System::Byte>(255)));
-			dataGridViewCellStyle3->ForeColor = System::Drawing::Color::Black;
-			this->optiTrackDataGridView->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle1->ForeColor = System::Drawing::Color::Black;
+			this->optiTrackDataGridView->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			this->optiTrackDataGridView->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
 			this->optiTrackDataGridView->BackgroundColor = System::Drawing::SystemColors::ButtonFace;
 			this->optiTrackDataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
@@ -302,8 +322,8 @@ namespace ProjectDR {
 			this->optiTrackDataGridView->RowHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
 			this->optiTrackDataGridView->RowHeadersWidth = 25;
 			this->optiTrackDataGridView->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
-			dataGridViewCellStyle4->ForeColor = System::Drawing::Color::Black;
-			this->optiTrackDataGridView->RowsDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle2->ForeColor = System::Drawing::Color::Black;
+			this->optiTrackDataGridView->RowsDefaultCellStyle = dataGridViewCellStyle2;
 			this->optiTrackDataGridView->ShowCellErrors = false;
 			this->optiTrackDataGridView->ShowCellToolTips = false;
 			this->optiTrackDataGridView->ShowEditingIcon = false;
@@ -578,15 +598,81 @@ namespace ProjectDR {
 			this->optiTrackPropertiesLabel->TabIndex = 29;
 			this->optiTrackPropertiesLabel->Text = L"Properties";
 			// 
-			// tabPage1
+			// VolumeTab
 			// 
-			this->tabPage1->BackColor = System::Drawing::Color::WhiteSmoke;
-			this->tabPage1->Location = System::Drawing::Point(4, 24);
-			this->tabPage1->Name = L"tabPage1";
-			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage1->Size = System::Drawing::Size(792, 548);
-			this->tabPage1->TabIndex = 1;
-			this->tabPage1->Text = L"tabPage1";
+			this->VolumeTab->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->VolumeTab->Controls->Add(this->volumeRemoveBtn);
+			this->VolumeTab->Controls->Add(this->loadVolumeBtn);
+			this->VolumeTab->Controls->Add(this->browseForVolumeBtn);
+			this->VolumeTab->Controls->Add(this->volumePathTextBox);
+			this->VolumeTab->Controls->Add(this->volumePathLabel);
+			this->VolumeTab->Location = System::Drawing::Point(4, 24);
+			this->VolumeTab->Name = L"VolumeTab";
+			this->VolumeTab->Padding = System::Windows::Forms::Padding(3);
+			this->VolumeTab->Size = System::Drawing::Size(792, 548);
+			this->VolumeTab->TabIndex = 1;
+			this->VolumeTab->Text = L"Volume";
+			// 
+			// loadVolumeBtn
+			// 
+			this->loadVolumeBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
+			this->loadVolumeBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->loadVolumeBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->loadVolumeBtn->Location = System::Drawing::Point(8, 54);
+			this->loadVolumeBtn->Name = L"loadVolumeBtn";
+			this->loadVolumeBtn->Size = System::Drawing::Size(76, 23);
+			this->loadVolumeBtn->TabIndex = 44;
+			this->loadVolumeBtn->Text = L"Load";
+			this->loadVolumeBtn->UseVisualStyleBackColor = false;
+			this->loadVolumeBtn->Click += gcnew System::EventHandler(this, &MainForm::loadVolumeBtn_Click);
+			// 
+			// browseForVolumeBtn
+			// 
+			this->browseForVolumeBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
+			this->browseForVolumeBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->browseForVolumeBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->browseForVolumeBtn->Location = System::Drawing::Point(400, 15);
+			this->browseForVolumeBtn->Name = L"browseForVolumeBtn";
+			this->browseForVolumeBtn->Size = System::Drawing::Size(76, 23);
+			this->browseForVolumeBtn->TabIndex = 43;
+			this->browseForVolumeBtn->Text = L"Browse";
+			this->browseForVolumeBtn->UseVisualStyleBackColor = false;
+			this->browseForVolumeBtn->Click += gcnew System::EventHandler(this, &MainForm::browseForVolumeBtn_Click);
+			// 
+			// volumePathTextBox
+			// 
+			this->volumePathTextBox->Location = System::Drawing::Point(102, 16);
+			this->volumePathTextBox->Name = L"volumePathTextBox";
+			this->volumePathTextBox->Size = System::Drawing::Size(292, 22);
+			this->volumePathTextBox->TabIndex = 1;
+			// 
+			// volumePathLabel
+			// 
+			this->volumePathLabel->AutoSize = true;
+			this->volumePathLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->volumePathLabel->Location = System::Drawing::Point(6, 19);
+			this->volumePathLabel->Name = L"volumePathLabel";
+			this->volumePathLabel->Size = System::Drawing::Size(90, 13);
+			this->volumePathLabel->TabIndex = 0;
+			this->volumePathLabel->Text = L"Path To Volume:";
+			// 
+			// backgroundWorker1
+			// 
+			this->backgroundWorker1->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainForm::backgroundWorker1_DoWork);
+			this->backgroundWorker1->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MainForm::backgroundWorker1_RunWorkerCompleted);
+			// 
+			// volumeRemoveBtn
+			// 
+			this->volumeRemoveBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
+			this->volumeRemoveBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->volumeRemoveBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->volumeRemoveBtn->Location = System::Drawing::Point(9, 83);
+			this->volumeRemoveBtn->Name = L"volumeRemoveBtn";
+			this->volumeRemoveBtn->Size = System::Drawing::Size(76, 23);
+			this->volumeRemoveBtn->TabIndex = 45;
+			this->volumeRemoveBtn->Text = L"Remove";
+			this->volumeRemoveBtn->UseVisualStyleBackColor = false;
+			this->volumeRemoveBtn->Click += gcnew System::EventHandler(this, &MainForm::volumeRemoveBtn_Click);
 			// 
 			// MainForm
 			// 
@@ -620,6 +706,8 @@ namespace ProjectDR {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackSubSplitContainer))->EndInit();
 			this->optiTrackSubSplitContainer->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackDataGridView))->EndInit();
+			this->VolumeTab->ResumeLayout(false);
+			this->VolumeTab->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -627,6 +715,7 @@ namespace ProjectDR {
 #pragma endregion
 	// Local Variables
 	private: std::vector<RigidBody*>* optiTrackRigidBodyVector;
+	private: ProgressSpinner^ spinner;
 	// Abstract Delegate
 	private: delegate System::Void SetDelegate();
 	// Abstract Delegate to change text
@@ -652,11 +741,15 @@ namespace ProjectDR {
 				 }
 
 				 this->optiTrackDataGridView->VirtualMode = true;
-			 }
 
-	public: HWND GetWindowID() {
-				return (HWND)this->tabPage1->Handle.ToPointer();
-			}
+				 this->spinner = gcnew ProgressSpinner();
+				 this->spinner->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
+				 this->spinner->Location = System::Drawing::Point(100, 60);
+				 this->spinner->Enable = false;
+				 this->VolumeTab->Controls->Add(this->spinner);
+
+				 this->volumeRemoveBtn->Enabled = false;
+			 }
 
 	// OptiTrack Getters/Setters
 	public: System::Void setOptiTrackLocalIpAddressTextBox(System::String^ text) {
@@ -917,6 +1010,54 @@ namespace ProjectDR {
 			}
 private: System::Void cameraCalibrationToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 			 CameraCalibrationFormController::getInstance()->Show();
+		 }
+
+private: System::Void browseForVolumeBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+			 OpenFileDialog^ dialog = gcnew OpenFileDialog;
+
+			 dialog->DefaultExt = "raw";
+			 dialog->Filter = "raw files (*.raw)|*.xml|All files (*.*)|*.*";
+			 dialog->FilterIndex = 2;
+			 dialog->RestoreDirectory = true;
+
+			 if ( dialog->ShowDialog() == ::DialogResult::OK )
+			 {
+				 this->volumePathTextBox->Text = dialog->FileName;
+			 }
+		 }
+
+private: System::Void loadVolumeBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+			 this->loadVolumeBtn->Enabled = false;
+			 this->spinner->Enable = true;
+			 
+			 VolumeRenderManager::getInstance()->Show();
+
+			 this->backgroundWorker1->RunWorkerAsync();
+		 }
+
+private: System::Void backgroundWorker1_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e) {
+			 msclr::interop::marshal_context context;
+			 std::string pathBuffer = context.marshal_as<std::string>(this->volumePathTextBox->Text);
+
+			 VolumeRenderManager::getInstance()->loadVolume(pathBuffer.c_str());
+		 }
+
+private: System::Void backgroundWorker1_RunWorkerCompleted(System::Object^  sender, System::ComponentModel::RunWorkerCompletedEventArgs^  e) {
+			 OpenGLView^ view = VolumeRenderManager::getInstance()->createForm();
+			 view->SuspendLayout();
+			 VolumeRenderManager::getInstance()->addVolumeToScene();
+			 view->ResumeLayout();
+			 view->Refresh();
+
+			 this->spinner->Enable = false;
+			 this->volumeRemoveBtn->Enabled = true;
+		 }
+private: System::Void volumeRemoveBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+			  this->loadVolumeBtn->Enabled = true;
+			  this->volumeRemoveBtn->Enabled = false;
+			  VolumeRenderManager::getInstance()->removeVolumeFromScene();
+
+			  VolumeRenderManager::getInstance()->Refresh();
 		 }
 };
 }

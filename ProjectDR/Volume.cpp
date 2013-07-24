@@ -7,6 +7,9 @@
 #include <iostream>
 #include <iomanip>
 
+int Actor::id_counter = 0;
+
+#pragma unmanaged
 #include "TransferFunction.h"
 
 #include "VolumeCube.h"
@@ -52,10 +55,10 @@ inline int clamp(int x, int a, int b) {				// Clamp so x is between a and b incl
 
 inline void loadingBar(int x, int n, int w) {
 	// Calculuate the ratio of complete-to-incomplete.
-	float ratio = x/(float)n;
+	float ratio = (float)(x/n);
 	int c = ratio * w;
 
-	std::cout << std::setw(3) << (int)(ratio*100) << "% [";
+	std::cout << std::setw(3) << (int)(ratio*100.f) << "% [";
 	for (int x=0; x<c; x++) std::cout << "=";
 	for (int x=c; x<w; x++) std::cout << " ";
 	std::cout << "]\r" << std::flush;
@@ -758,5 +761,6 @@ void Volume::render(Camera* camera) {
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();												//end the current object transformations
-	
 }
+
+#pragma managed

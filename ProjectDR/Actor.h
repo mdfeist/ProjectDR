@@ -1,5 +1,5 @@
 #pragma once
-
+#pragma unmanaged
 #include "Camera.h"
 #include "Eigen\Geometry.h"
 
@@ -7,11 +7,17 @@ class Actor {
 public:
 	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-	Actor() {}
+	static int id_counter;
+
+	Actor() { actor_id = id_counter++; }
     virtual ~Actor() {}
 	virtual void init() = 0;
 	virtual bool needsInit() = 0;
     virtual void render(Camera*) = 0;
+
+	int getID() {
+		return actor_id;
+	}
 
 	void setScale(float x, float y, float z) { 
 		setScale(Eigen::Vector3f( x, y, z ));
@@ -70,7 +76,10 @@ public:
 	}
 
 protected:
+	int actor_id;
+
 	Eigen::Vector3f scale;					// Actor scale
 	Eigen::Vector3f position;				// Actor Position
 	Eigen::Quaternionf rotation;			// Actor Rotation
 };
+#pragma managed

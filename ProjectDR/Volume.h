@@ -1,14 +1,15 @@
 #pragma once
 #include <Windows.h>
 
-#include "Actor.h"
-
 #include "OpenGL.h"
 
 #include <Cg/cg.h>
 #include <Cg/cgGL.h>
 
 #include <vector>
+
+#pragma unmanaged
+#include "Actor.h"
 
 class TransferFunction;
 
@@ -102,4 +103,6 @@ private:
 	void buildCubes();
 	void buildVertBuffer();
 };
+
+#pragma managed
 

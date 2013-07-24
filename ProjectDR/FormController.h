@@ -38,6 +38,15 @@ public:
 		form->BringToFront();
 	}
 
+	void Refresh() { 
+		if (!form || form->IsDisposed) {
+			 form = gcnew FormType();
+		}
+
+		form->Invalidate();
+		form->Refresh();
+	}
+
 protected:
 	FormController() {};
 	~FormController() {};

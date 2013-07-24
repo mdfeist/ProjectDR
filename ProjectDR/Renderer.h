@@ -2,14 +2,8 @@
 #include <windows.h>
 #include "OpenGL.h"
 
-#include <vector>
-#using <mscorlib.dll>
-
-#pragma unmanaged
-#include "Volume.h"
-#pragma managed
-
 class Camera;
+class RenderManager;
 
 using namespace System::Runtime::InteropServices;
 using namespace System::Windows::Forms;
@@ -22,21 +16,19 @@ public:
 	Renderer(System::Windows::Forms::Form ^ parentForm, 
             GLsizei iWidth, GLsizei iHeight);
 
-	System::Void addActor(Actor* a);
 	Camera* getActiveCamera();
+	RenderManager* getManager();
 
 	System::Void Resize(GLsizei iWidth, GLsizei iHeight);
 	virtual System::Void Render(System::Void);
 	System::Void SwapOpenGLBuffers(System::Void);
 
 private:
-    HDC m_hDC;						// Private GDI Device Contex
-    HGLRC m_hglrc;					// Permanent Rendering Context
+    HDC					m_hDC;		// Private GDI Device Contex
+    HGLRC				m_hglrc;	// Permanent Rendering Context
 
-	Camera*		camera;				// Camera for rendering
-	Volume*		volume;
-
-	List<System::IntPtr> actors;	// Render Actors
+	Camera*				camera;		// Camera for rendering
+	RenderManager*		manager;	// Handles all the OpenGL rendering
 protected:
     ~Renderer(System::Void);
 

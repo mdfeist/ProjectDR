@@ -7,8 +7,8 @@ public:
 	VolumeLoader(void);
 	~VolumeLoader(void);
 
-	int loadRaw(char *directory);
-	int loadVolume(char *directory);
+	int loadRaw(const char *directory);
+	int loadVolume(const char *directory);
 
 	int getPixelCount();
 	GLubyte* getData();
