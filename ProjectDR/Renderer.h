@@ -38,7 +38,6 @@ public:
 	}
 
 	System::Void GetFrame(System::Void);
-	System::Void RenderInBackground(System::Void);
 
 private:
     HDC								m_hDC;		// Private GDI Device Contex

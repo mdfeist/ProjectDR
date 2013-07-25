@@ -85,7 +85,7 @@ namespace ProjectDR {
 		System::Void OpenGLView_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
 			UNREFERENCED_PARAMETER(sender);
 			UNREFERENCED_PARAMETER(e);
-			renderer->RenderInBackground();
+			renderer->GetFrame();
 		}
 
 		System::Void OpenGLView_Resize(System::Object^  sender, System::EventArgs^  e) {

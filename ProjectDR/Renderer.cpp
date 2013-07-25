@@ -182,10 +182,6 @@ System::Void Renderer::Render(System::Void)
 	angle += 0.1f;
 }
 
-System::Void Renderer::RenderInBackground(System::Void) {
-	
-}
-
 System::Void Renderer::GetFrame(System::Void) {
 	Update();
 	Render();

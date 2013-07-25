@@ -150,12 +150,12 @@ namespace ProjectDR {
 			this->optiTrackServerTitleLabel = (gcnew System::Windows::Forms::Label());
 			this->optiTrackPropertiesLabel = (gcnew System::Windows::Forms::Label());
 			this->VolumeTab = (gcnew System::Windows::Forms::TabPage());
+			this->volumeRemoveBtn = (gcnew System::Windows::Forms::Button());
 			this->loadVolumeBtn = (gcnew System::Windows::Forms::Button());
 			this->browseForVolumeBtn = (gcnew System::Windows::Forms::Button());
 			this->volumePathTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->volumePathLabel = (gcnew System::Windows::Forms::Label());
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
-			this->volumeRemoveBtn = (gcnew System::Windows::Forms::Button());
 			this->menuStrip->SuspendLayout();
 			this->tabControl->SuspendLayout();
 			this->optiTrackPage->SuspendLayout();
@@ -613,9 +613,20 @@ namespace ProjectDR {
 			this->VolumeTab->TabIndex = 1;
 			this->VolumeTab->Text = L"Volume";
 			// 
+			// volumeRemoveBtn
+			// 
+			this->volumeRemoveBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->volumeRemoveBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->volumeRemoveBtn->Location = System::Drawing::Point(9, 83);
+			this->volumeRemoveBtn->Name = L"volumeRemoveBtn";
+			this->volumeRemoveBtn->Size = System::Drawing::Size(76, 23);
+			this->volumeRemoveBtn->TabIndex = 45;
+			this->volumeRemoveBtn->Text = L"Remove";
+			this->volumeRemoveBtn->UseVisualStyleBackColor = false;
+			this->volumeRemoveBtn->Click += gcnew System::EventHandler(this, &MainForm::volumeRemoveBtn_Click);
+			// 
 			// loadVolumeBtn
 			// 
-			this->loadVolumeBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->loadVolumeBtn->BackColor = System::Drawing::Color::Gainsboro;
 			this->loadVolumeBtn->ForeColor = System::Drawing::SystemColors::MenuText;
 			this->loadVolumeBtn->Location = System::Drawing::Point(8, 54);
@@ -628,7 +639,6 @@ namespace ProjectDR {
 			// 
 			// browseForVolumeBtn
 			// 
-			this->browseForVolumeBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->browseForVolumeBtn->BackColor = System::Drawing::Color::Gainsboro;
 			this->browseForVolumeBtn->ForeColor = System::Drawing::SystemColors::MenuText;
 			this->browseForVolumeBtn->Location = System::Drawing::Point(400, 15);
@@ -660,19 +670,6 @@ namespace ProjectDR {
 			// 
 			this->backgroundWorker1->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainForm::backgroundWorker1_DoWork);
 			this->backgroundWorker1->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MainForm::backgroundWorker1_RunWorkerCompleted);
-			// 
-			// volumeRemoveBtn
-			// 
-			this->volumeRemoveBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
-			this->volumeRemoveBtn->BackColor = System::Drawing::Color::Gainsboro;
-			this->volumeRemoveBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->volumeRemoveBtn->Location = System::Drawing::Point(9, 83);
-			this->volumeRemoveBtn->Name = L"volumeRemoveBtn";
-			this->volumeRemoveBtn->Size = System::Drawing::Size(76, 23);
-			this->volumeRemoveBtn->TabIndex = 45;
-			this->volumeRemoveBtn->Text = L"Remove";
-			this->volumeRemoveBtn->UseVisualStyleBackColor = false;
-			this->volumeRemoveBtn->Click += gcnew System::EventHandler(this, &MainForm::volumeRemoveBtn_Click);
 			// 
 			// MainForm
 			// 
@@ -743,7 +740,7 @@ namespace ProjectDR {
 				 this->optiTrackDataGridView->VirtualMode = true;
 
 				 this->spinner = gcnew ProgressSpinner();
-				 this->spinner->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
+				 this->spinner->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left));
 				 this->spinner->Location = System::Drawing::Point(100, 60);
 				 this->spinner->Enable = false;
 				 this->VolumeTab->Controls->Add(this->spinner);
