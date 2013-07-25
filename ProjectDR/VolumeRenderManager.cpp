@@ -26,8 +26,6 @@ Volume* VolumeRenderManager::loadVolume(const char* volumeFile) {
 void VolumeRenderManager::addVolumeToScene() {
 	createForm();
 
-	volume->init();
-
 	Renderer^ renderer = form->GetRenderer();
 	if (renderer) {
 		RenderManager* manager = renderer->getManager();

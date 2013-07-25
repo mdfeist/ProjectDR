@@ -16,6 +16,12 @@ extern "C" {
 Renderer::Renderer(System::Windows::Forms::Form ^ parentForm, 
             GLsizei iWidth, GLsizei iHeight)
 {
+	needsResize = false;
+
+	_running = false;
+	_active = false;
+	_glReady = false;
+
 	CreateParams^ cp = gcnew CreateParams;
 
 	// Set the position on the form
@@ -45,12 +51,15 @@ Renderer::Renderer(System::Windows::Forms::Form ^ parentForm,
 
 	camera = new Camera();
 	camera->setFOV(45.f);
+
+	_active = true;
 }
 
 Renderer::~Renderer(System::Void)
 {
-	delete camera;
+	_active = false;
 
+	delete camera;
 	this->DestroyHandle();
 }
 
@@ -63,48 +72,39 @@ RenderManager* Renderer::getManager()
 	return manager;
 }
 
-
 System::Void Renderer::Resize(GLsizei iWidth, GLsizei iHeight)
 {
 	if (iHeight <= 0)						// Check if iHeight is less than or equal to zero
 		iHeight = 1;						// If true then change iHeight to one to protect against zero divide
 
-	camera->setWidth(iWidth);				// Update camera width
-	camera->setHeight(iHeight);				// Update camera height
+	width = iWidth;
+	height = iHeight;
 
-	glViewport(0, 0, iWidth, iHeight);		// Set Viewport
-	double aspect_ratio = (double)iWidth / (double) iHeight;
-	glMatrixMode(GL_PROJECTION);			// Select The Projection Matrix
-	glLoadIdentity();						// Reset The Projection Matrix
-
-	// Calculate The Aspect Ratio Of The Window
-	gluPerspective(45.0f, aspect_ratio, 0.1f, 100.0f);
-
-	glMatrixMode(GL_MODELVIEW);				// Select The Modelview Matrix
-	glLoadIdentity();						// Reset The Modelview Matrix
+	needsResize = true;
 }
 
 GLint Renderer::CreatePixelFormat(HDC hdc) 
 {
 	PIXELFORMATDESCRIPTOR pfd = { 
-            sizeof(PIXELFORMATDESCRIPTOR),    // size of this pfd 
-            1,                                // version number 
-            PFD_DRAW_TO_WINDOW |              // support window 
-            PFD_SUPPORT_OPENGL |              // support OpenGL 
-            PFD_DOUBLEBUFFER,                 // double buffered 
-            PFD_TYPE_RGBA,                    // RGBA type 
-            24,                               // 24-bit color depth 
-            0, 0, 0, 0, 0, 0,                 // color bits ignored 
-            0,                                // no alpha buffer 
-            0,                                // shift bit ignored 
-            0,                                // no accumulation buffer 
-            0, 0, 0, 0,                       // accum bits ignored 
-            32,                               // 32-bit z-buffer     
-            0,                                // no stencil buffer 
-            0,                                // no auxiliary buffer 
-            PFD_MAIN_PLANE,                   // main layer 
-            0,                                // reserved 
-            0, 0, 0                           // layer masks ignored 
+            sizeof(PIXELFORMATDESCRIPTOR),		// size of this pfd 
+            1,									// version number 
+            PFD_DRAW_TO_WINDOW |				// support window 
+            PFD_SUPPORT_OPENGL |				// support OpenGL 
+            PFD_DOUBLEBUFFER |					// double buffered 
+			PFD_SUPPORT_COMPOSITION,           
+            PFD_TYPE_RGBA,						// RGBA type 
+            24,									// 24-bit color depth 
+            0, 0, 0, 0, 0, 0,					// color bits ignored 
+            0,									// no alpha buffer 
+            0,									// shift bit ignored 
+            0,									// no accumulation buffer 
+            0, 0, 0, 0,							// accum bits ignored 
+            32,									// 32-bit z-buffer     
+            0,									// no stencil buffer 
+            0,									// no auxiliary buffer 
+            PFD_MAIN_PLANE,						// main layer 
+            0,									// reserved 
+            0, 0, 0								// layer masks ignored 
         }; 
     
         GLint  iPixelFormat; 
@@ -143,8 +143,31 @@ System::Void Renderer::SwapOpenGLBuffers(System::Void)
     SwapBuffers(m_hDC) ;
 }
 
+System::Void Renderer::Update(System::Void)
+{
+	if (needsResize) {
+		camera->setWidth(width);				// Update camera width
+		camera->setHeight(height);				// Update camera height
+
+		glViewport(0, 0, width, height);		// Set Viewport
+		double aspect_ratio = (double)width / (double) height;
+		glMatrixMode(GL_PROJECTION);			// Select The Projection Matrix
+		glLoadIdentity();						// Reset The Projection Matrix
+
+		// Calculate The Aspect Ratio Of The Window
+		gluPerspective(camera->getFOV(), aspect_ratio, 0.1f, 100.0f);
+
+		glMatrixMode(GL_MODELVIEW);				// Select The Modelview Matrix
+		glLoadIdentity();						// Reset The Modelview Matrix
+	}
+
+	manager->update();
+}
+
 System::Void Renderer::Render(System::Void)
 {
+	static float angle = 0.f;
+
     // Clear the color and depth buffers.
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f) ;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -152,6 +175,19 @@ System::Void Renderer::Render(System::Void)
 	glLoadIdentity();												// Load Identity
 	glTranslatef(0, 0, -2.25);										// Set Camera Position
 	glRotatef(25, 1, 0, 0);
+	glRotatef(angle, 0, 1, 0);
 
 	manager->render(camera);										// Render scene
+
+	angle += 0.1f;
+}
+
+System::Void Renderer::RenderInBackground(System::Void) {
+	
+}
+
+System::Void Renderer::GetFrame(System::Void) {
+	Update();
+	Render();
+	SwapOpenGLBuffers();
 }

@@ -65,7 +65,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>NatNetLib.lib;cg.lib;cgGL.lib;opengl32.lib;glu32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>NatNetLib.lib;cg.lib;cgGL.lib;opengl32.lib;glu32.lib;glew32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
       <AdditionalLibraryDirectories>NatNetSDK\lib;C:\Users\mdfeist\Documents\opt\lib\Debug;</AdditionalLibraryDirectories>

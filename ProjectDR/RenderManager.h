@@ -17,6 +17,7 @@ public:
 
 	void addActor(Actor*);
 	void removeActor(Actor*);
+	void update();
 	void render(Camera*);
 
 private:

@@ -1029,8 +1029,6 @@ private: System::Void browseForVolumeBtn_Click(System::Object^  sender, System::
 private: System::Void loadVolumeBtn_Click(System::Object^  sender, System::EventArgs^  e) {
 			 this->loadVolumeBtn->Enabled = false;
 			 this->spinner->Enable = true;
-			 
-			 VolumeRenderManager::getInstance()->Show();
 
 			 this->backgroundWorker1->RunWorkerAsync();
 		 }
@@ -1044,9 +1042,9 @@ private: System::Void backgroundWorker1_DoWork(System::Object^  sender, System::
 
 private: System::Void backgroundWorker1_RunWorkerCompleted(System::Object^  sender, System::ComponentModel::RunWorkerCompletedEventArgs^  e) {
 			 OpenGLView^ view = VolumeRenderManager::getInstance()->createForm();
-			 view->SuspendLayout();
 			 VolumeRenderManager::getInstance()->addVolumeToScene();
-			 view->ResumeLayout();
+			 VolumeRenderManager::getInstance()->Show();
+			 view->Invalidate();
 			 view->Refresh();
 
 			 this->spinner->Enable = false;

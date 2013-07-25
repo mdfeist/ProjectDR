@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Renderer.h"
+#include <iostream>
 
 namespace ProjectDR {
 
@@ -58,29 +59,42 @@ namespace ProjectDR {
 			this->ClientSize = System::Drawing::Size(284, 262);
 			this->Name = L"OpenGLView";
 			this->Text = L"OpenGL View";
+			this->Load += gcnew System::EventHandler(this, &OpenGLView::OpenGLView_Load);
 			this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &OpenGLView::OpenGLView_Paint);
 			this->Resize += gcnew System::EventHandler(this, &OpenGLView::OpenGLView_Resize);
 			this->ResumeLayout(false);
+
 		}
 #pragma endregion
-	private: System::Void OpenGLView_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
-				 UNREFERENCED_PARAMETER(sender);
-				 UNREFERENCED_PARAMETER(e);
-				 renderer->Render();
-				 renderer->SwapOpenGLBuffers();
-			 }
+	public: 
+		Renderer^ GetRenderer() {
+			return renderer;
+		}
 
-	private: System::Void OpenGLView_Resize(System::Object^  sender, System::EventArgs^  e) {
-				 UNREFERENCED_PARAMETER(sender);
-				 UNREFERENCED_PARAMETER(e);
-				 renderer->Resize(this->Size.Width, this->Size.Height);
-				 MoveWindow((HWND)renderer->Handle.ToPointer(), 0, 0, this->Size.Width, this->Size.Height, true);
-				 Invalidate();
-				 Refresh();
-			 }
+	private:
+		System::Void OpenGLView_Load(System::Object^  sender, System::EventArgs^  e) 
+		{
+			UNREFERENCED_PARAMETER(sender);
+			UNREFERENCED_PARAMETER(e);
+			renderer->Resize(this->Size.Width, this->Size.Height);
+			MoveWindow((HWND)renderer->Handle.ToPointer(), 0, 0, this->Size.Width, this->Size.Height, true);
+			Invalidate();
+			Refresh();
+		}
 
-	public: Renderer^ GetRenderer() {
-				return renderer;
-			}
+		System::Void OpenGLView_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+			UNREFERENCED_PARAMETER(sender);
+			UNREFERENCED_PARAMETER(e);
+			renderer->RenderInBackground();
+		}
+
+		System::Void OpenGLView_Resize(System::Object^  sender, System::EventArgs^  e) {
+			UNREFERENCED_PARAMETER(sender);
+			UNREFERENCED_PARAMETER(e);
+			renderer->Resize(this->Size.Width, this->Size.Height);
+			MoveWindow((HWND)renderer->Handle.ToPointer(), 0, 0, this->Size.Width, this->Size.Height, true);
+			Invalidate();
+			Refresh();
+		}
 	};
 }

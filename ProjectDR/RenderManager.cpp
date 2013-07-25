@@ -65,6 +65,12 @@ void RenderManager::removeActor(Actor* actor) {
 	}
 }
 
+void RenderManager::update() {
+	for each (Actor* actor in actors)
+		if (actor->needsInit())
+			actor->init();
+}
+
 void RenderManager::render(Camera* camera) {
 	for each (Actor* actor in actors)
 		actor->render(camera);
