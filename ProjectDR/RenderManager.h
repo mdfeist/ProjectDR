@@ -13,8 +13,6 @@ public:
 	RenderManager(void);
 	~RenderManager(void);
 
-	void initGL();
-
 	void addActor(Actor*);
 	void removeActor(Actor*);
 	void update();

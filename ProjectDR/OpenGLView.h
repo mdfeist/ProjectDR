@@ -78,14 +78,12 @@ namespace ProjectDR {
 			UNREFERENCED_PARAMETER(e);
 			renderer->Resize(this->Size.Width, this->Size.Height);
 			MoveWindow((HWND)renderer->Handle.ToPointer(), 0, 0, this->Size.Width, this->Size.Height, true);
-			Invalidate();
-			Refresh();
 		}
 
 		System::Void OpenGLView_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
 			UNREFERENCED_PARAMETER(sender);
 			UNREFERENCED_PARAMETER(e);
-			renderer->GetFrame();
+			
 		}
 
 		System::Void OpenGLView_Resize(System::Object^  sender, System::EventArgs^  e) {
@@ -93,8 +91,6 @@ namespace ProjectDR {
 			UNREFERENCED_PARAMETER(e);
 			renderer->Resize(this->Size.Width, this->Size.Height);
 			MoveWindow((HWND)renderer->Handle.ToPointer(), 0, 0, this->Size.Width, this->Size.Height, true);
-			Invalidate();
-			Refresh();
 		}
 	};
 }

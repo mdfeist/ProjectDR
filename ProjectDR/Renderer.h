@@ -6,9 +6,10 @@ class Camera;
 class RenderManager;
 
 using namespace System;
+using namespace System::Collections::Generic;
 using namespace System::Runtime::InteropServices;
 using namespace System::Windows::Forms;
-using namespace System::Collections::Generic;
+using namespace System::Threading;
 
 public ref class Renderer : 
       public System::Windows::Forms::NativeWindow
@@ -37,8 +38,6 @@ public:
 		void set(bool value) { _glReady = value; }
 	}
 
-	System::Void GetFrame(System::Void);
-
 private:
     HDC								m_hDC;		// Private GDI Device Contex
     HGLRC							m_hglrc;	// Permanent Rendering Context
@@ -53,10 +52,15 @@ private:
 	bool							_running;
 	bool							_active;
 	bool							_glReady;
+
+	System::Threading::Thread^		glThread;
 	
+	System::Void InitGL(System::Void);
+	System::Void RunLoop(System::Void);
 	System::Void Update(System::Void);
 	System::Void Render(System::Void);
 	System::Void SwapOpenGLBuffers(System::Void);
+	System::Void GetFrame(System::Void);
 protected:
     ~Renderer(System::Void);
 

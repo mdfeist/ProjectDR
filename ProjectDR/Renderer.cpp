@@ -43,24 +43,105 @@ Renderer::Renderer(System::Windows::Forms::Form ^ parentForm,
 
 	m_hDC = GetDC((HWND)this->Handle.ToPointer());
 
-	if(m_hDC)
-		CreatePixelFormat(m_hDC);
+	System::Threading::ThreadStart^ threadDelegate = 
+		gcnew System::Threading::ThreadStart(this, &Renderer::InitGL);
+	glThread = gcnew System::Threading::Thread(threadDelegate);
+	glThread->Start();
 
-	manager = new RenderManager();
-	manager->initGL();
-
-	camera = new Camera();
-	camera->setFOV(45.f);
-
-	_active = true;
+	while(!_glReady)
+		Sleep(500);
 }
 
 Renderer::~Renderer(System::Void)
 {
 	_active = false;
+	_running = false;
 
 	delete camera;
+	delete manager;
 	this->DestroyHandle();
+}
+
+System::Void Renderer::InitGL(System::Void)
+{
+	if(m_hDC)
+		CreatePixelFormat(m_hDC);
+
+	manager = new RenderManager();
+
+	if ( glewInit() != GLEW_OK )						// Init GLEW
+	{
+		std::cout << "Failed to initialize GLEW." << std::endl;
+		return;
+	}
+
+	if ( !glewIsSupported("GL_VERSION_1_5") && !glewIsSupported( "GL_ARB_vertex_buffer_object" ) )
+	{
+		std::cout << "- ARB_vertex_buffer_object not supported" << std::endl;
+		return;
+	}
+
+	glewGetExtension("glMultiTexCoord2fvARB");  
+	if(glewGetExtension("GL_EXT_framebuffer_object") ) std::cout << "- GL_EXT_framebuffer_object support " << std::endl;
+	if(glewGetExtension("GL_EXT_renderbuffer_object")) std::cout << "- GL_EXT_renderbuffer_object support " << std::endl;
+	if(glewGetExtension("GL_ARB_vertex_buffer_object")) std::cout << "- GL_ARB_vertex_buffer_object support" << std::endl;
+	if(GL_ARB_multitexture) std::cout << "- GL_ARB_multitexture support " << std::endl;
+	
+	if (glewGetExtension("GL_ARB_fragment_shader")      != GL_TRUE ||
+		glewGetExtension("GL_ARB_vertex_shader")        != GL_TRUE ||
+		glewGetExtension("GL_ARB_shader_objects")       != GL_TRUE ||
+		glewGetExtension("GL_ARB_shading_language_100") != GL_TRUE)
+	{
+		 std::cout << "- Driver does not support OpenGL Shading Language" << std::endl;
+	}
+
+	glEnable (GL_TEXTURE_2D);
+	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
+	glClearColor(1.f, 0.f, 0.f, 0.f);					// Set Background Color
+	glClearDepth(1.0f);									// Depth Buffer Setup
+	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
+	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
+	glDisable(GL_LIGHTING);
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
+
+	camera = new Camera();
+	camera->setFOV(45.f);
+
+	_active = true;
+	_running = true;
+
+	_glReady = true;
+
+	RunLoop();
+}
+
+System::Void Renderer::RunLoop(System::Void)
+{
+	float fps = (1000.f/60.f);
+	float dwStartTime = 0.f;
+	float dwEndUpdateTime = 0.f;
+	float dwElapsedTime = 0.f;
+
+	while (_running) {
+		// Get Start Time
+		dwStartTime = timeGetTime();
+
+		if (_active) {
+			// Draw scene
+			GetFrame();
+		}
+
+		// Get End Time
+		dwEndUpdateTime = timeGetTime();
+
+		// Calculate time Elapsed time
+		dwElapsedTime = dwEndUpdateTime - dwStartTime;
+
+		float delay = fps - dwElapsedTime;
+
+		if (delay > 0.f)
+			Sleep(delay);
+	}
 }
 
 Camera* Renderer::getActiveCamera() 
