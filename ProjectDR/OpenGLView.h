@@ -30,6 +30,8 @@ namespace ProjectDR {
 		/// </summary>
 		~OpenGLView()
 		{
+			delete renderer;
+
 			if (components)
 			{
 				delete components;
@@ -83,14 +85,25 @@ namespace ProjectDR {
 		System::Void OpenGLView_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
 			UNREFERENCED_PARAMETER(sender);
 			UNREFERENCED_PARAMETER(e);
-			
 		}
 
 		System::Void OpenGLView_Resize(System::Object^  sender, System::EventArgs^  e) {
 			UNREFERENCED_PARAMETER(sender);
 			UNREFERENCED_PARAMETER(e);
-			renderer->Resize(this->Size.Width, this->Size.Height);
-			MoveWindow((HWND)renderer->Handle.ToPointer(), 0, 0, this->Size.Width, this->Size.Height, true);
+			if ( WindowState == FormWindowState::Minimized )
+			{
+				renderer->Active = false;
+			} else {
+				renderer->Active = true;
+				renderer->Resize(this->Size.Width, this->Size.Height);
+				MoveWindow(
+					(HWND)renderer->Handle.ToPointer(), 
+					0, 
+					0, 
+					this->Size.Width, 
+					this->Size.Height, 
+					true);
+			}
 		}
 	};
 }

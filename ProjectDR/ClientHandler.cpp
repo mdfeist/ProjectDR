@@ -411,7 +411,7 @@ void __cdecl DataHandler(sFrameOfMocapData* data, void* pUserData) {
 			float qw = data->RigidBodies[i].qw;
 
 			body->addFrame(Eigen::Vector3f(x, y, z),
-					Eigen::Quaternionf(qx, qy, qz, qw));
+					Eigen::Quaternionf(qw, qx, qy, qz));
 
 			// Clear all the previous markers that were attached to the Rigid Body
 			body->clearMarkers();

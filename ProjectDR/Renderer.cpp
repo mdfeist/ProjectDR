@@ -4,6 +4,8 @@
 #include <math.h>
 #include <iostream>
 
+#include <MMSystem.h>
+
 #pragma unmanaged
 #include "Camera.h"
 #include "RenderManager.h"
@@ -252,12 +254,12 @@ System::Void Renderer::Render(System::Void)
     // Clear the color and depth buffers.
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f) ;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	
 	glLoadIdentity();												// Load Identity
 	glTranslatef(0, 0, -2.25);										// Set Camera Position
 	glRotatef(25, 1, 0, 0);
 	glRotatef(angle, 0, 1, 0);
-
+	
 	manager->render(camera);										// Render scene
 
 	angle += 0.1f;

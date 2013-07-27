@@ -156,7 +156,7 @@ GLuint newTexture(int width, int height) {
 	return texture;															// Return texture
 }
 
-Volume::Volume(void) : Actor()												// Constructor
+Volume::Volume(void) : Actor3D()											// Constructor
 {
 	volumeData = NULL;
 	releaseDataAfterSetup = true;

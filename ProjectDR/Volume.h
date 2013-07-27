@@ -9,7 +9,7 @@
 #include <vector>
 
 #pragma unmanaged
-#include "Actor.h"
+#include "Actor3D.h"
 
 class TransferFunction;
 
@@ -18,7 +18,7 @@ class VolumeLoader;
 
 struct VertexPositionColor;
 
-class Volume : public Actor
+class Volume : public Actor3D
 {
 public:
 	Volume(void);

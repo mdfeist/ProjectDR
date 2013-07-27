@@ -41,9 +41,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\mdfeist\Documents\opt\lib;C:\Program Files (x86)\NVIDIA Corporation\Cg\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\mdfeist\Documents\opt\lib;C:\Program Files (x86)\NVIDIA Corporation\Cg\lib;$(KINECT_TOOLKIT_DIR)\lib\x86;$(KINECTSDK10_DIR)\lib\x86;$(LibraryPath)</LibraryPath>
     <ExecutablePath>C:\Users\mdfeist\Documents\opt\bin;C:\Program Files (x86)\NVIDIA Corporation\Cg\bin;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\Users\mdfeist\Documents\opt\include;C:\Program Files (x86)\NVIDIA Corporation\Cg\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\mdfeist\Documents\opt\include;C:\Program Files (x86)\NVIDIA Corporation\Cg\include;$(KINECT_TOOLKIT_DIR)inc;$(KINECTSDK10_DIR)inc;$(IncludePath)</IncludePath>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -58,17 +58,18 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;NATNETLIB_IMPORTS;_DEBUG;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>C:\Users\mdfeist\Documents\opt\include\ITK-4.5;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAsManaged>true</CompileAsManaged>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>NatNetLib.lib;cg.lib;cgGL.lib;opengl32.lib;glu32.lib;glew32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>NatNetLib.lib;cg.lib;cgGL.lib;opengl32.lib;glu32.lib;glew32.lib;Kinect10.lib;KinectFusion170_32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
-      <AdditionalLibraryDirectories>NatNetSDK\lib;C:\Users\mdfeist\Documents\opt\lib\Debug;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>NatNetSDK\lib;</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <AssemblyDebug>false</AssemblyDebug>
@@ -144,6 +145,8 @@
     <ClCompile Include="FormEvents.cpp">
       <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</BasicRuntimeChecks>
     </ClCompile>
+    <ClCompile Include="ImageRender.cpp" />
+    <ClCompile Include="KinectFusionBasics.cpp" />
     <ClCompile Include="MainFormController.cpp">
       <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ProgramDatabase</DebugInformationFormat>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsManaged>
@@ -181,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="Actor3D.h" />
     <ClInclude Include="BuildCubesManager.h" />
     <ClInclude Include="BuildCubesVert.h" />
     <ClInclude Include="Camera.h" />
@@ -452,6 +456,9 @@
     <ClInclude Include="Eigen\SVD.h" />
     <ClInclude Include="Eigen\UmfPackSupport.h" />
     <ClInclude Include="FormController.h" />
+    <ClInclude Include="ImageRender.h" />
+    <ClInclude Include="KinectFusionBasics.h" />
+    <ClInclude Include="KinectFusionRender.h" />
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
