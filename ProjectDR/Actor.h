@@ -1,5 +1,4 @@
 #pragma once
-#pragma unmanaged
 #include "Camera.h"
 
 class Actor {
@@ -19,4 +18,3 @@ public:
 protected:
 	int actor_id;
 };
-#pragma managed

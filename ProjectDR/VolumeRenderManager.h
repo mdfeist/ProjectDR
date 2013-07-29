@@ -2,7 +2,10 @@
 #include "FormController.h"
 #include "OpenGLView.h"
 
+#pragma unmanaged
 #include "KinectFusionRender.h"
+#pragma managed
+
 #include "KinectFusionBasics.h"
 
 class Volume;

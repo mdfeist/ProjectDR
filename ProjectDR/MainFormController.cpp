@@ -1,7 +1,9 @@
 #include "StdAfx.h"
 #include "MainFormController.h"
 
+#pragma unmanaged
 #include "ClientHandler.h"
+#pragma managed
 
 using namespace System;
 

@@ -15,6 +15,8 @@ void __cdecl MessageHandler(int msgType, char* msg);
 ClientHandler::ClientHandler(void) {
 	this->natnet = 0;
 	this->natNetServerRunning = false;
+
+	this->filpYZCoordinates = false;
 	
 	this->optiTrackConnectionType = ConnectionType_Multicast;
 	
@@ -374,7 +376,6 @@ void ClientHandler::resetClient() {
 		this->outputLog("error re-initting Client\n");
 }
 
-#pragma unmanaged
 // DataHandler receives data from the server
 void __cdecl DataHandler(sFrameOfMocapData* data, void* pUserData) {
 	// Cast user data as ClientHandler
@@ -401,17 +402,31 @@ void __cdecl DataHandler(sFrameOfMocapData* data, void* pUserData) {
 				continue;
 
 			// Update the Position and Orientation of the Rigid Body
-			float x = -data->RigidBodies[i].x;
-			float z = data->RigidBodies[i].y;
-			float y = data->RigidBodies[i].z;
+			float x, y, z;
+			float qx, qy, qz, qw;
 
-			float qx = -data->RigidBodies[i].qx;
-			float qy = data->RigidBodies[i].qz;
-			float qz = data->RigidBodies[i].qy;
-			float qw = data->RigidBodies[i].qw;
+			if (pClient->coordinateSystem()) {
+				x = data->RigidBodies[i].x;
+				y = data->RigidBodies[i].y;
+				z = data->RigidBodies[i].z;
 
+				qx = data->RigidBodies[i].qx;
+				qy = data->RigidBodies[i].qy;
+				qz = data->RigidBodies[i].qz;
+				qw = data->RigidBodies[i].qw;
+			} else {
+				x = -data->RigidBodies[i].x;
+				y = data->RigidBodies[i].z;
+				z = data->RigidBodies[i].y;
+
+				qx = -data->RigidBodies[i].qx;
+				qy = data->RigidBodies[i].qz;
+				qz = data->RigidBodies[i].qy;
+				qw = data->RigidBodies[i].qw;
+			}
+				
 			body->addFrame(Eigen::Vector3f(x, y, z),
-					Eigen::Quaternionf(qw, qx, qy, qz));
+				Eigen::Quaternionf(qw, qx, qy, qz));
 
 			// Clear all the previous markers that were attached to the Rigid Body
 			body->clearMarkers();
@@ -426,9 +441,15 @@ void __cdecl DataHandler(sFrameOfMocapData* data, void* pUserData) {
 					marker.setID(data->RigidBodies[i].MarkerIDs[iMarker]);
 
 				if(data->RigidBodies[i].Markers) {
-					x = -data->RigidBodies[i].Markers[iMarker][0];
-					z = data->RigidBodies[i].Markers[iMarker][1];
-					y = data->RigidBodies[i].Markers[iMarker][2];
+					if (pClient->coordinateSystem()) {
+						x = -data->RigidBodies[i].Markers[iMarker][0];
+						y = data->RigidBodies[i].Markers[iMarker][1];
+						z = data->RigidBodies[i].Markers[iMarker][2];
+					} else {
+						x = -data->RigidBodies[i].Markers[iMarker][0];
+						z = data->RigidBodies[i].Markers[iMarker][1];
+						y = data->RigidBodies[i].Markers[iMarker][2];
+					}
 
 					marker.setPosition(Eigen::Vector3f(x, y, z));
 				}
@@ -451,7 +472,6 @@ void __cdecl DataHandler(sFrameOfMocapData* data, void* pUserData) {
 void __cdecl MessageHandler(int msgType, char* msg) {
 	//printf("\n%s\n", msg);
 }
-#pragma managed
 
 // Add a Rigid Body to the ClientHandler
 bool ClientHandler::addRigidBody(int id, RigidBody* rigidBody) {

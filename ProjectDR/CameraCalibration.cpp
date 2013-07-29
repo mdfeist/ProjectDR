@@ -4,8 +4,11 @@
 #include <string>
 
 #include "CameraCalibrationFormController.h"
+
+#pragma unmanaged
 #include "ClientHandler.h"
 #include "RigidBody.h"
+#pragma managed
 
 #if _DEBUG
 using namespace System;

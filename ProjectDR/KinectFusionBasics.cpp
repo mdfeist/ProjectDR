@@ -99,6 +99,7 @@ CKinectFusionBasics::CKinectFusionBasics() :
     // are required, each on a separate device.
     m_deviceIndex = -1;    // automatically choose device index for processing
 
+	SetIdentityMatrix(m_cameraTransform);
     SetIdentityMatrix(m_worldToCameraTransform);
     SetIdentityMatrix(m_defaultWorldToVolumeTransform);
 
@@ -275,7 +276,7 @@ HRESULT CKinectFusionBasics::InitializeKinectFusion()
 
         return hr;
     }
-
+	
     // Save the default world to volume transformation to be optionally used in ResetReconstruction
     hr = m_pVolume->GetCurrentWorldToVolumeTransform(&m_defaultWorldToVolumeTransform);
     if (FAILED(hr))
@@ -283,7 +284,7 @@ HRESULT CKinectFusionBasics::InitializeKinectFusion()
         std::cout << "Failed in call to GetCurrentWorldToVolumeTransform." << std::endl;
         return hr;
     }
-
+	
     if (m_bTranslateResetPoseByMinDepthThreshold)
     {
         // This call will set the world-volume transformation
@@ -325,8 +326,32 @@ HRESULT CKinectFusionBasics::InitializeKinectFusion()
         return hr;
     }
 
+	std::cout << "m_cameraTransform" << std::endl;
+	std::cout 
+		<< m_cameraTransform.M11 << "," << m_cameraTransform.M12 << "," << m_cameraTransform.M13 << "," << m_cameraTransform.M14 << std::endl
+		<< m_cameraTransform.M21 << "," << m_cameraTransform.M22 << "," << m_cameraTransform.M23 << "," << m_cameraTransform.M24 << std::endl
+		<< m_cameraTransform.M31 << "," << m_cameraTransform.M32 << "," << m_cameraTransform.M33 << "," << m_cameraTransform.M34 << std::endl
+		<< m_cameraTransform.M41 << "," << m_cameraTransform.M42 << "," << m_cameraTransform.M43 << "," << m_cameraTransform.M44 << std::endl
+		<< std::endl;
+
+	std::cout << "m_worldToCameraTransform" << std::endl;
+	std::cout 
+		<< m_worldToCameraTransform.M11 << "," << m_worldToCameraTransform.M12 << "," << m_worldToCameraTransform.M13 << "," << m_worldToCameraTransform.M14 << std::endl
+		<< m_worldToCameraTransform.M21 << "," << m_worldToCameraTransform.M22 << "," << m_worldToCameraTransform.M23 << "," << m_worldToCameraTransform.M24 << std::endl
+		<< m_worldToCameraTransform.M31 << "," << m_worldToCameraTransform.M32 << "," << m_worldToCameraTransform.M33 << "," << m_worldToCameraTransform.M34 << std::endl
+		<< m_worldToCameraTransform.M41 << "," << m_worldToCameraTransform.M42 << "," << m_worldToCameraTransform.M43 << "," << m_worldToCameraTransform.M44 << std::endl
+		<< std::endl;
+
+	std::cout << "m_defaultWorldToVolumeTransform" << std::endl;
+	std::cout 
+		<< m_defaultWorldToVolumeTransform.M11 << "," << m_defaultWorldToVolumeTransform.M12 << "," << m_defaultWorldToVolumeTransform.M13 << "," << m_defaultWorldToVolumeTransform.M14 << std::endl
+		<< m_defaultWorldToVolumeTransform.M21 << "," << m_defaultWorldToVolumeTransform.M22 << "," << m_defaultWorldToVolumeTransform.M23 << "," << m_defaultWorldToVolumeTransform.M24 << std::endl
+		<< m_defaultWorldToVolumeTransform.M31 << "," << m_defaultWorldToVolumeTransform.M32 << "," << m_defaultWorldToVolumeTransform.M33 << "," << m_defaultWorldToVolumeTransform.M34 << std::endl
+		<< m_defaultWorldToVolumeTransform.M41 << "," << m_defaultWorldToVolumeTransform.M42 << "," << m_defaultWorldToVolumeTransform.M43 << "," << m_defaultWorldToVolumeTransform.M44 << std::endl
+		<< std::endl;
+
     // Set an introductory message
-    std::cout << "Click ‘Near Mode’ to change sensor range, and ‘Reset Reconstruction’ to clear!" << std::endl;
+   std::cout << "Click 'Near Mode' to change sensor range, and 'Reset Reconstruction' to clear!" << std::endl;
 
     return hr;
 }
@@ -461,16 +486,29 @@ void CKinectFusionBasics::ProcessDepth()
     // This will create memory on the GPU, upload the image, run camera tracking and integrate the
     // data into the Reconstruction Volume if successful. Note that passing nullptr as the final 
     // parameter will use and update the internal camera pose.
-	//hr = m_pVolume->IntegrateFrame(m_pDepthFloatImage, 1000, &m_cameraTransform);
-    hr = m_pVolume->ProcessFrame(m_pDepthFloatImage, NUI_FUSION_DEFAULT_ALIGN_ITERATION_COUNT, m_cMaxIntegrationWeight, &m_cameraTransform);
-   
-	std::cout 
-		<< m_worldToCameraTransform.M11 << "," << m_worldToCameraTransform.M12 << "," << m_worldToCameraTransform.M13 << "," << m_worldToCameraTransform.M14 << std::endl
-		<< m_worldToCameraTransform.M21 << "," << m_worldToCameraTransform.M22 << "," << m_worldToCameraTransform.M23 << "," << m_worldToCameraTransform.M24 << std::endl
-		<< m_worldToCameraTransform.M31 << "," << m_worldToCameraTransform.M32 << "," << m_worldToCameraTransform.M33 << "," << m_worldToCameraTransform.M34 << std::endl
-		<< m_worldToCameraTransform.M41 << "," << m_worldToCameraTransform.M42 << "," << m_worldToCameraTransform.M43 << "," << m_worldToCameraTransform.M44 << std::endl
-		<< std::endl;
+	//hr = m_pVolume->IntegrateFrame(m_pDepthFloatImage, 1, &m_cameraTransform);
+    hr = m_pVolume->ProcessFrame(m_pDepthFloatImage, NUI_FUSION_DEFAULT_ALIGN_ITERATION_COUNT*2, m_cMaxIntegrationWeight, &m_worldToCameraTransform);
+	static int count = 0;
 	
+	if (count % 60 == 0) {
+		std::cout << "m_cameraTransform" << std::endl;
+		std::cout 
+			<< m_cameraTransform.M11 << "," << m_cameraTransform.M12 << "," << m_cameraTransform.M13 << "," << m_cameraTransform.M14 << std::endl
+			<< m_cameraTransform.M21 << "," << m_cameraTransform.M22 << "," << m_cameraTransform.M23 << "," << m_cameraTransform.M24 << std::endl
+			<< m_cameraTransform.M31 << "," << m_cameraTransform.M32 << "," << m_cameraTransform.M33 << "," << m_cameraTransform.M34 << std::endl
+			<< m_cameraTransform.M41 << "," << m_cameraTransform.M42 << "," << m_cameraTransform.M43 << "," << m_cameraTransform.M44 << std::endl
+			<< std::endl;
+
+		std::cout << "m_worldToCameraTransform" << std::endl;
+		std::cout 
+			<< m_worldToCameraTransform.M11 << "," << m_worldToCameraTransform.M12 << "," << m_worldToCameraTransform.M13 << "," << m_worldToCameraTransform.M14 << std::endl
+			<< m_worldToCameraTransform.M21 << "," << m_worldToCameraTransform.M22 << "," << m_worldToCameraTransform.M23 << "," << m_worldToCameraTransform.M24 << std::endl
+			<< m_worldToCameraTransform.M31 << "," << m_worldToCameraTransform.M32 << "," << m_worldToCameraTransform.M33 << "," << m_worldToCameraTransform.M34 << std::endl
+			<< m_worldToCameraTransform.M41 << "," << m_worldToCameraTransform.M42 << "," << m_worldToCameraTransform.M43 << "," << m_worldToCameraTransform.M44 << std::endl
+			<< std::endl;
+	}
+
+	count++;
 	// Test to see if camera tracking failed. 
     // If it did fail, no data integration or raycast for reference points and normals will have taken 
     //  place, and the internal camera pose will be unchanged.
@@ -501,7 +539,7 @@ void CKinectFusionBasics::ProcessDepth()
             m_bTrackingFailed = false;
         }
     }
-	/*
+	
     if (m_bAutoResetReconstructionWhenLost && m_bTrackingFailed && m_cLostFrameCounter >= cResetOnNumberOfLostFrames)
     {
         // Automatically clear volume and reset tracking if tracking fails
@@ -515,7 +553,7 @@ void CKinectFusionBasics::ProcessDepth()
         // Set bad tracking message
         std::cout << "Kinect Fusion camera tracking failed, automatically reset volume." << std::endl;
     }
-	*/
+	
     ////////////////////////////////////////////////////////
     // CalculatePointCloud
 
@@ -590,7 +628,7 @@ HRESULT CKinectFusionBasics::ResetReconstruction()
     }
 
     HRESULT hr = S_OK;
-
+	/*
     SetIdentityMatrix(m_worldToCameraTransform);
 
     // Translate the reconstruction volume location away from the world origin by an amount equal
@@ -626,7 +664,7 @@ HRESULT CKinectFusionBasics::ResetReconstruction()
     {
         std::cout << "Failed to reset reconstruction." << std::endl;
     }
-
+	*/
     return hr;
 }
 

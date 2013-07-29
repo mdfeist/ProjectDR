@@ -7,7 +7,6 @@
 #include <string>
 #include <vector>
 
-#pragma unmanaged
 #include "Eigen\Core.h"
 #include "Eigen\src\Geometry\RotationBase.h"
 #include "Eigen\src\Geometry\Quaternion.h"
@@ -69,5 +68,3 @@ public:
 	// Update the transformation of the Rigid Body
 	void addFrame(Eigen::Vector3f position, Eigen::Quaternionf& rotation);
 };
-
-#pragma managed

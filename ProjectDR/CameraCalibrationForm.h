@@ -1,9 +1,12 @@
 #pragma once
 
 #include "WizardPages.h"
+#include "CameraCalibration.h"
+
+#pragma unmanaged
 #include "ClientHandler.h"
 #include "RigidBody.h"
-#include "CameraCalibration.h"
+#pragma managed
 
 namespace ProjectDR {
 

@@ -8,8 +8,11 @@
 #include <exception>
 #include <msclr\marshal_cppstd.h>
 
+#pragma unmanaged
 #include "ClientHandler.h"
 #include "RigidBody.h"
+#pragma managed
+
 #include "CameraCalibrationFormController.h"
 #include "VolumeRenderManager.h"
 
@@ -100,6 +103,8 @@ namespace ProjectDR {
 	private: System::Windows::Forms::Label^  rbIDofVolumeLabel;
 	private: System::Windows::Forms::Button^  setRigidBodyIDBtn;
 	private: System::Windows::Forms::TextBox^  rbIDofVolumeTextBox;
+	private: System::Windows::Forms::Label^  flipYZLabel;
+	private: System::Windows::Forms::Button^  flipYZBtn;
 
 
 
@@ -117,8 +122,8 @@ namespace ProjectDR {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->menuStrip = (gcnew System::Windows::Forms::MenuStrip());
 			this->projectDRToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->calibrationToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -139,6 +144,8 @@ namespace ProjectDR {
 			this->optiTrackRigidBodyRotationWColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->optiTrackOutputLogTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->optiTrackOutputLogLabel = (gcnew System::Windows::Forms::Label());
+			this->flipYZLabel = (gcnew System::Windows::Forms::Label());
+			this->flipYZBtn = (gcnew System::Windows::Forms::Button());
 			this->optiTrackDisConnect = (gcnew System::Windows::Forms::Button());
 			this->optiTrackConnectBtn = (gcnew System::Windows::Forms::Button());
 			this->optiTrackLocalIpAddressTextBox = (gcnew System::Windows::Forms::TextBox());
@@ -155,6 +162,8 @@ namespace ProjectDR {
 			this->optiTrackServerTitleLabel = (gcnew System::Windows::Forms::Label());
 			this->optiTrackPropertiesLabel = (gcnew System::Windows::Forms::Label());
 			this->VolumeTab = (gcnew System::Windows::Forms::TabPage());
+			this->setRigidBodyIDBtn = (gcnew System::Windows::Forms::Button());
+			this->rbIDofVolumeTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->rbIDofVolumeLabel = (gcnew System::Windows::Forms::Label());
 			this->showOpenGLViewBtn = (gcnew System::Windows::Forms::Button());
 			this->volumeRemoveBtn = (gcnew System::Windows::Forms::Button());
@@ -163,8 +172,6 @@ namespace ProjectDR {
 			this->volumePathTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->volumePathLabel = (gcnew System::Windows::Forms::Label());
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
-			this->rbIDofVolumeTextBox = (gcnew System::Windows::Forms::TextBox());
-			this->setRigidBodyIDBtn = (gcnew System::Windows::Forms::Button());
 			this->menuStrip->SuspendLayout();
 			this->tabControl->SuspendLayout();
 			this->optiTrackPage->SuspendLayout();
@@ -260,6 +267,8 @@ namespace ProjectDR {
 			// optiTrackMainSplitContainer.Panel2
 			// 
 			this->optiTrackMainSplitContainer->Panel2->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->flipYZLabel);
+			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->flipYZBtn);
 			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackDisConnect);
 			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackConnectBtn);
 			this->optiTrackMainSplitContainer->Panel2->Controls->Add(this->optiTrackLocalIpAddressTextBox);
@@ -308,10 +317,10 @@ namespace ProjectDR {
 			this->optiTrackDataGridView->AllowUserToDeleteRows = false;
 			this->optiTrackDataGridView->AllowUserToResizeColumns = false;
 			this->optiTrackDataGridView->AllowUserToResizeRows = false;
-			dataGridViewCellStyle3->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(234)), 
+			dataGridViewCellStyle1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(234)), 
 				static_cast<System::Int32>(static_cast<System::Byte>(234)), static_cast<System::Int32>(static_cast<System::Byte>(255)));
-			dataGridViewCellStyle3->ForeColor = System::Drawing::Color::Black;
-			this->optiTrackDataGridView->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle1->ForeColor = System::Drawing::Color::Black;
+			this->optiTrackDataGridView->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			this->optiTrackDataGridView->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
 			this->optiTrackDataGridView->BackgroundColor = System::Drawing::SystemColors::ButtonFace;
 			this->optiTrackDataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
@@ -331,8 +340,8 @@ namespace ProjectDR {
 			this->optiTrackDataGridView->RowHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
 			this->optiTrackDataGridView->RowHeadersWidth = 25;
 			this->optiTrackDataGridView->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
-			dataGridViewCellStyle4->ForeColor = System::Drawing::Color::Black;
-			this->optiTrackDataGridView->RowsDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle2->ForeColor = System::Drawing::Color::Black;
+			this->optiTrackDataGridView->RowsDefaultCellStyle = dataGridViewCellStyle2;
 			this->optiTrackDataGridView->ShowCellErrors = false;
 			this->optiTrackDataGridView->ShowCellToolTips = false;
 			this->optiTrackDataGridView->ShowEditingIcon = false;
@@ -424,6 +433,31 @@ namespace ProjectDR {
 			this->optiTrackOutputLogLabel->Size = System::Drawing::Size(67, 13);
 			this->optiTrackOutputLogLabel->TabIndex = 2;
 			this->optiTrackOutputLogLabel->Text = L"Output Log";
+			// 
+			// flipYZLabel
+			// 
+			this->flipYZLabel->AutoSize = true;
+			this->flipYZLabel->BackColor = System::Drawing::Color::Transparent;
+			this->flipYZLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->flipYZLabel->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->flipYZLabel->Location = System::Drawing::Point(121, 243);
+			this->flipYZLabel->Name = L"flipYZLabel";
+			this->flipYZLabel->Size = System::Drawing::Size(41, 13);
+			this->flipYZLabel->TabIndex = 45;
+			this->flipYZLabel->Text = L"Z is up";
+			// 
+			// flipYZBtn
+			// 
+			this->flipYZBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->flipYZBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->flipYZBtn->Location = System::Drawing::Point(9, 239);
+			this->flipYZBtn->Name = L"flipYZBtn";
+			this->flipYZBtn->Size = System::Drawing::Size(76, 23);
+			this->flipYZBtn->TabIndex = 44;
+			this->flipYZBtn->Text = L"Flip Y and Z";
+			this->flipYZBtn->UseVisualStyleBackColor = false;
+			this->flipYZBtn->Click += gcnew System::EventHandler(this, &MainForm::flipYZBtn_Click);
 			// 
 			// optiTrackDisConnect
 			// 
@@ -626,6 +660,25 @@ namespace ProjectDR {
 			this->VolumeTab->TabIndex = 1;
 			this->VolumeTab->Text = L"Volume";
 			// 
+			// setRigidBodyIDBtn
+			// 
+			this->setRigidBodyIDBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->setRigidBodyIDBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->setRigidBodyIDBtn->Location = System::Drawing::Point(400, 168);
+			this->setRigidBodyIDBtn->Name = L"setRigidBodyIDBtn";
+			this->setRigidBodyIDBtn->Size = System::Drawing::Size(76, 23);
+			this->setRigidBodyIDBtn->TabIndex = 49;
+			this->setRigidBodyIDBtn->Text = L"Set ID";
+			this->setRigidBodyIDBtn->UseVisualStyleBackColor = false;
+			this->setRigidBodyIDBtn->Click += gcnew System::EventHandler(this, &MainForm::setRigidBodyIDBtn_Click);
+			// 
+			// rbIDofVolumeTextBox
+			// 
+			this->rbIDofVolumeTextBox->Location = System::Drawing::Point(150, 170);
+			this->rbIDofVolumeTextBox->Name = L"rbIDofVolumeTextBox";
+			this->rbIDofVolumeTextBox->Size = System::Drawing::Size(244, 22);
+			this->rbIDofVolumeTextBox->TabIndex = 48;
+			// 
 			// rbIDofVolumeLabel
 			// 
 			this->rbIDofVolumeLabel->AutoSize = true;
@@ -706,25 +759,6 @@ namespace ProjectDR {
 			this->backgroundWorker1->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainForm::backgroundWorker1_DoWork);
 			this->backgroundWorker1->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MainForm::backgroundWorker1_RunWorkerCompleted);
 			// 
-			// rbIDofVolumeTextBox
-			// 
-			this->rbIDofVolumeTextBox->Location = System::Drawing::Point(150, 170);
-			this->rbIDofVolumeTextBox->Name = L"rbIDofVolumeTextBox";
-			this->rbIDofVolumeTextBox->Size = System::Drawing::Size(244, 22);
-			this->rbIDofVolumeTextBox->TabIndex = 48;
-			// 
-			// setRigidBodyIDBtn
-			// 
-			this->setRigidBodyIDBtn->BackColor = System::Drawing::Color::Gainsboro;
-			this->setRigidBodyIDBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->setRigidBodyIDBtn->Location = System::Drawing::Point(400, 168);
-			this->setRigidBodyIDBtn->Name = L"setRigidBodyIDBtn";
-			this->setRigidBodyIDBtn->Size = System::Drawing::Size(76, 23);
-			this->setRigidBodyIDBtn->TabIndex = 49;
-			this->setRigidBodyIDBtn->Text = L"Set ID";
-			this->setRigidBodyIDBtn->UseVisualStyleBackColor = false;
-			this->setRigidBodyIDBtn->Click += gcnew System::EventHandler(this, &MainForm::setRigidBodyIDBtn_Click);
-			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -764,18 +798,18 @@ namespace ProjectDR {
 
 		}
 #pragma endregion
-	// Local Variables
+		// Local Variables
 	private: std::vector<RigidBody*>* optiTrackRigidBodyVector;
 	private: ProgressSpinner^ spinner;
-	// Abstract Delegate
+			 // Abstract Delegate
 	private: delegate System::Void SetDelegate();
-	// Abstract Delegate to change text
+			 // Abstract Delegate to change text
 	private: delegate System::Void SetTextDelegate(String^ value);
-	// Abstract Delegate to change integer value
+			 // Abstract Delegate to change integer value
 	private: delegate System::Void SetIntDelegate(int value);
-	// Abstract Delegate to change unsigned integer value
+			 // Abstract Delegate to change unsigned integer value
 	private: delegate System::Void SetUIntDelegate(unsigned int value);
-	// MainForm Load
+			 // MainForm Load
 	private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
 				 //this->SetStyle(ControlStyles::OptimizedDoubleBuffer, true);
 				 this->SetStyle(ControlStyles::UserPaint, true);
@@ -801,49 +835,38 @@ namespace ProjectDR {
 
 				 this->volumeRemoveBtn->Enabled = false;
 			 }
-
-	// OptiTrack Getters/Setters
+			 // OptiTrack Getters/Setters
 	public: System::Void setOptiTrackLocalIpAddressTextBox(System::String^ text) {
 				this->optiTrackLocalIpAddressTextBox->Text = text;
 			}
-
 	public: System::String^ getOptiTrackLocalIpAddressTextBox() {
 				return this->optiTrackLocalIpAddressTextBox->Text;
 			}
-
 	public: System::Void setOptiTrackSeverIpAddressTextBox(System::String^ text) {
 				this->optiTrackSeverIpAddressTextBox->Text = text;
 			}
-
 	public: System::String^ getOptiTrackSeverIpAddressTextBox() {
 				return this->optiTrackSeverIpAddressTextBox->Text;
 			}
-
 	public: System::Void setOptiTrackCmdPortTextBox(System::String^ text) {
 				this->optiTrackCmdPortTextBox->Text = text;
 			}
-
 	public: System::String^ getOptiTrackCmdPortTextBox() {
 				return this->optiTrackCmdPortTextBox->Text;
 			}
-
 	public: System::Void setOptiTrackDataPortTextBox(System::String^ text) {
 				this->optiTrackDataPortTextBox->Text = text;
 			}
-
 	public: System::String^ getOptiTrackDataPortTextBox() {
 				return this->optiTrackDataPortTextBox->Text;
 			}
-
 	public: System::Void setOptiTrackConnectionTypeComboBox(System::String^ text) {
 				this->optiTrackConnectionTypeComboBox->SelectedItem = text;
 			}
-
 	public: System::String^ getOptiTrackConnectionTypeComboBox() {
 				return (System::String^)this->optiTrackConnectionTypeComboBox->SelectedItem;
 			}
-
-	// OptiTrack Output Log
+			// OptiTrack Output Log
 	public: System::Void optiTrackOutputLog(System::String^ text) {
 				if (this->optiTrackOutputLogTextBox->InvokeRequired) 
 				{
@@ -865,34 +888,32 @@ namespace ProjectDR {
 					this->optiTrackOutputLogTextBox->AppendText(text->Replace("\n", Environment::NewLine));
 				}
 			}
-
 	public: System::Void getOptiTrackInfo() {
-				 msclr::interop::marshal_context context;
+				msclr::interop::marshal_context context;
 
-				 // Local Ip Address
-				 String^ localIP = this->getOptiTrackLocalIpAddressTextBox();
-				 ClientHandler::getInstance()->setLocalIpAddress( context.marshal_as<std::string>(localIP).c_str() );
+				// Local Ip Address
+				String^ localIP = this->getOptiTrackLocalIpAddressTextBox();
+				ClientHandler::getInstance()->setLocalIpAddress( context.marshal_as<std::string>(localIP).c_str() );
 
-				 // Server Ip Address
-				 String^ serverIP = this->getOptiTrackSeverIpAddressTextBox();
-				 ClientHandler::getInstance()->setOptiTrackServerIpAddress( context.marshal_as<std::string>(serverIP).c_str() );
+				// Server Ip Address
+				String^ serverIP = this->getOptiTrackSeverIpAddressTextBox();
+				ClientHandler::getInstance()->setOptiTrackServerIpAddress( context.marshal_as<std::string>(serverIP).c_str() );
 
-				 // Command Port
-				 String^ commandPort = this->getOptiTrackCmdPortTextBox();
-				 ClientHandler::getInstance()->setOptiTrackServerCommandPort(System::Int32::Parse(commandPort));
+				// Command Port
+				String^ commandPort = this->getOptiTrackCmdPortTextBox();
+				ClientHandler::getInstance()->setOptiTrackServerCommandPort(System::Int32::Parse(commandPort));
 
-				 // Data Port
-				 String^ dataPort = this->getOptiTrackDataPortTextBox();
-				 ClientHandler::getInstance()->setOptiTrackServerDataPort(System::Int32::Parse(dataPort));
+				// Data Port
+				String^ dataPort = this->getOptiTrackDataPortTextBox();
+				ClientHandler::getInstance()->setOptiTrackServerDataPort(System::Int32::Parse(dataPort));
 
-				 // Connection Type
-				 String^ connectionType = this->getOptiTrackConnectionTypeComboBox();
-				 if (!String::Compare(connectionType, "Multicast"))
-					 ClientHandler::getInstance()->setOptiTrackServerConnectionType(ConnectionType_Multicast);
-				 else if (!String::Compare(connectionType, "Unicast"))
-					 ClientHandler::getInstance()->setOptiTrackServerConnectionType(ConnectionType_Unicast);
-			 }
-
+				// Connection Type
+				String^ connectionType = this->getOptiTrackConnectionTypeComboBox();
+				if (!String::Compare(connectionType, "Multicast"))
+					ClientHandler::getInstance()->setOptiTrackServerConnectionType(ConnectionType_Multicast);
+				else if (!String::Compare(connectionType, "Unicast"))
+					ClientHandler::getInstance()->setOptiTrackServerConnectionType(ConnectionType_Unicast);
+			}
 	public: System::Void setOptiTrackInfo() {
 
 				char buf[128];
@@ -918,19 +939,16 @@ namespace ProjectDR {
 				else if (ClientHandler::getInstance()->getOptiTrackServerConnectionType() == ConnectionType_Unicast)
 					this->setOptiTrackConnectionTypeComboBox( "Unicast" );
 			}
-
-	// Connect to OptiTrack
+			// Connect to OptiTrack
 	private: System::Void optiTrackConnectBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-				getOptiTrackInfo();
-				ClientHandler::getInstance()->connect();
+				 getOptiTrackInfo();
+				 ClientHandler::getInstance()->connect();
 			 }
-
-	// Disconnect to OptiTrack
+			 // Disconnect from OptiTrack
 	private: System::Void optiTrackDisConnect_Click(System::Object^  sender, System::EventArgs^  e) {
 				 ClientHandler::getInstance()->disconnect();
 			 }
-
-	// OptiTrack Data View
+			 // OptiTrack Data View
 	public: System::Void optiTrackInitDataView() {
 				if (this->optiTrackRigidBodyVector)
 					delete this->optiTrackRigidBodyVector;
@@ -939,7 +957,7 @@ namespace ProjectDR {
 
 				if (!ClientHandler::getInstance()->lock())
 					return;
-				
+
 				RigidBodyMap bodyMap = ClientHandler::getInstance()->getRigidBodyMap();
 				this->optiTrackDataGridView->RowCount = (unsigned int)bodyMap.size();
 
@@ -949,10 +967,9 @@ namespace ProjectDR {
 
 				ClientHandler::getInstance()->unlock();
 			}
-
 	public: System::Void optiTrackUpdateData() {
 				static bool isUpdating = false;
-				
+
 				if (isUpdating)
 					return;
 
@@ -969,7 +986,7 @@ namespace ProjectDR {
 				dwCurrentTime = (float)(time.wHour*60.f*60.f*1000.f + time.wMinute*60.f*1000.f + time.wSecond*1000.f + time.wMilliseconds);
 				// Calculate time Elapsed time
 				dwElapsedTime = dwCurrentTime - dwLastUpdateTime;
-				
+
 				// If the elapsed time is less then the fps
 				if (dwElapsedTime > fps)
 				{
@@ -1012,109 +1029,111 @@ namespace ProjectDR {
 
 				isUpdating = false;
 			}
-
 	private: System::Void optiTrackDataGridView_CellValueNeeded(System::Object^ /*sender*/,
-       System::Windows::Forms::DataGridViewCellValueEventArgs^ e )
-			{
-				if (this->optiTrackRigidBodyVector)
-				{
-					if ((int)e->RowIndex >= (int)this->optiTrackRigidBodyVector->size())
-						return;
-
-					RigidBody* body = this->optiTrackRigidBodyVector->at(e->RowIndex);
-
-					int id = body->getID();
-					String^ name = gcnew String(body->getName());
-					
-					switch(e->ColumnIndex)
-					{
-					case 0:
-						e->Value = Convert::ToString(id);
-						break;
-					case 1 :
-						e->Value = name;
-						break;
-					case 2:
-						e->Value = Convert::ToString(body->x());
-						break;
-					case 3:
-						e->Value = Convert::ToString(body->y());
-						break;
-					case 4:
-						e->Value = Convert::ToString(body->z());
-						break;
-					case 5:
-						e->Value = Convert::ToString(body->qx());
-						break;
-					case 6:
-						e->Value = Convert::ToString(body->qy());
-						break;
-					case 7:
-						e->Value = Convert::ToString(body->qz());
-						break;
-					case 8:
-						e->Value = Convert::ToString(body->qw());
-						break;
-					}
-				}
-				
-			}
-private: System::Void cameraCalibrationToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-			 CameraCalibrationFormController::getInstance()->Show();
-		 }
-
-private: System::Void browseForVolumeBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-			 OpenFileDialog^ dialog = gcnew OpenFileDialog;
-
-			 dialog->DefaultExt = "raw";
-			 dialog->Filter = "raw files (*.raw)|*.xml|All files (*.*)|*.*";
-			 dialog->FilterIndex = 2;
-			 dialog->RestoreDirectory = true;
-
-			 if ( dialog->ShowDialog() == ::DialogResult::OK )
+				 System::Windows::Forms::DataGridViewCellValueEventArgs^ e )
 			 {
-				 this->volumePathTextBox->Text = dialog->FileName;
+				 if (this->optiTrackRigidBodyVector)
+				 {
+					 if ((int)e->RowIndex >= (int)this->optiTrackRigidBodyVector->size())
+						 return;
+
+					 RigidBody* body = this->optiTrackRigidBodyVector->at(e->RowIndex);
+
+					 int id = body->getID();
+					 String^ name = gcnew String(body->getName());
+
+					 switch(e->ColumnIndex)
+					 {
+					 case 0:
+						 e->Value = Convert::ToString(id);
+						 break;
+					 case 1 :
+						 e->Value = name;
+						 break;
+					 case 2:
+						 e->Value = Convert::ToString(body->x());
+						 break;
+					 case 3:
+						 e->Value = Convert::ToString(body->y());
+						 break;
+					 case 4:
+						 e->Value = Convert::ToString(body->z());
+						 break;
+					 case 5:
+						 e->Value = Convert::ToString(body->qx());
+						 break;
+					 case 6:
+						 e->Value = Convert::ToString(body->qy());
+						 break;
+					 case 7:
+						 e->Value = Convert::ToString(body->qz());
+						 break;
+					 case 8:
+						 e->Value = Convert::ToString(body->qw());
+						 break;
+					 }
+				 }
+
 			 }
-		 }
+	private: System::Void flipYZBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				 ClientHandler::getInstance()->flipYZ();
+				 if(ClientHandler::getInstance()->coordinateSystem())
+					 this->flipYZLabel->Text = L"Y is up";
+				 else
+					 this->flipYZLabel->Text = L"Z is up";
+			 }
+	private: System::Void cameraCalibrationToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+				 CameraCalibrationFormController::getInstance()->Show();
+			 }
+	private: System::Void browseForVolumeBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				 OpenFileDialog^ dialog = gcnew OpenFileDialog;
 
-private: System::Void loadVolumeBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-			 this->loadVolumeBtn->Enabled = false;
-			 this->spinner->Enable = true;
+				 dialog->DefaultExt = "raw";
+				 dialog->Filter = "raw files (*.raw)|*.xml|All files (*.*)|*.*";
+				 dialog->FilterIndex = 2;
+				 dialog->RestoreDirectory = true;
 
-			 this->backgroundWorker1->RunWorkerAsync();
-		 }
+				 if ( dialog->ShowDialog() == ::DialogResult::OK )
+				 {
+					 this->volumePathTextBox->Text = dialog->FileName;
+				 }
+			 }
+	private: System::Void loadVolumeBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				 this->loadVolumeBtn->Enabled = false;
+				 this->spinner->Enable = true;
 
-private: System::Void backgroundWorker1_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e) {
-			 msclr::interop::marshal_context context;
-			 std::string pathBuffer = context.marshal_as<std::string>(this->volumePathTextBox->Text);
+				 this->backgroundWorker1->RunWorkerAsync();
+			 }
+	private: System::Void backgroundWorker1_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e) {
+				 msclr::interop::marshal_context context;
+				 std::string pathBuffer = context.marshal_as<std::string>(this->volumePathTextBox->Text);
 
-			 VolumeRenderManager::getInstance()->loadVolume(pathBuffer.c_str());
-		 }
+				 VolumeRenderManager::getInstance()->loadVolume(pathBuffer.c_str());
+			 }
+	private: System::Void backgroundWorker1_RunWorkerCompleted(System::Object^  sender, System::ComponentModel::RunWorkerCompletedEventArgs^  e) {
+				 VolumeRenderManager::getInstance()->createForm();
+				 VolumeRenderManager::getInstance()->addVolumeToScene();
+				 VolumeRenderManager::getInstance()->Show();
 
-private: System::Void backgroundWorker1_RunWorkerCompleted(System::Object^  sender, System::ComponentModel::RunWorkerCompletedEventArgs^  e) {
-			 VolumeRenderManager::getInstance()->createForm();
-			 VolumeRenderManager::getInstance()->addVolumeToScene();
-			 VolumeRenderManager::getInstance()->Show();
+				 this->spinner->Enable = false;
+				 this->volumeRemoveBtn->Enabled = true;
+			 }
+	private: System::Void volumeRemoveBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				 this->loadVolumeBtn->Enabled = true;
+				 this->volumeRemoveBtn->Enabled = false;
+				 VolumeRenderManager::getInstance()->removeVolumeFromScene();
 
-			 this->spinner->Enable = false;
-			 this->volumeRemoveBtn->Enabled = true;
-		 }
-private: System::Void volumeRemoveBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-			  this->loadVolumeBtn->Enabled = true;
-			  this->volumeRemoveBtn->Enabled = false;
-			  VolumeRenderManager::getInstance()->removeVolumeFromScene();
-
-			  VolumeRenderManager::getInstance()->Refresh();
-		 }
-private: System::Void showOpenGLViewBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-			 VolumeRenderManager::getInstance()->createForm();
-			 VolumeRenderManager::getInstance()->initFusion();
-			 VolumeRenderManager::getInstance()->Show();
-		 }
-private: System::Void setRigidBodyIDBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-			 int id = System::Int32::Parse(rbIDofVolumeTextBox->Text);
-			 VolumeRenderManager::getInstance()->setRigidBody(id);
-		 }
-};
+				 VolumeRenderManager::getInstance()->Refresh();
+			 }
+	private: System::Void showOpenGLViewBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				 VolumeRenderManager::getInstance()->createForm();
+				 VolumeRenderManager::getInstance()->initFusion();
+				 VolumeRenderManager::getInstance()->Show();
+			 }
+	private: System::Void setRigidBodyIDBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				 int id = System::Int32::Parse(rbIDofVolumeTextBox->Text);
+				 VolumeRenderManager::getInstance()->setRigidBody(id);
+			 }
+	};
 }
 

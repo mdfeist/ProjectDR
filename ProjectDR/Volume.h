@@ -8,7 +8,6 @@
 
 #include <vector>
 
-#pragma unmanaged
 #include "Actor3D.h"
 
 class TransferFunction;
@@ -103,6 +102,3 @@ private:
 	void buildCubes();
 	void buildVertBuffer();
 };
-
-#pragma managed
-

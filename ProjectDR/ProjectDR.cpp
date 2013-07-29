@@ -3,7 +3,10 @@
 #include "stdafx.h"
 #include <Windows.h>
 
+#pragma unmanaged
 #include "ClientHandler.h"
+#pragma managed
+
 #include "MainFormController.h"
 
 #include "OpenGLView.h"

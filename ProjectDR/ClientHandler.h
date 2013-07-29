@@ -36,6 +36,10 @@ public:
 	// Checks if the client is still connected to the server
 	bool isNatNetServerRunning() { return this->natNetServerRunning; }
 
+	// True if YZ are flipped
+	bool coordinateSystem() { return this->filpYZCoordinates; }
+	void flipYZ() { this->filpYZCoordinates = !this->filpYZCoordinates; }
+
 	// Setters/Getters for OptiTrack settings
 	// Your local Ip Address
 	void setLocalIpAddress(const char *ip) { strncpy_s(this->localIPAddress, 128, ip, 128); }
@@ -86,6 +90,8 @@ private:
 	NatNetClient* natnet;
 	// Used to see if the NatNetClient is connected to a server
 	bool natNetServerRunning;
+	// What coordinate system are we in
+	bool filpYZCoordinates;
 	// A map to store all the attached Rigid Bodies
 	RigidBodyMap rigidBodies;
 

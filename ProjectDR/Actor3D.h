@@ -1,7 +1,5 @@
 #pragma once
 #include "Actor.h"
-
-#pragma unmanaged
 #include "Eigen\Geometry.h"
 
 class Actor3D : public Actor {
@@ -74,4 +72,3 @@ protected:
 	Eigen::Vector3f position;				// Actor Position
 	Eigen::Quaternionf rotation;			// Actor Rotation
 };
-#pragma managed

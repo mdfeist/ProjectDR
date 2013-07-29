@@ -9,7 +9,6 @@
 
 int Actor::id_counter = 0;
 
-#pragma unmanaged
 #include "TransferFunction.h"
 
 #include "VolumeCube.h"
@@ -108,7 +107,7 @@ void APIENTRY openglCallbackFunction(GLenum source,
 	}
 	std::cout << std::endl;
 
-	std::cout << "id: "<	std::cout << "severity: ";
+	std::cout << "id: " << "severity: ";
 	switch (severity){
 	case GL_DEBUG_SEVERITY_LOW:
 		std::cout << "LOW";
@@ -838,5 +837,3 @@ void Volume::render(Camera* camera) {
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();												//end the current object transformations
 }
-
-#pragma managed
