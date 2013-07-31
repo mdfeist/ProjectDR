@@ -38,6 +38,8 @@ public:
 		void set(bool value) { _glReady = value; }
 	}
 
+	bool IsThreadDone();
+
 private:
     HDC								m_hDC;		// Private GDI Device Contex
     HGLRC							m_hglrc;	// Permanent Rendering Context

@@ -1,5 +1,5 @@
 ﻿//------------------------------------------------------------------------------
-// <copyright file="KinectFusionBasics.h" company="Microsoft">
+// <copyright file="KinectFusion.h" company="Microsoft">
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
@@ -12,7 +12,7 @@
 
 #include <gl/GL.h>
 
-class CKinectFusionBasics
+class CKinectFusion
 {
     static const int            cBytesPerPixel = 4; // for depth float and int-per-pixel raycast images
     static const int            cResetOnTimeStampSkippedMilliseconds = 1000;
@@ -24,12 +24,12 @@ public:
     /// <summary>
     /// Constructor
     /// </summary>
-    CKinectFusionBasics();
+    CKinectFusion();
 
     /// <summary>
     /// Destructor
     /// </summary>
-    ~CKinectFusionBasics();
+    ~CKinectFusion();
 
 	/// <summary>
     /// Main processing function

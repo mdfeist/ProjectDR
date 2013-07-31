@@ -13,6 +13,10 @@
 
 VolumeRenderManager* FormController<VolumeRenderManager, ProjectDR::OpenGLView>::m_pInstance = NULL;
 
+VolumeRenderManager::VolumeRenderManager(void) : FormController<VolumeRenderManager, ProjectDR::OpenGLView>() {
+	volume = nullptr;
+}
+
 void VolumeRenderManager::initFusion() {
 	createForm();
 
@@ -20,7 +24,7 @@ void VolumeRenderManager::initFusion() {
 	fusionImage->createImage(640, 480);
 	fusionImage->setCameraRigidBodyId(rigidBodyID);
 
-	fusion = new CKinectFusionBasics();
+	fusion = new CKinectFusion();
 	fusionImage->attachKinectFusion(fusion);
 
 	// Look for a connected Kinect, and create it if found
@@ -68,6 +72,12 @@ Volume* VolumeRenderManager::loadVolume(const char* volumeFile) {
 	VolumeLoader* volumeLoader = new VolumeLoader();
 	volumeLoader->loadRaw(volumeFile);
 
+	if (volume) {
+		removeVolumeFromScene();
+		delete volume;
+		volume = nullptr;
+	}
+
 	volume = new Volume();
 	volume->setAxisAngle(-(float)M_PI/2.0f, 1.f, 0.f, 0.f);
 	volume->setVolumeData(volumeLoader);
@@ -75,7 +85,6 @@ Volume* VolumeRenderManager::loadVolume(const char* volumeFile) {
 
 	return volume;
 }
-
 
 void VolumeRenderManager::addVolumeToScene() {
 	createForm();
@@ -102,6 +111,8 @@ void VolumeRenderManager::addVolumeToScene() {
 }
 
 void VolumeRenderManager::removeVolumeFromScene() {
+	createForm();
+
 	Renderer^ renderer = form->GetRenderer();
 	if (renderer) {
 		RenderManager* manager = renderer->getManager();
@@ -120,5 +131,11 @@ void VolumeRenderManager::removeVolumeFromScene() {
 		std::cout <<"************************" <<std::endl;
 		std::cout << "Form Renderer was NULL" << std::endl;
 		std::cout <<"************************" <<std::endl;
+	}
+}
+
+void VolumeRenderManager::setMinIsoValue(float value) {
+	if (volume) {
+		volume->setIsoValue(value);
 	}
 }

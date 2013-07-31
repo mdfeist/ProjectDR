@@ -103,6 +103,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Reference Include="*Microsoft.VisualBasic, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="*System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="*System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="*System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -112,6 +118,12 @@
   <ItemGroup>
     <None Include="app.ico" />
     <Content Include="NatNetLib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shader/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="shader\multiSample.cg" />
@@ -149,7 +161,8 @@
       <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</BasicRuntimeChecks>
     </ClCompile>
     <ClCompile Include="ImageRender.cpp" />
-    <ClCompile Include="KinectFusionBasics.cpp" />
+    <ClCompile Include="KeyboardHandler.cpp" />
+    <ClCompile Include="KinectFusion.cpp" />
     <ClCompile Include="KinectFusionRender.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -467,7 +480,8 @@
     <ClInclude Include="Eigen\UmfPackSupport.h" />
     <ClInclude Include="FormController.h" />
     <ClInclude Include="ImageRender.h" />
-    <ClInclude Include="KinectFusionBasics.h" />
+    <ClInclude Include="KeyboardHandler.h" />
+    <ClInclude Include="KinectFusion.h" />
     <ClInclude Include="KinectFusionRender.h" />
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>

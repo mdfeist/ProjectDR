@@ -6,7 +6,7 @@
 #include "KinectFusionRender.h"
 #pragma managed
 
-#include "KinectFusionBasics.h"
+#include "KinectFusion.h"
 
 class Volume;
 class RenderManager;
@@ -15,6 +15,7 @@ public class VolumeRenderManager :
 	public FormController<VolumeRenderManager, ProjectDR::OpenGLView>
 {
 public:
+	VolumeRenderManager(void);
 	void initFusion();
 
 	Volume* loadVolume(const char*);
@@ -22,10 +23,11 @@ public:
 	void removeVolumeFromScene();
 
 	void setRigidBody(int id);
+	void setMinIsoValue(float value);
 private:
 	Volume*					volume;
 	KinectFusionRender*		fusionImage;
-	CKinectFusionBasics*	fusion;
+	CKinectFusion*			fusion;
 
 	int						rigidBodyID;
 };

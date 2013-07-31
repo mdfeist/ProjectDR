@@ -60,7 +60,9 @@ namespace ProjectDR {
 	private: System::Windows::Forms::TabControl^  tabControl;
 	private: System::Windows::Forms::TabPage^  optiTrackPage;
 	private: System::Windows::Forms::SplitContainer^  optiTrackMainSplitContainer;
-	private: System::Windows::Forms::TabPage^  VolumeTab;
+	private: System::Windows::Forms::TabPage^  SceneTab;
+
+
 
 	private: System::Windows::Forms::SplitContainer^  optiTrackSubSplitContainer;
 	private: System::Windows::Forms::TextBox^  optiTrackLocalIpAddressTextBox;
@@ -92,19 +94,31 @@ namespace ProjectDR {
 	private: System::Windows::Forms::Label^  optiTrackOutputLogLabel;
 	private: System::Windows::Forms::ToolStripMenuItem^  calibrationToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  cameraCalibrationToolStripMenuItem;
-	private: System::Windows::Forms::Label^  volumePathLabel;
 
-	private: System::Windows::Forms::TextBox^  volumePathTextBox;
-	private: System::Windows::Forms::Button^  loadVolumeBtn;
-	private: System::Windows::Forms::Button^  browseForVolumeBtn;
+
+
+
+
 	private: System::ComponentModel::BackgroundWorker^  backgroundWorker1;
-	private: System::Windows::Forms::Button^  volumeRemoveBtn;
-	private: System::Windows::Forms::Button^  showOpenGLViewBtn;
-	private: System::Windows::Forms::Label^  rbIDofVolumeLabel;
-	private: System::Windows::Forms::Button^  setRigidBodyIDBtn;
-	private: System::Windows::Forms::TextBox^  rbIDofVolumeTextBox;
+
+
+
+
+
 	private: System::Windows::Forms::Label^  flipYZLabel;
 	private: System::Windows::Forms::Button^  flipYZBtn;
+	private: System::Windows::Forms::GroupBox^  loadVolumeGroupBox;
+
+	private: System::Windows::Forms::Button^  showOpenGLViewBtn;
+	private: System::Windows::Forms::Button^  volumeRemoveBtn;
+	private: System::Windows::Forms::Button^  loadVolumeBtn;
+	private: System::Windows::Forms::Button^  browseForVolumeBtn;
+	private: System::Windows::Forms::TextBox^  volumePathTextBox;
+	private: System::Windows::Forms::Label^  volumePathLabel;
+	private: System::Windows::Forms::GroupBox^  volumePropertiesGroupBox;
+	private: System::Windows::Forms::Label^  minIsoValueLabel;
+	private: System::Windows::Forms::Label^  minIsoValueTitleLabel;
+	private: System::Windows::Forms::TrackBar^  minIsoValueTrackBar;
 
 
 
@@ -122,8 +136,9 @@ namespace ProjectDR {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->menuStrip = (gcnew System::Windows::Forms::MenuStrip());
 			this->projectDRToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->calibrationToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -161,10 +176,12 @@ namespace ProjectDR {
 			this->optiTrackSeverIpAddressLabel = (gcnew System::Windows::Forms::Label());
 			this->optiTrackServerTitleLabel = (gcnew System::Windows::Forms::Label());
 			this->optiTrackPropertiesLabel = (gcnew System::Windows::Forms::Label());
-			this->VolumeTab = (gcnew System::Windows::Forms::TabPage());
-			this->setRigidBodyIDBtn = (gcnew System::Windows::Forms::Button());
-			this->rbIDofVolumeTextBox = (gcnew System::Windows::Forms::TextBox());
-			this->rbIDofVolumeLabel = (gcnew System::Windows::Forms::Label());
+			this->SceneTab = (gcnew System::Windows::Forms::TabPage());
+			this->volumePropertiesGroupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->minIsoValueLabel = (gcnew System::Windows::Forms::Label());
+			this->minIsoValueTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->minIsoValueTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->loadVolumeGroupBox = (gcnew System::Windows::Forms::GroupBox());
 			this->showOpenGLViewBtn = (gcnew System::Windows::Forms::Button());
 			this->volumeRemoveBtn = (gcnew System::Windows::Forms::Button());
 			this->loadVolumeBtn = (gcnew System::Windows::Forms::Button());
@@ -184,7 +201,10 @@ namespace ProjectDR {
 			this->optiTrackSubSplitContainer->Panel2->SuspendLayout();
 			this->optiTrackSubSplitContainer->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackDataGridView))->BeginInit();
-			this->VolumeTab->SuspendLayout();
+			this->SceneTab->SuspendLayout();
+			this->volumePropertiesGroupBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->minIsoValueTrackBar))->BeginInit();
+			this->loadVolumeGroupBox->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// menuStrip
@@ -226,7 +246,7 @@ namespace ProjectDR {
 			// tabControl
 			// 
 			this->tabControl->Controls->Add(this->optiTrackPage);
-			this->tabControl->Controls->Add(this->VolumeTab);
+			this->tabControl->Controls->Add(this->SceneTab);
 			this->tabControl->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->tabControl->HotTrack = true;
 			this->tabControl->ImeMode = System::Windows::Forms::ImeMode::NoControl;
@@ -317,10 +337,10 @@ namespace ProjectDR {
 			this->optiTrackDataGridView->AllowUserToDeleteRows = false;
 			this->optiTrackDataGridView->AllowUserToResizeColumns = false;
 			this->optiTrackDataGridView->AllowUserToResizeRows = false;
-			dataGridViewCellStyle1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(234)), 
+			dataGridViewCellStyle3->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(234)), 
 				static_cast<System::Int32>(static_cast<System::Byte>(234)), static_cast<System::Int32>(static_cast<System::Byte>(255)));
-			dataGridViewCellStyle1->ForeColor = System::Drawing::Color::Black;
-			this->optiTrackDataGridView->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle3->ForeColor = System::Drawing::Color::Black;
+			this->optiTrackDataGridView->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
 			this->optiTrackDataGridView->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
 			this->optiTrackDataGridView->BackgroundColor = System::Drawing::SystemColors::ButtonFace;
 			this->optiTrackDataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
@@ -340,8 +360,8 @@ namespace ProjectDR {
 			this->optiTrackDataGridView->RowHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
 			this->optiTrackDataGridView->RowHeadersWidth = 25;
 			this->optiTrackDataGridView->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
-			dataGridViewCellStyle2->ForeColor = System::Drawing::Color::Black;
-			this->optiTrackDataGridView->RowsDefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle4->ForeColor = System::Drawing::Color::Black;
+			this->optiTrackDataGridView->RowsDefaultCellStyle = dataGridViewCellStyle4;
 			this->optiTrackDataGridView->ShowCellErrors = false;
 			this->optiTrackDataGridView->ShowCellToolTips = false;
 			this->optiTrackDataGridView->ShowEditingIcon = false;
@@ -641,62 +661,86 @@ namespace ProjectDR {
 			this->optiTrackPropertiesLabel->TabIndex = 29;
 			this->optiTrackPropertiesLabel->Text = L"Properties";
 			// 
-			// VolumeTab
+			// SceneTab
 			// 
-			this->VolumeTab->BackColor = System::Drawing::Color::WhiteSmoke;
-			this->VolumeTab->Controls->Add(this->setRigidBodyIDBtn);
-			this->VolumeTab->Controls->Add(this->rbIDofVolumeTextBox);
-			this->VolumeTab->Controls->Add(this->rbIDofVolumeLabel);
-			this->VolumeTab->Controls->Add(this->showOpenGLViewBtn);
-			this->VolumeTab->Controls->Add(this->volumeRemoveBtn);
-			this->VolumeTab->Controls->Add(this->loadVolumeBtn);
-			this->VolumeTab->Controls->Add(this->browseForVolumeBtn);
-			this->VolumeTab->Controls->Add(this->volumePathTextBox);
-			this->VolumeTab->Controls->Add(this->volumePathLabel);
-			this->VolumeTab->Location = System::Drawing::Point(4, 24);
-			this->VolumeTab->Name = L"VolumeTab";
-			this->VolumeTab->Padding = System::Windows::Forms::Padding(3);
-			this->VolumeTab->Size = System::Drawing::Size(792, 548);
-			this->VolumeTab->TabIndex = 1;
-			this->VolumeTab->Text = L"Volume";
+			this->SceneTab->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->SceneTab->Controls->Add(this->volumePropertiesGroupBox);
+			this->SceneTab->Controls->Add(this->loadVolumeGroupBox);
+			this->SceneTab->Location = System::Drawing::Point(4, 24);
+			this->SceneTab->Name = L"SceneTab";
+			this->SceneTab->Padding = System::Windows::Forms::Padding(3);
+			this->SceneTab->Size = System::Drawing::Size(792, 548);
+			this->SceneTab->TabIndex = 1;
+			this->SceneTab->Text = L"Scene";
 			// 
-			// setRigidBodyIDBtn
+			// volumePropertiesGroupBox
 			// 
-			this->setRigidBodyIDBtn->BackColor = System::Drawing::Color::Gainsboro;
-			this->setRigidBodyIDBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->setRigidBodyIDBtn->Location = System::Drawing::Point(400, 168);
-			this->setRigidBodyIDBtn->Name = L"setRigidBodyIDBtn";
-			this->setRigidBodyIDBtn->Size = System::Drawing::Size(76, 23);
-			this->setRigidBodyIDBtn->TabIndex = 49;
-			this->setRigidBodyIDBtn->Text = L"Set ID";
-			this->setRigidBodyIDBtn->UseVisualStyleBackColor = false;
-			this->setRigidBodyIDBtn->Click += gcnew System::EventHandler(this, &MainForm::setRigidBodyIDBtn_Click);
+			this->volumePropertiesGroupBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left));
+			this->volumePropertiesGroupBox->Controls->Add(this->minIsoValueLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->minIsoValueTitleLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->minIsoValueTrackBar);
+			this->volumePropertiesGroupBox->Location = System::Drawing::Point(8, 126);
+			this->volumePropertiesGroupBox->Name = L"volumePropertiesGroupBox";
+			this->volumePropertiesGroupBox->Size = System::Drawing::Size(312, 414);
+			this->volumePropertiesGroupBox->TabIndex = 48;
+			this->volumePropertiesGroupBox->TabStop = false;
+			this->volumePropertiesGroupBox->Text = L"Volume Properties";
 			// 
-			// rbIDofVolumeTextBox
+			// minIsoValueLabel
 			// 
-			this->rbIDofVolumeTextBox->Location = System::Drawing::Point(150, 170);
-			this->rbIDofVolumeTextBox->Name = L"rbIDofVolumeTextBox";
-			this->rbIDofVolumeTextBox->Size = System::Drawing::Size(244, 22);
-			this->rbIDofVolumeTextBox->TabIndex = 48;
+			this->minIsoValueLabel->AutoSize = true;
+			this->minIsoValueLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->minIsoValueLabel->Location = System::Drawing::Point(263, 31);
+			this->minIsoValueLabel->Name = L"minIsoValueLabel";
+			this->minIsoValueLabel->Size = System::Drawing::Size(13, 13);
+			this->minIsoValueLabel->TabIndex = 54;
+			this->minIsoValueLabel->Text = L"0";
 			// 
-			// rbIDofVolumeLabel
+			// minIsoValueTitleLabel
 			// 
-			this->rbIDofVolumeLabel->AutoSize = true;
-			this->rbIDofVolumeLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->rbIDofVolumeLabel->Location = System::Drawing::Point(8, 170);
-			this->rbIDofVolumeLabel->Name = L"rbIDofVolumeLabel";
-			this->rbIDofVolumeLabel->Size = System::Drawing::Size(136, 13);
-			this->rbIDofVolumeLabel->TabIndex = 47;
-			this->rbIDofVolumeLabel->Text = L"Rigid Body ID of Volume:";
+			this->minIsoValueTitleLabel->AutoSize = true;
+			this->minIsoValueTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->minIsoValueTitleLabel->Location = System::Drawing::Point(6, 31);
+			this->minIsoValueTitleLabel->Name = L"minIsoValueTitleLabel";
+			this->minIsoValueTitleLabel->Size = System::Drawing::Size(77, 13);
+			this->minIsoValueTitleLabel->TabIndex = 53;
+			this->minIsoValueTitleLabel->Text = L"Min IsoValue:";
+			// 
+			// minIsoValueTrackBar
+			// 
+			this->minIsoValueTrackBar->LargeChange = 100;
+			this->minIsoValueTrackBar->Location = System::Drawing::Point(102, 21);
+			this->minIsoValueTrackBar->Maximum = 1000;
+			this->minIsoValueTrackBar->Name = L"minIsoValueTrackBar";
+			this->minIsoValueTrackBar->Size = System::Drawing::Size(158, 45);
+			this->minIsoValueTrackBar->TabIndex = 0;
+			this->minIsoValueTrackBar->TickFrequency = 100;
+			this->minIsoValueTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::minIsoValueTrackBar_ValueChanged);
+			// 
+			// loadVolumeGroupBox
+			// 
+			this->loadVolumeGroupBox->Controls->Add(this->showOpenGLViewBtn);
+			this->loadVolumeGroupBox->Controls->Add(this->volumeRemoveBtn);
+			this->loadVolumeGroupBox->Controls->Add(this->loadVolumeBtn);
+			this->loadVolumeGroupBox->Controls->Add(this->browseForVolumeBtn);
+			this->loadVolumeGroupBox->Controls->Add(this->volumePathTextBox);
+			this->loadVolumeGroupBox->Controls->Add(this->volumePathLabel);
+			this->loadVolumeGroupBox->Location = System::Drawing::Point(8, 6);
+			this->loadVolumeGroupBox->Name = L"loadVolumeGroupBox";
+			this->loadVolumeGroupBox->Size = System::Drawing::Size(312, 114);
+			this->loadVolumeGroupBox->TabIndex = 47;
+			this->loadVolumeGroupBox->TabStop = false;
+			this->loadVolumeGroupBox->Text = L"Load Volume";
 			// 
 			// showOpenGLViewBtn
 			// 
 			this->showOpenGLViewBtn->BackColor = System::Drawing::Color::Gainsboro;
 			this->showOpenGLViewBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->showOpenGLViewBtn->Location = System::Drawing::Point(8, 83);
+			this->showOpenGLViewBtn->Location = System::Drawing::Point(8, 82);
 			this->showOpenGLViewBtn->Name = L"showOpenGLViewBtn";
 			this->showOpenGLViewBtn->Size = System::Drawing::Size(76, 23);
-			this->showOpenGLViewBtn->TabIndex = 46;
+			this->showOpenGLViewBtn->TabIndex = 52;
 			this->showOpenGLViewBtn->Text = L"Show View";
 			this->showOpenGLViewBtn->UseVisualStyleBackColor = false;
 			this->showOpenGLViewBtn->Click += gcnew System::EventHandler(this, &MainForm::showOpenGLViewBtn_Click);
@@ -705,10 +749,10 @@ namespace ProjectDR {
 			// 
 			this->volumeRemoveBtn->BackColor = System::Drawing::Color::Gainsboro;
 			this->volumeRemoveBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->volumeRemoveBtn->Location = System::Drawing::Point(400, 83);
+			this->volumeRemoveBtn->Location = System::Drawing::Point(222, 53);
 			this->volumeRemoveBtn->Name = L"volumeRemoveBtn";
 			this->volumeRemoveBtn->Size = System::Drawing::Size(76, 23);
-			this->volumeRemoveBtn->TabIndex = 45;
+			this->volumeRemoveBtn->TabIndex = 51;
 			this->volumeRemoveBtn->Text = L"Remove";
 			this->volumeRemoveBtn->UseVisualStyleBackColor = false;
 			this->volumeRemoveBtn->Click += gcnew System::EventHandler(this, &MainForm::volumeRemoveBtn_Click);
@@ -717,41 +761,44 @@ namespace ProjectDR {
 			// 
 			this->loadVolumeBtn->BackColor = System::Drawing::Color::Gainsboro;
 			this->loadVolumeBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->loadVolumeBtn->Location = System::Drawing::Point(8, 54);
+			this->loadVolumeBtn->Location = System::Drawing::Point(8, 53);
 			this->loadVolumeBtn->Name = L"loadVolumeBtn";
 			this->loadVolumeBtn->Size = System::Drawing::Size(76, 23);
-			this->loadVolumeBtn->TabIndex = 44;
+			this->loadVolumeBtn->TabIndex = 50;
 			this->loadVolumeBtn->Text = L"Load";
 			this->loadVolumeBtn->UseVisualStyleBackColor = false;
 			this->loadVolumeBtn->Click += gcnew System::EventHandler(this, &MainForm::loadVolumeBtn_Click);
 			// 
 			// browseForVolumeBtn
 			// 
-			this->browseForVolumeBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->browseForVolumeBtn->BackColor = System::Drawing::Color::Transparent;
+			this->browseForVolumeBtn->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"browseForVolumeBtn.BackgroundImage")));
+			this->browseForVolumeBtn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->browseForVolumeBtn->FlatAppearance->BorderColor = System::Drawing::Color::White;
+			this->browseForVolumeBtn->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->browseForVolumeBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->browseForVolumeBtn->Location = System::Drawing::Point(400, 15);
+			this->browseForVolumeBtn->Location = System::Drawing::Point(266, 11);
 			this->browseForVolumeBtn->Name = L"browseForVolumeBtn";
-			this->browseForVolumeBtn->Size = System::Drawing::Size(76, 23);
-			this->browseForVolumeBtn->TabIndex = 43;
-			this->browseForVolumeBtn->Text = L"Browse";
+			this->browseForVolumeBtn->Size = System::Drawing::Size(32, 32);
+			this->browseForVolumeBtn->TabIndex = 49;
 			this->browseForVolumeBtn->UseVisualStyleBackColor = false;
 			this->browseForVolumeBtn->Click += gcnew System::EventHandler(this, &MainForm::browseForVolumeBtn_Click);
 			// 
 			// volumePathTextBox
 			// 
-			this->volumePathTextBox->Location = System::Drawing::Point(102, 16);
+			this->volumePathTextBox->Location = System::Drawing::Point(102, 15);
 			this->volumePathTextBox->Name = L"volumePathTextBox";
-			this->volumePathTextBox->Size = System::Drawing::Size(292, 22);
-			this->volumePathTextBox->TabIndex = 1;
+			this->volumePathTextBox->Size = System::Drawing::Size(158, 22);
+			this->volumePathTextBox->TabIndex = 48;
 			// 
 			// volumePathLabel
 			// 
 			this->volumePathLabel->AutoSize = true;
 			this->volumePathLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->volumePathLabel->Location = System::Drawing::Point(6, 19);
+			this->volumePathLabel->Location = System::Drawing::Point(6, 18);
 			this->volumePathLabel->Name = L"volumePathLabel";
 			this->volumePathLabel->Size = System::Drawing::Size(90, 13);
-			this->volumePathLabel->TabIndex = 0;
+			this->volumePathLabel->TabIndex = 47;
 			this->volumePathLabel->Text = L"Path To Volume:";
 			// 
 			// backgroundWorker1
@@ -791,8 +838,12 @@ namespace ProjectDR {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackSubSplitContainer))->EndInit();
 			this->optiTrackSubSplitContainer->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackDataGridView))->EndInit();
-			this->VolumeTab->ResumeLayout(false);
-			this->VolumeTab->PerformLayout();
+			this->SceneTab->ResumeLayout(false);
+			this->volumePropertiesGroupBox->ResumeLayout(false);
+			this->volumePropertiesGroupBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->minIsoValueTrackBar))->EndInit();
+			this->loadVolumeGroupBox->ResumeLayout(false);
+			this->loadVolumeGroupBox->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -829,9 +880,12 @@ namespace ProjectDR {
 
 				 this->spinner = gcnew ProgressSpinner();
 				 this->spinner->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left));
-				 this->spinner->Location = System::Drawing::Point(100, 60);
+				 this->spinner->Location = 
+					 System::Drawing::Point(
+					 this->loadVolumeBtn->Location.X + this->loadVolumeBtn->Size.Width + 10, 
+					 this->loadVolumeBtn->Location.Y + 5);
 				 this->spinner->Enable = false;
-				 this->VolumeTab->Controls->Add(this->spinner);
+				 this->loadVolumeGroupBox->Controls->Add(this->spinner);
 
 				 this->volumeRemoveBtn->Enabled = false;
 			 }
@@ -1122,18 +1176,14 @@ namespace ProjectDR {
 				 this->loadVolumeBtn->Enabled = true;
 				 this->volumeRemoveBtn->Enabled = false;
 				 VolumeRenderManager::getInstance()->removeVolumeFromScene();
-
-				 VolumeRenderManager::getInstance()->Refresh();
 			 }
 	private: System::Void showOpenGLViewBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-				 VolumeRenderManager::getInstance()->createForm();
-				 VolumeRenderManager::getInstance()->initFusion();
 				 VolumeRenderManager::getInstance()->Show();
 			 }
-	private: System::Void setRigidBodyIDBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-				 int id = System::Int32::Parse(rbIDofVolumeTextBox->Text);
-				 VolumeRenderManager::getInstance()->setRigidBody(id);
+	private: System::Void minIsoValueTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 this->minIsoValueLabel->Text = System::Convert::ToString(100.f*((float)this->minIsoValueTrackBar->Value/this->minIsoValueTrackBar->Maximum));
+				 VolumeRenderManager::getInstance()->setMinIsoValue((float)this->minIsoValueTrackBar->Value/this->minIsoValueTrackBar->Maximum);
 			 }
-	};
+};
 }
 

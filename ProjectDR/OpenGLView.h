@@ -30,8 +30,6 @@ namespace ProjectDR {
 		/// </summary>
 		~OpenGLView()
 		{
-			delete renderer;
-
 			if (components)
 			{
 				delete components;
@@ -61,8 +59,11 @@ namespace ProjectDR {
 			this->ClientSize = System::Drawing::Size(284, 262);
 			this->Name = L"OpenGLView";
 			this->Text = L"OpenGL View";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &OpenGLView::OpenGLView_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &OpenGLView::OpenGLView_Load);
+			this->Shown += gcnew System::EventHandler(this, &OpenGLView::OpenGLView_Shown);
 			this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &OpenGLView::OpenGLView_Paint);
+			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &OpenGLView::OpenGLView_KeyPress);
 			this->Resize += gcnew System::EventHandler(this, &OpenGLView::OpenGLView_Resize);
 			this->ResumeLayout(false);
 
@@ -74,12 +75,35 @@ namespace ProjectDR {
 		}
 
 	private:
+		BOOL fullScreen;
 		System::Void OpenGLView_Load(System::Object^  sender, System::EventArgs^  e) 
 		{
 			UNREFERENCED_PARAMETER(sender);
 			UNREFERENCED_PARAMETER(e);
+
+			fullScreen = false;
+
+			if ( renderer == nullptr )
+				renderer = gcnew Renderer(this, this->Size.Width, this->Size.Height);
+
+			renderer->Active = true;
+
 			renderer->Resize(this->Size.Width, this->Size.Height);
 			MoveWindow((HWND)renderer->Handle.ToPointer(), 0, 0, this->Size.Width, this->Size.Height, true);
+		}
+
+		System::Void OpenGLView_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e) {
+			renderer->Running = false;
+
+			while(!renderer->IsThreadDone())
+				Sleep(100);
+
+			delete renderer;
+			renderer = nullptr;
+		}
+
+		System::Void OpenGLView_Shown(System::Object^  sender, System::EventArgs^  e) {
+			renderer->Active = true;
 		}
 
 		System::Void OpenGLView_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
@@ -105,5 +129,44 @@ namespace ProjectDR {
 					true);
 			}
 		}
-	};
+
+		System::Void OpenGLView_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+			switch (e->KeyChar) {
+			case (char)27 :
+				{
+					fullScreen = false;
+					FullScreen(fullScreen);
+					renderer->Active = false;
+					this->Hide();
+					break;
+				}
+			case 'f' :
+				{
+					fullScreen = !fullScreen;
+					FullScreen(fullScreen);
+					break;
+				}
+			}
+		}
+
+		System::Void FullScreen(BOOL Enable)
+		{
+			fullScreen = Enable;
+
+			this->SuspendLayout();
+
+			if (Enable)
+			{
+				this->FormBorderStyle = ::FormBorderStyle::None;
+				this->WindowState = FormWindowState::Maximized;
+			}
+			else
+			{
+				this->FormBorderStyle = ::FormBorderStyle::Sizable;
+				this->WindowState = FormWindowState::Normal;
+			}
+
+			this->ResumeLayout();
+		}
+};
 }

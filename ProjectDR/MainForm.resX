@@ -147,6 +147,16 @@
   <metadata name="optiTrackRigidBodyRotationWColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="browseForVolumeBtn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAEwAAABMCAYAAADHl1ErAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAACsSURBVHhe7dPBSQVRFETBwTSMzdiMRgzjh6Jv4c4Gv6um
+        mSo4++bCvQAAAAAAAABu7PX0OH39o/fTLb2cPk7pKH91S2+ndIxnuqXPUzrGMwG/pFdpNSENbzUhDW81
+        IQ1vNSENbzUhDW81IQ1vNSENbzUhDW81IQ1vNSENbzUhDW81IQ1vNSENbzUhDW81IQ1vNSENbzUhDW81
+        IQ1vNSENbwUAAAAAAAAA/LiubwMO8LORnfdmAAAAAElFTkSuQmCC
+</value>
+  </data>
   <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>125, 17</value>
   </metadata>

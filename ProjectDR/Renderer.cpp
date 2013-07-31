@@ -146,6 +146,11 @@ System::Void Renderer::RunLoop(System::Void)
 	}
 }
 
+bool Renderer::IsThreadDone()
+{
+	return !glThread->IsAlive;
+}
+
 Camera* Renderer::getActiveCamera() 
 {
 	return camera;

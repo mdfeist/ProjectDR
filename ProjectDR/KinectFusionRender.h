@@ -5,21 +5,21 @@
 #include <iostream>
 
 class Camera;
-class CKinectFusionBasics;
+class CKinectFusion;
 
 class KinectFusionRender : public ImageRender
 {
 public:
 	KinectFusionRender(void);
 
-	void attachKinectFusion(CKinectFusionBasics*);
+	void attachKinectFusion(CKinectFusion*);
 	void setCameraRigidBodyId(int);
 
 	void init();
 	void render(Camera*);
 
 private:
-	CKinectFusionBasics*	fusion;
+	CKinectFusion*	fusion;
 	int						cameraRigidBodyId;
 	
 	Eigen::Matrix4f			firstFrame;

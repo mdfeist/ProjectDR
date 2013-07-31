@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "KinectFusionRender.h"
 
-#include "KinectFusionBasics.h"
+#include "KinectFusion.h"
 #include "ClientHandler.h"
 #include "RigidBody.h"
 
@@ -34,13 +34,13 @@ Eigen::Matrix4f KinectFusionRender::getMatrix(int id)
 
 		matrix(3,0) = pos(0);
 		matrix(3,1) = pos(1);
-		matrix(3,2) = pos(2);
+		matrix(3,2) = pos(2); // Negate
 	}
 
 	return matrix;
 }
 
-void KinectFusionRender::attachKinectFusion(CKinectFusionBasics* f) 
+void KinectFusionRender::attachKinectFusion(CKinectFusion* f) 
 { 
 	fusion = f;
 }
@@ -67,7 +67,7 @@ void KinectFusionRender::setFusionMatrix(Eigen::Matrix4f& matrix)
 
 	mat.M41 = -matrix(3,0);
 	mat.M42 = -matrix(3,1);
-	mat.M43 = matrix(3,2);
+	mat.M43 = -matrix(3,2);
 	mat.M44 = 1;
 
 	fusion->SetCameraTransform(mat);

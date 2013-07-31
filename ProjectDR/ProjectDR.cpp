@@ -9,8 +9,6 @@
 
 #include "MainFormController.h"
 
-#include "OpenGLView.h"
-
 using namespace ProjectDR;
 using namespace System::Diagnostics;
 using namespace System::IO;
@@ -43,10 +41,6 @@ int main(array<System::String ^> ^args)
 	ClientHandlerDelegator<MainFormController>* updateDelegate = new ClientHandlerDelegator<MainFormController>();
 	updateDelegate->RegisterCallback(MainFormController::getInstance(), ClientHandlerCallbackID::UPDATE_DATA, &MainFormController::optiTrackUpdateDataCallback);
 	ClientHandler::getInstance()->addObserver(updateDelegate);
-	
-	// Render Test
-	//OpenGLView^ glView = gcnew OpenGLView();
-	//glView->Show();
 
 	// Create the main window and run it
 	Application::Run(mainForm);
