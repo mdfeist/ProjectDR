@@ -119,6 +119,32 @@ namespace ProjectDR {
 	private: System::Windows::Forms::Label^  minIsoValueLabel;
 	private: System::Windows::Forms::Label^  minIsoValueTitleLabel;
 	private: System::Windows::Forms::TrackBar^  minIsoValueTrackBar;
+	private: System::Windows::Forms::Label^  volumeScaleLabel;
+	private: System::Windows::Forms::Label^  volumeScaleTitleLabel;
+	private: System::Windows::Forms::TrackBar^  volumeScaleTrackBar;
+	private: System::Windows::Forms::Label^  positionTitleLabel;
+	private: System::Windows::Forms::Label^  positionXLabel;
+	private: System::Windows::Forms::Label^  positionXTitleLabel;
+
+
+	private: System::Windows::Forms::TrackBar^  positionXTrackBar;
+	private: System::Windows::Forms::Label^  label5;
+	private: System::Windows::Forms::Label^  label6;
+	private: System::Windows::Forms::TrackBar^  trackBar3;
+	private: System::Windows::Forms::Label^  label7;
+	private: System::Windows::Forms::Label^  label8;
+	private: System::Windows::Forms::TrackBar^  trackBar4;
+	private: System::Windows::Forms::Label^  label9;
+	private: System::Windows::Forms::Label^  label10;
+	private: System::Windows::Forms::Label^  label11;
+	private: System::Windows::Forms::TrackBar^  trackBar5;
+	private: System::Windows::Forms::Label^  label3;
+	private: System::Windows::Forms::Label^  label4;
+	private: System::Windows::Forms::TrackBar^  trackBar2;
+	private: System::Windows::Forms::Label^  label1;
+	private: System::Windows::Forms::Label^  label2;
+	private: System::Windows::Forms::TrackBar^  trackBar1;
+
 
 
 
@@ -178,6 +204,13 @@ namespace ProjectDR {
 			this->optiTrackPropertiesLabel = (gcnew System::Windows::Forms::Label());
 			this->SceneTab = (gcnew System::Windows::Forms::TabPage());
 			this->volumePropertiesGroupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->positionTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->positionXLabel = (gcnew System::Windows::Forms::Label());
+			this->positionXTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->positionXTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->volumeScaleLabel = (gcnew System::Windows::Forms::Label());
+			this->volumeScaleTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->volumeScaleTrackBar = (gcnew System::Windows::Forms::TrackBar());
 			this->minIsoValueLabel = (gcnew System::Windows::Forms::Label());
 			this->minIsoValueTitleLabel = (gcnew System::Windows::Forms::Label());
 			this->minIsoValueTrackBar = (gcnew System::Windows::Forms::TrackBar());
@@ -189,6 +222,22 @@ namespace ProjectDR {
 			this->volumePathTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->volumePathLabel = (gcnew System::Windows::Forms::Label());
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->trackBar1 = (gcnew System::Windows::Forms::TrackBar());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->trackBar2 = (gcnew System::Windows::Forms::TrackBar());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->trackBar3 = (gcnew System::Windows::Forms::TrackBar());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->trackBar4 = (gcnew System::Windows::Forms::TrackBar());
+			this->label9 = (gcnew System::Windows::Forms::Label());
+			this->label10 = (gcnew System::Windows::Forms::Label());
+			this->label11 = (gcnew System::Windows::Forms::Label());
+			this->trackBar5 = (gcnew System::Windows::Forms::TrackBar());
 			this->menuStrip->SuspendLayout();
 			this->tabControl->SuspendLayout();
 			this->optiTrackPage->SuspendLayout();
@@ -203,8 +252,15 @@ namespace ProjectDR {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackDataGridView))->BeginInit();
 			this->SceneTab->SuspendLayout();
 			this->volumePropertiesGroupBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->positionXTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->volumeScaleTrackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->minIsoValueTrackBar))->BeginInit();
 			this->loadVolumeGroupBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar3))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar4))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar5))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip
@@ -677,6 +733,29 @@ namespace ProjectDR {
 			// 
 			this->volumePropertiesGroupBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
 				| System::Windows::Forms::AnchorStyles::Left));
+			this->volumePropertiesGroupBox->Controls->Add(this->label5);
+			this->volumePropertiesGroupBox->Controls->Add(this->label6);
+			this->volumePropertiesGroupBox->Controls->Add(this->trackBar3);
+			this->volumePropertiesGroupBox->Controls->Add(this->label7);
+			this->volumePropertiesGroupBox->Controls->Add(this->label8);
+			this->volumePropertiesGroupBox->Controls->Add(this->trackBar4);
+			this->volumePropertiesGroupBox->Controls->Add(this->label9);
+			this->volumePropertiesGroupBox->Controls->Add(this->label10);
+			this->volumePropertiesGroupBox->Controls->Add(this->label11);
+			this->volumePropertiesGroupBox->Controls->Add(this->trackBar5);
+			this->volumePropertiesGroupBox->Controls->Add(this->label3);
+			this->volumePropertiesGroupBox->Controls->Add(this->label4);
+			this->volumePropertiesGroupBox->Controls->Add(this->trackBar2);
+			this->volumePropertiesGroupBox->Controls->Add(this->label1);
+			this->volumePropertiesGroupBox->Controls->Add(this->label2);
+			this->volumePropertiesGroupBox->Controls->Add(this->trackBar1);
+			this->volumePropertiesGroupBox->Controls->Add(this->positionTitleLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->positionXLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->positionXTitleLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->positionXTrackBar);
+			this->volumePropertiesGroupBox->Controls->Add(this->volumeScaleLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->volumeScaleTitleLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->volumeScaleTrackBar);
 			this->volumePropertiesGroupBox->Controls->Add(this->minIsoValueLabel);
 			this->volumePropertiesGroupBox->Controls->Add(this->minIsoValueTitleLabel);
 			this->volumePropertiesGroupBox->Controls->Add(this->minIsoValueTrackBar);
@@ -687,21 +766,96 @@ namespace ProjectDR {
 			this->volumePropertiesGroupBox->TabStop = false;
 			this->volumePropertiesGroupBox->Text = L"Volume Properties";
 			// 
+			// positionTitleLabel
+			// 
+			this->positionTitleLabel->AutoSize = true;
+			this->positionTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->positionTitleLabel->Location = System::Drawing::Point(9, 90);
+			this->positionTitleLabel->Name = L"positionTitleLabel";
+			this->positionTitleLabel->Size = System::Drawing::Size(87, 13);
+			this->positionTitleLabel->TabIndex = 61;
+			this->positionTitleLabel->Text = L"Position Offset:";
+			// 
+			// positionXLabel
+			// 
+			this->positionXLabel->AutoSize = true;
+			this->positionXLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->positionXLabel->Location = System::Drawing::Point(263, 119);
+			this->positionXLabel->Name = L"positionXLabel";
+			this->positionXLabel->Size = System::Drawing::Size(46, 13);
+			this->positionXLabel->TabIndex = 60;
+			this->positionXLabel->Text = L"0.000 m";
+			// 
+			// positionXTitleLabel
+			// 
+			this->positionXTitleLabel->AutoSize = true;
+			this->positionXTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->positionXTitleLabel->Location = System::Drawing::Point(80, 109);
+			this->positionXTitleLabel->Name = L"positionXTitleLabel";
+			this->positionXTitleLabel->Size = System::Drawing::Size(16, 13);
+			this->positionXTitleLabel->TabIndex = 59;
+			this->positionXTitleLabel->Text = L"X:";
+			// 
+			// positionXTrackBar
+			// 
+			this->positionXTrackBar->LargeChange = 1000;
+			this->positionXTrackBar->Location = System::Drawing::Point(102, 109);
+			this->positionXTrackBar->Maximum = 5000;
+			this->positionXTrackBar->Minimum = -5000;
+			this->positionXTrackBar->Name = L"positionXTrackBar";
+			this->positionXTrackBar->Size = System::Drawing::Size(158, 45);
+			this->positionXTrackBar->TabIndex = 58;
+			this->positionXTrackBar->TickFrequency = 1000;
+			this->positionXTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::positionXTrackBar_ValueChanged);
+			// 
+			// volumeScaleLabel
+			// 
+			this->volumeScaleLabel->AutoSize = true;
+			this->volumeScaleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->volumeScaleLabel->Location = System::Drawing::Point(263, 68);
+			this->volumeScaleLabel->Name = L"volumeScaleLabel";
+			this->volumeScaleLabel->Size = System::Drawing::Size(46, 13);
+			this->volumeScaleLabel->TabIndex = 57;
+			this->volumeScaleLabel->Text = L"1.000 m";
+			// 
+			// volumeScaleTitleLabel
+			// 
+			this->volumeScaleTitleLabel->AutoSize = true;
+			this->volumeScaleTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->volumeScaleTitleLabel->Location = System::Drawing::Point(60, 58);
+			this->volumeScaleTitleLabel->Name = L"volumeScaleTitleLabel";
+			this->volumeScaleTitleLabel->Size = System::Drawing::Size(36, 13);
+			this->volumeScaleTitleLabel->TabIndex = 56;
+			this->volumeScaleTitleLabel->Text = L"Scale:";
+			// 
+			// volumeScaleTrackBar
+			// 
+			this->volumeScaleTrackBar->LargeChange = 1000;
+			this->volumeScaleTrackBar->Location = System::Drawing::Point(102, 58);
+			this->volumeScaleTrackBar->Maximum = 5000;
+			this->volumeScaleTrackBar->Minimum = 1;
+			this->volumeScaleTrackBar->Name = L"volumeScaleTrackBar";
+			this->volumeScaleTrackBar->Size = System::Drawing::Size(158, 45);
+			this->volumeScaleTrackBar->TabIndex = 55;
+			this->volumeScaleTrackBar->TickFrequency = 1000;
+			this->volumeScaleTrackBar->Value = 1000;
+			this->volumeScaleTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::volumeScaleTrackBar_ValueChanged);
+			// 
 			// minIsoValueLabel
 			// 
 			this->minIsoValueLabel->AutoSize = true;
 			this->minIsoValueLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->minIsoValueLabel->Location = System::Drawing::Point(263, 31);
+			this->minIsoValueLabel->Location = System::Drawing::Point(263, 28);
 			this->minIsoValueLabel->Name = L"minIsoValueLabel";
-			this->minIsoValueLabel->Size = System::Drawing::Size(13, 13);
+			this->minIsoValueLabel->Size = System::Drawing::Size(22, 13);
 			this->minIsoValueLabel->TabIndex = 54;
-			this->minIsoValueLabel->Text = L"0";
+			this->minIsoValueLabel->Text = L"0.0";
 			// 
 			// minIsoValueTitleLabel
 			// 
 			this->minIsoValueTitleLabel->AutoSize = true;
 			this->minIsoValueTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->minIsoValueTitleLabel->Location = System::Drawing::Point(6, 31);
+			this->minIsoValueTitleLabel->Location = System::Drawing::Point(19, 18);
 			this->minIsoValueTitleLabel->Name = L"minIsoValueTitleLabel";
 			this->minIsoValueTitleLabel->Size = System::Drawing::Size(77, 13);
 			this->minIsoValueTitleLabel->TabIndex = 53;
@@ -710,7 +864,7 @@ namespace ProjectDR {
 			// minIsoValueTrackBar
 			// 
 			this->minIsoValueTrackBar->LargeChange = 100;
-			this->minIsoValueTrackBar->Location = System::Drawing::Point(102, 21);
+			this->minIsoValueTrackBar->Location = System::Drawing::Point(102, 18);
 			this->minIsoValueTrackBar->Maximum = 1000;
 			this->minIsoValueTrackBar->Name = L"minIsoValueTrackBar";
 			this->minIsoValueTrackBar->Size = System::Drawing::Size(158, 45);
@@ -806,6 +960,171 @@ namespace ProjectDR {
 			this->backgroundWorker1->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainForm::backgroundWorker1_DoWork);
 			this->backgroundWorker1->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MainForm::backgroundWorker1_RunWorkerCompleted);
 			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->label1->Location = System::Drawing::Point(263, 161);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(46, 13);
+			this->label1->TabIndex = 64;
+			this->label1->Text = L"0.000 m";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->label2->Location = System::Drawing::Point(79, 151);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(15, 13);
+			this->label2->TabIndex = 63;
+			this->label2->Text = L"Y:";
+			// 
+			// trackBar1
+			// 
+			this->trackBar1->LargeChange = 1000;
+			this->trackBar1->Location = System::Drawing::Point(102, 151);
+			this->trackBar1->Maximum = 5000;
+			this->trackBar1->Minimum = -5000;
+			this->trackBar1->Name = L"trackBar1";
+			this->trackBar1->Size = System::Drawing::Size(158, 45);
+			this->trackBar1->TabIndex = 62;
+			this->trackBar1->TickFrequency = 1000;
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->label3->Location = System::Drawing::Point(263, 207);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(46, 13);
+			this->label3->TabIndex = 67;
+			this->label3->Text = L"0.000 m";
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->label4->Location = System::Drawing::Point(79, 196);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(16, 13);
+			this->label4->TabIndex = 66;
+			this->label4->Text = L"Z:";
+			// 
+			// trackBar2
+			// 
+			this->trackBar2->LargeChange = 1000;
+			this->trackBar2->Location = System::Drawing::Point(102, 196);
+			this->trackBar2->Maximum = 5000;
+			this->trackBar2->Minimum = -5000;
+			this->trackBar2->Name = L"trackBar2";
+			this->trackBar2->Size = System::Drawing::Size(158, 45);
+			this->trackBar2->TabIndex = 65;
+			this->trackBar2->TickFrequency = 1000;
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->label5->Location = System::Drawing::Point(263, 343);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(46, 13);
+			this->label5->TabIndex = 77;
+			this->label5->Text = L"0.000 m";
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->label6->Location = System::Drawing::Point(79, 332);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(16, 13);
+			this->label6->TabIndex = 76;
+			this->label6->Text = L"Z:";
+			// 
+			// trackBar3
+			// 
+			this->trackBar3->LargeChange = 1000;
+			this->trackBar3->Location = System::Drawing::Point(102, 332);
+			this->trackBar3->Maximum = 5000;
+			this->trackBar3->Minimum = -5000;
+			this->trackBar3->Name = L"trackBar3";
+			this->trackBar3->Size = System::Drawing::Size(158, 45);
+			this->trackBar3->TabIndex = 75;
+			this->trackBar3->TickFrequency = 1000;
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->label7->Location = System::Drawing::Point(263, 297);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(46, 13);
+			this->label7->TabIndex = 74;
+			this->label7->Text = L"0.000 m";
+			// 
+			// label8
+			// 
+			this->label8->AutoSize = true;
+			this->label8->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->label8->Location = System::Drawing::Point(79, 287);
+			this->label8->Name = L"label8";
+			this->label8->Size = System::Drawing::Size(15, 13);
+			this->label8->TabIndex = 73;
+			this->label8->Text = L"Y:";
+			// 
+			// trackBar4
+			// 
+			this->trackBar4->LargeChange = 1000;
+			this->trackBar4->Location = System::Drawing::Point(102, 287);
+			this->trackBar4->Maximum = 5000;
+			this->trackBar4->Minimum = -5000;
+			this->trackBar4->Name = L"trackBar4";
+			this->trackBar4->Size = System::Drawing::Size(158, 45);
+			this->trackBar4->TabIndex = 72;
+			this->trackBar4->TickFrequency = 1000;
+			// 
+			// label9
+			// 
+			this->label9->AutoSize = true;
+			this->label9->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->label9->Location = System::Drawing::Point(4, 225);
+			this->label9->Name = L"label9";
+			this->label9->Size = System::Drawing::Size(90, 13);
+			this->label9->TabIndex = 71;
+			this->label9->Text = L"Rotation Offset:";
+			// 
+			// label10
+			// 
+			this->label10->AutoSize = true;
+			this->label10->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->label10->Location = System::Drawing::Point(263, 255);
+			this->label10->Name = L"label10";
+			this->label10->Size = System::Drawing::Size(46, 13);
+			this->label10->TabIndex = 70;
+			this->label10->Text = L"0.000 m";
+			// 
+			// label11
+			// 
+			this->label11->AutoSize = true;
+			this->label11->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->label11->Location = System::Drawing::Point(80, 245);
+			this->label11->Name = L"label11";
+			this->label11->Size = System::Drawing::Size(16, 13);
+			this->label11->TabIndex = 69;
+			this->label11->Text = L"X:";
+			// 
+			// trackBar5
+			// 
+			this->trackBar5->LargeChange = 1000;
+			this->trackBar5->Location = System::Drawing::Point(102, 245);
+			this->trackBar5->Maximum = 5000;
+			this->trackBar5->Minimum = -5000;
+			this->trackBar5->Name = L"trackBar5";
+			this->trackBar5->Size = System::Drawing::Size(158, 45);
+			this->trackBar5->TabIndex = 68;
+			this->trackBar5->TickFrequency = 1000;
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -841,9 +1160,16 @@ namespace ProjectDR {
 			this->SceneTab->ResumeLayout(false);
 			this->volumePropertiesGroupBox->ResumeLayout(false);
 			this->volumePropertiesGroupBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->positionXTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->volumeScaleTrackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->minIsoValueTrackBar))->EndInit();
 			this->loadVolumeGroupBox->ResumeLayout(false);
 			this->loadVolumeGroupBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar3))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar4))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar5))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -1181,8 +1507,18 @@ namespace ProjectDR {
 				 VolumeRenderManager::getInstance()->Show();
 			 }
 	private: System::Void minIsoValueTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
-				 this->minIsoValueLabel->Text = System::Convert::ToString(100.f*((float)this->minIsoValueTrackBar->Value/this->minIsoValueTrackBar->Maximum));
+				 float isoValue = 100.f*((float)this->minIsoValueTrackBar->Value/this->minIsoValueTrackBar->Maximum);
+				 this->minIsoValueLabel->Text = isoValue.ToString("f1");
 				 VolumeRenderManager::getInstance()->setMinIsoValue((float)this->minIsoValueTrackBar->Value/this->minIsoValueTrackBar->Maximum);
+			 }
+	private: System::Void volumeScaleTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float size = (float)this->volumeScaleTrackBar->Value/1000.f;
+				 this->volumeScaleLabel->Text = size.ToString("f3") + " m";
+				 //VolumeRenderManager::getInstance()->setMinIsoValue((float)this->volumeScaleTrackBar->Value/1000.f);
+			 }
+	private: System::Void positionXTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->positionXTrackBar->Value/1000.f;
+				 this->positionXLabel->Text = value.ToString("f3") + " m";
 			 }
 };
 }
