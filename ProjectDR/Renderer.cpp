@@ -254,20 +254,14 @@ System::Void Renderer::Update(System::Void)
 
 System::Void Renderer::Render(System::Void)
 {
-	static float angle = 0.f;
-
     // Clear the color and depth buffers.
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f) ;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glLoadIdentity();												// Load Identity
-	glTranslatef(0, 0, -2.25);										// Set Camera Position
-	glRotatef(25, 1, 0, 0);
-	glRotatef(angle, 0, 1, 0);
+	glTranslatef(0, 0, -1.0);										// Set Camera Position
 	
 	manager->render(camera);										// Render scene
-
-	angle += 0.1f;
 }
 
 System::Void Renderer::GetFrame(System::Void) {

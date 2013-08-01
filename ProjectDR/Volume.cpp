@@ -171,6 +171,9 @@ Volume::Volume(void) : Actor3D()											// Constructor
 	cubeVerticesVBO = 0;													// Set cubeVerticesVBO to NULL
 	initialized = false;													// Set initialized to false
 
+	useMatrix = false;
+	matrix = Eigen::Matrix4f::Identity();
+
 	scale = Eigen::Vector3f::Ones();										// Set scale to all ones
 	position = Eigen::Vector3f(0, 0, 0);									// Set position to the origin
 	rotation = Eigen::Quaternionf::Identity();								// Set rotation to the identity
@@ -337,6 +340,7 @@ void Volume::setup() {														// Pre-compute volume properties
 	buildCubes();															// Build the vertex buffer object for all the sub cubes
 	std::cout << "- Cubes Created" << std::endl;
 }
+
 GLuint Volume::createVolume() {												// Loads the volume data onto the GPU
 	GLuint volume_texture;													// ID for GPU texture
 	glGenTextures(1, &volume_texture);										// Generate texture
@@ -642,6 +646,11 @@ void Volume::increaseIsoValue(float value) {									// Increase the threshold f
 		isoValue = 0.0f;
 }
 
+void Volume::setMatrix(const Eigen::Matrix4f& m) {
+	matrix = m;
+	useMatrix = true;
+}
+
 void Volume::render(Camera* camera) {
 	int viewWidth = camera->getWidth();						// Get Camera Width
 	int viewHeight = camera->getHeight();					// Get Camera Height
@@ -664,10 +673,16 @@ void Volume::render(Camera* camera) {
 			((float)volumeHeight/volumeWidth),				// Scale the height dimension relative to the width
 		(spacingZ/spacingX)*								// Scale the voxel spacing depth relative to spacing width
 			((float)volumeDepth/volumeWidth));				// Scale the depth dimension relative to the width
-			
-	glScalef(scale.x(), scale.y(), scale.z());				// Scale the volume
-
-	glTranslatef(position.x(), position.y(), position.z());	// set position of the texture cube
+	
+	if (useMatrix) {
+		glMultMatrixf((const GLfloat*)matrix.data());
+	} else {
+		glScalef(scale.x(), scale.y(), scale.z());			// Scale the volume
+		glTranslatef(										// set position of the texture cube
+			position.x(), 
+			position.y(), 
+			position.z());	
+	}
 
 	// Convert rotation quaternion into axis angle
 	float rotationScale = sqrt(								// Get length of quaternion

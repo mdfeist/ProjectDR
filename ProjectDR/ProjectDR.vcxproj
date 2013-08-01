@@ -498,6 +498,8 @@
     </ClInclude>
     <ClInclude Include="ProgressSpinner.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RendererCallback.h" />
+    <ClInclude Include="RendererDelegator.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RigidBody.h" />

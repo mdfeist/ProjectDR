@@ -4,17 +4,26 @@
 #include <iostream>
 
 #pragma unmanaged
+#include "ClientHandler.h"
+#include "RigidBody.h"
 #include "Volume.h"
 #include "VolumeLoader.h"
+#include "RendererDelegator.h"
 #pragma managed
 
 #include "Renderer.h"
 #include "RenderManager.h"
 
 VolumeRenderManager* FormController<VolumeRenderManager, ProjectDR::OpenGLView>::m_pInstance = NULL;
+int RendererCallback::Callback_ID = 0;
 
 VolumeRenderManager::VolumeRenderManager(void) : FormController<VolumeRenderManager, ProjectDR::OpenGLView>() {
 	volume = nullptr;
+	
+	scale = 1.f;
+	x_offset = y_offset = z_offset = 0.f;
+	qx_offset = qy_offset = qz_offset = 0.f;
+	rotation = Eigen::Quaternionf::Identity();
 }
 
 void VolumeRenderManager::initFusion() {
@@ -74,8 +83,12 @@ Volume* VolumeRenderManager::loadVolume(const char* volumeFile) {
 
 	if (volume) {
 		removeVolumeFromScene();
+
 		delete volume;
 		volume = nullptr;
+
+		delete updateVolumeDelegate;
+		updateVolumeDelegate = nullptr;
 	}
 
 	volume = new Volume();
@@ -83,6 +96,9 @@ Volume* VolumeRenderManager::loadVolume(const char* volumeFile) {
 	volume->setVolumeData(volumeLoader);
 	volume->setup();
 
+	updateVolumeDelegate = new RendererDelegator<VolumeRenderManager>();
+	updateVolumeDelegate->RegisterCallback(VolumeRenderManager::getInstance(), &VolumeRenderManager::updateVolume);
+	
 	return volume;
 }
 
@@ -94,6 +110,7 @@ void VolumeRenderManager::addVolumeToScene() {
 		RenderManager* manager = renderer->getManager();
 		
 		if (manager) {
+			manager->addUpdateDelegate(updateVolumeDelegate);
 			manager->addActor(volume);
 		} else {
 			std::cout << "Failed."<< std::endl;
@@ -118,6 +135,7 @@ void VolumeRenderManager::removeVolumeFromScene() {
 		RenderManager* manager = renderer->getManager();
 		
 		if (manager) {
+			manager->removeUpdateDelegate(updateVolumeDelegate);
 			manager->removeActor(volume);
 		} else {
 			std::cout << "Failed."<< std::endl;
@@ -134,8 +152,85 @@ void VolumeRenderManager::removeVolumeFromScene() {
 	}
 }
 
+void VolumeRenderManager::updateVolume() {
+	Eigen::Matrix4f rb_matrix = Eigen::Matrix4f::Identity();
+
+	Eigen::Matrix4f matrix = Eigen::Matrix4f::Identity();
+	Eigen::Matrix4f scaleMatrix = Eigen::Matrix4f::Identity();
+
+	scaleMatrix(0,0) = scaleMatrix(1,1) = scaleMatrix(2,2) = scale;
+
+	Eigen::Matrix3f rotationMatrix = rotation.toRotationMatrix();
+
+	for (int j = 0; j < 3; j++)
+		for (int i = 0; i < 3; i++)
+			matrix(i,j) = rotationMatrix(i,j);
+	
+	matrix(0,3) = x_offset;
+	matrix(1,3) = y_offset;
+	matrix(2,3) = z_offset;
+
+	RigidBody* rb = ClientHandler::getInstance()->getRigidBody(rigidBodyID);
+
+	if (rb) {
+		// Get Rigid Body Information
+		Eigen::Quaternionf quat = Eigen::Quaternionf(rb->qw(), rb->qx(), rb->qy(), rb->qz());
+		Eigen::Vector3f pos = rb->getPosition();
+
+		Eigen::Matrix3f rotationMatrix;
+
+		// Get Rotation of Camera
+		rotationMatrix = quat.toRotationMatrix();
+
+		for (int j = 0; j < 3; j++)
+			for (int i = 0; i < 3; i++)
+				rb_matrix(i,j) = rotationMatrix(i,j);
+
+		rb_matrix(0,3) = pos(0);
+		rb_matrix(1,3) = pos(1);
+		rb_matrix(2,3) = pos(2);
+	}
+
+	matrix = scaleMatrix * matrix;
+	matrix = rb_matrix * matrix;
+
+	if (volume)
+		volume->setMatrix(matrix);
+}
+
 void VolumeRenderManager::setMinIsoValue(float value) {
 	if (volume) {
 		volume->setIsoValue(value);
 	}
+}
+
+void VolumeRenderManager::setScale(float value) {
+	scale = value;
+}
+
+void VolumeRenderManager::setPositionX(float value) {
+	x_offset = value;
+}
+
+void VolumeRenderManager::setPositionY(float value) {
+	y_offset = value;
+}
+
+void VolumeRenderManager::setPositionZ(float value) {
+	z_offset = value;
+}
+
+void VolumeRenderManager::setRotationX(float value) {
+	rotation = rotation * Eigen::AngleAxisf((value - qx_offset) * M_PI/180.f, Eigen::Vector3f::UnitX());
+	qx_offset = value;
+}
+
+void VolumeRenderManager::setRotationY(float value) {
+	rotation = rotation * Eigen::AngleAxisf((value - qy_offset) * M_PI/180.f, Eigen::Vector3f::UnitY());
+	qy_offset = value;
+}
+
+void VolumeRenderManager::setRotationZ(float value) {
+	rotation = rotation * Eigen::AngleAxisf((value - qz_offset) * M_PI/180.f, Eigen::Vector3f::UnitZ());
+	qz_offset = value;
 }

@@ -6,12 +6,16 @@
 
 class Actor;
 class Camera;
+class RendererCallback;
 
 class RenderManager
 {
 public:
 	RenderManager(void);
 	~RenderManager(void);
+
+	void addUpdateDelegate(RendererCallback*);
+	void removeUpdateDelegate(RendererCallback*);
 
 	void addActor(Actor*);
 	void removeActor(Actor*);
@@ -20,5 +24,7 @@ public:
 
 private:
 	std::vector<Actor*> actors;
+
+	std::vector<RendererCallback*>	updateObservers;
 };
 

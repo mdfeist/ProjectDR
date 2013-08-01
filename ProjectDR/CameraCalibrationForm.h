@@ -501,7 +501,7 @@ namespace ProjectDR {
 				 }
 
 				 this->cameraListView->View = View::Details;
-				 this->cameraListView->Columns->Add("Id", 50, HorizontalAlignment::Left ); 
+				 this->cameraListView->Columns->Add("ID", 50, HorizontalAlignment::Left ); 
 				 this->cameraListView->Columns->Add("Name", 150, HorizontalAlignment::Left ); 
 
 				 RigidBodyMap bodyMap = ClientHandler::getInstance()->getRigidBodyMap();

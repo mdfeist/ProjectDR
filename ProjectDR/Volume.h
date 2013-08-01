@@ -33,9 +33,14 @@ public:
 	void setIsoValue(float value);
 	void increaseIsoValue(float value);
 
+	void setMatrix(const Eigen::Matrix4f& m);
+
 	void render(Camera*);
 private:
 	bool initialized;
+	bool useMatrix;
+
+	Eigen::Matrix4f matrix;
 
 	// Frame Buffer Object
 	GLuint FBO;

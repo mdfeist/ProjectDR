@@ -128,22 +128,46 @@ namespace ProjectDR {
 
 
 	private: System::Windows::Forms::TrackBar^  positionXTrackBar;
-	private: System::Windows::Forms::Label^  label5;
-	private: System::Windows::Forms::Label^  label6;
-	private: System::Windows::Forms::TrackBar^  trackBar3;
-	private: System::Windows::Forms::Label^  label7;
-	private: System::Windows::Forms::Label^  label8;
-	private: System::Windows::Forms::TrackBar^  trackBar4;
-	private: System::Windows::Forms::Label^  label9;
-	private: System::Windows::Forms::Label^  label10;
-	private: System::Windows::Forms::Label^  label11;
-	private: System::Windows::Forms::TrackBar^  trackBar5;
-	private: System::Windows::Forms::Label^  label3;
-	private: System::Windows::Forms::Label^  label4;
-	private: System::Windows::Forms::TrackBar^  trackBar2;
-	private: System::Windows::Forms::Label^  label1;
-	private: System::Windows::Forms::Label^  label2;
-	private: System::Windows::Forms::TrackBar^  trackBar1;
+	private: System::Windows::Forms::Label^  rotationZLabel;
+
+	private: System::Windows::Forms::Label^  rotationZTitleLabel;
+	private: System::Windows::Forms::TrackBar^  rotationZTrackBar;
+	private: System::Windows::Forms::Label^  rotationYLabel;
+
+
+
+	private: System::Windows::Forms::Label^  rotationYTitleLabel;
+private: System::Windows::Forms::TrackBar^  rotationYTrackBar;
+
+
+private: System::Windows::Forms::Label^  rotationTitleLabel;
+private: System::Windows::Forms::Label^  rotationXLabel;
+
+
+private: System::Windows::Forms::Label^  rotationXTitleLabel;
+private: System::Windows::Forms::TrackBar^  rotationXTrackBar;
+
+
+private: System::Windows::Forms::Label^  positionZLabel;
+
+private: System::Windows::Forms::Label^  positionZTitleLabel;
+private: System::Windows::Forms::TrackBar^  positionZTrackBar;
+private: System::Windows::Forms::Label^  positionYLabel;
+
+
+
+private: System::Windows::Forms::Label^  positionYTitleLabel;
+private: System::Windows::Forms::TrackBar^  positionYTrackBar;
+private: System::Windows::Forms::GroupBox^  rigidBodyGroupBox;
+private: System::Windows::Forms::ListView^  rigidBodyListView;
+private: System::Windows::Forms::Label^  volumeSelectedLabel;
+
+private: System::Windows::Forms::Button^  selectRigidBodyAsVolumeBtn;
+private: System::Windows::Forms::Label^  volumeSelectLabel;
+
+
+
+
 
 
 
@@ -203,7 +227,28 @@ namespace ProjectDR {
 			this->optiTrackServerTitleLabel = (gcnew System::Windows::Forms::Label());
 			this->optiTrackPropertiesLabel = (gcnew System::Windows::Forms::Label());
 			this->SceneTab = (gcnew System::Windows::Forms::TabPage());
+			this->rigidBodyGroupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->volumeSelectedLabel = (gcnew System::Windows::Forms::Label());
+			this->selectRigidBodyAsVolumeBtn = (gcnew System::Windows::Forms::Button());
+			this->volumeSelectLabel = (gcnew System::Windows::Forms::Label());
+			this->rigidBodyListView = (gcnew System::Windows::Forms::ListView());
 			this->volumePropertiesGroupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->rotationZLabel = (gcnew System::Windows::Forms::Label());
+			this->rotationZTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->rotationZTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->rotationYLabel = (gcnew System::Windows::Forms::Label());
+			this->rotationYTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->rotationYTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->rotationTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->rotationXLabel = (gcnew System::Windows::Forms::Label());
+			this->rotationXTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->rotationXTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->positionZLabel = (gcnew System::Windows::Forms::Label());
+			this->positionZTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->positionZTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->positionYLabel = (gcnew System::Windows::Forms::Label());
+			this->positionYTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->positionYTrackBar = (gcnew System::Windows::Forms::TrackBar());
 			this->positionTitleLabel = (gcnew System::Windows::Forms::Label());
 			this->positionXLabel = (gcnew System::Windows::Forms::Label());
 			this->positionXTitleLabel = (gcnew System::Windows::Forms::Label());
@@ -222,22 +267,6 @@ namespace ProjectDR {
 			this->volumePathTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->volumePathLabel = (gcnew System::Windows::Forms::Label());
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->trackBar1 = (gcnew System::Windows::Forms::TrackBar());
-			this->label3 = (gcnew System::Windows::Forms::Label());
-			this->label4 = (gcnew System::Windows::Forms::Label());
-			this->trackBar2 = (gcnew System::Windows::Forms::TrackBar());
-			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->label6 = (gcnew System::Windows::Forms::Label());
-			this->trackBar3 = (gcnew System::Windows::Forms::TrackBar());
-			this->label7 = (gcnew System::Windows::Forms::Label());
-			this->label8 = (gcnew System::Windows::Forms::Label());
-			this->trackBar4 = (gcnew System::Windows::Forms::TrackBar());
-			this->label9 = (gcnew System::Windows::Forms::Label());
-			this->label10 = (gcnew System::Windows::Forms::Label());
-			this->label11 = (gcnew System::Windows::Forms::Label());
-			this->trackBar5 = (gcnew System::Windows::Forms::TrackBar());
 			this->menuStrip->SuspendLayout();
 			this->tabControl->SuspendLayout();
 			this->optiTrackPage->SuspendLayout();
@@ -251,16 +280,17 @@ namespace ProjectDR {
 			this->optiTrackSubSplitContainer->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackDataGridView))->BeginInit();
 			this->SceneTab->SuspendLayout();
+			this->rigidBodyGroupBox->SuspendLayout();
 			this->volumePropertiesGroupBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->rotationZTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->rotationYTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->rotationXTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->positionZTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->positionYTrackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->positionXTrackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->volumeScaleTrackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->minIsoValueTrackBar))->BeginInit();
 			this->loadVolumeGroupBox->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar2))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar3))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar4))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar5))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip
@@ -720,6 +750,7 @@ namespace ProjectDR {
 			// SceneTab
 			// 
 			this->SceneTab->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->SceneTab->Controls->Add(this->rigidBodyGroupBox);
 			this->SceneTab->Controls->Add(this->volumePropertiesGroupBox);
 			this->SceneTab->Controls->Add(this->loadVolumeGroupBox);
 			this->SceneTab->Location = System::Drawing::Point(4, 24);
@@ -729,26 +760,96 @@ namespace ProjectDR {
 			this->SceneTab->TabIndex = 1;
 			this->SceneTab->Text = L"Scene";
 			// 
+			// rigidBodyGroupBox
+			// 
+			this->rigidBodyGroupBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->rigidBodyGroupBox->Controls->Add(this->volumeSelectedLabel);
+			this->rigidBodyGroupBox->Controls->Add(this->selectRigidBodyAsVolumeBtn);
+			this->rigidBodyGroupBox->Controls->Add(this->volumeSelectLabel);
+			this->rigidBodyGroupBox->Controls->Add(this->rigidBodyListView);
+			this->rigidBodyGroupBox->Location = System::Drawing::Point(323, 126);
+			this->rigidBodyGroupBox->Name = L"rigidBodyGroupBox";
+			this->rigidBodyGroupBox->Size = System::Drawing::Size(461, 310);
+			this->rigidBodyGroupBox->TabIndex = 50;
+			this->rigidBodyGroupBox->TabStop = false;
+			this->rigidBodyGroupBox->Text = L"Rigid Body";
+			// 
+			// volumeSelectedLabel
+			// 
+			this->volumeSelectedLabel->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->volumeSelectedLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->volumeSelectedLabel->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->volumeSelectedLabel->Location = System::Drawing::Point(5, 269);
+			this->volumeSelectedLabel->MaximumSize = System::Drawing::Size(450, 60);
+			this->volumeSelectedLabel->Name = L"volumeSelectedLabel";
+			this->volumeSelectedLabel->Size = System::Drawing::Size(450, 31);
+			this->volumeSelectedLabel->TabIndex = 52;
+			this->volumeSelectedLabel->Text = L"No rigid body is selected to be the volume.";
+			this->volumeSelectedLabel->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// selectRigidBodyAsVolumeBtn
+			// 
+			this->selectRigidBodyAsVolumeBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->selectRigidBodyAsVolumeBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->selectRigidBodyAsVolumeBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->selectRigidBodyAsVolumeBtn->Location = System::Drawing::Point(136, 235);
+			this->selectRigidBodyAsVolumeBtn->Name = L"selectRigidBodyAsVolumeBtn";
+			this->selectRigidBodyAsVolumeBtn->Size = System::Drawing::Size(189, 23);
+			this->selectRigidBodyAsVolumeBtn->TabIndex = 51;
+			this->selectRigidBodyAsVolumeBtn->Text = L"Use Selected Rigid Body";
+			this->selectRigidBodyAsVolumeBtn->UseVisualStyleBackColor = false;
+			this->selectRigidBodyAsVolumeBtn->Click += gcnew System::EventHandler(this, &MainForm::selectRigidBodyAsVolumeBtn_Click);
+			// 
+			// volumeSelectLabel
+			// 
+			this->volumeSelectLabel->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->volumeSelectLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10));
+			this->volumeSelectLabel->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->volumeSelectLabel->Location = System::Drawing::Point(217, 18);
+			this->volumeSelectLabel->Name = L"volumeSelectLabel";
+			this->volumeSelectLabel->Size = System::Drawing::Size(239, 209);
+			this->volumeSelectLabel->TabIndex = 50;
+			this->volumeSelectLabel->Text = resources->GetString(L"volumeSelectLabel.Text");
+			// 
+			// rigidBodyListView
+			// 
+			this->rigidBodyListView->Alignment = System::Windows::Forms::ListViewAlignment::Left;
+			this->rigidBodyListView->FullRowSelect = true;
+			this->rigidBodyListView->LabelWrap = false;
+			this->rigidBodyListView->Location = System::Drawing::Point(6, 20);
+			this->rigidBodyListView->MultiSelect = false;
+			this->rigidBodyListView->Name = L"rigidBodyListView";
+			this->rigidBodyListView->Size = System::Drawing::Size(205, 207);
+			this->rigidBodyListView->TabIndex = 49;
+			this->rigidBodyListView->TileSize = System::Drawing::Size(100, 20);
+			this->rigidBodyListView->UseCompatibleStateImageBehavior = false;
+			this->rigidBodyListView->View = System::Windows::Forms::View::SmallIcon;
+			// 
 			// volumePropertiesGroupBox
 			// 
 			this->volumePropertiesGroupBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
 				| System::Windows::Forms::AnchorStyles::Left));
-			this->volumePropertiesGroupBox->Controls->Add(this->label5);
-			this->volumePropertiesGroupBox->Controls->Add(this->label6);
-			this->volumePropertiesGroupBox->Controls->Add(this->trackBar3);
-			this->volumePropertiesGroupBox->Controls->Add(this->label7);
-			this->volumePropertiesGroupBox->Controls->Add(this->label8);
-			this->volumePropertiesGroupBox->Controls->Add(this->trackBar4);
-			this->volumePropertiesGroupBox->Controls->Add(this->label9);
-			this->volumePropertiesGroupBox->Controls->Add(this->label10);
-			this->volumePropertiesGroupBox->Controls->Add(this->label11);
-			this->volumePropertiesGroupBox->Controls->Add(this->trackBar5);
-			this->volumePropertiesGroupBox->Controls->Add(this->label3);
-			this->volumePropertiesGroupBox->Controls->Add(this->label4);
-			this->volumePropertiesGroupBox->Controls->Add(this->trackBar2);
-			this->volumePropertiesGroupBox->Controls->Add(this->label1);
-			this->volumePropertiesGroupBox->Controls->Add(this->label2);
-			this->volumePropertiesGroupBox->Controls->Add(this->trackBar1);
+			this->volumePropertiesGroupBox->Controls->Add(this->rotationZLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->rotationZTitleLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->rotationZTrackBar);
+			this->volumePropertiesGroupBox->Controls->Add(this->rotationYLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->rotationYTitleLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->rotationYTrackBar);
+			this->volumePropertiesGroupBox->Controls->Add(this->rotationTitleLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->rotationXLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->rotationXTitleLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->rotationXTrackBar);
+			this->volumePropertiesGroupBox->Controls->Add(this->positionZLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->positionZTitleLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->positionZTrackBar);
+			this->volumePropertiesGroupBox->Controls->Add(this->positionYLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->positionYTitleLabel);
+			this->volumePropertiesGroupBox->Controls->Add(this->positionYTrackBar);
 			this->volumePropertiesGroupBox->Controls->Add(this->positionTitleLabel);
 			this->volumePropertiesGroupBox->Controls->Add(this->positionXLabel);
 			this->volumePropertiesGroupBox->Controls->Add(this->positionXTitleLabel);
@@ -765,6 +866,176 @@ namespace ProjectDR {
 			this->volumePropertiesGroupBox->TabIndex = 48;
 			this->volumePropertiesGroupBox->TabStop = false;
 			this->volumePropertiesGroupBox->Text = L"Volume Properties";
+			// 
+			// rotationZLabel
+			// 
+			this->rotationZLabel->AutoSize = true;
+			this->rotationZLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->rotationZLabel->Location = System::Drawing::Point(263, 343);
+			this->rotationZLabel->Name = L"rotationZLabel";
+			this->rotationZLabel->Size = System::Drawing::Size(28, 13);
+			this->rotationZLabel->TabIndex = 77;
+			this->rotationZLabel->Text = L"0.00";
+			// 
+			// rotationZTitleLabel
+			// 
+			this->rotationZTitleLabel->AutoSize = true;
+			this->rotationZTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->rotationZTitleLabel->Location = System::Drawing::Point(79, 332);
+			this->rotationZTitleLabel->Name = L"rotationZTitleLabel";
+			this->rotationZTitleLabel->Size = System::Drawing::Size(16, 13);
+			this->rotationZTitleLabel->TabIndex = 76;
+			this->rotationZTitleLabel->Text = L"Z:";
+			// 
+			// rotationZTrackBar
+			// 
+			this->rotationZTrackBar->LargeChange = 10;
+			this->rotationZTrackBar->Location = System::Drawing::Point(102, 332);
+			this->rotationZTrackBar->Maximum = 720;
+			this->rotationZTrackBar->Minimum = -720;
+			this->rotationZTrackBar->Name = L"rotationZTrackBar";
+			this->rotationZTrackBar->Size = System::Drawing::Size(158, 45);
+			this->rotationZTrackBar->TabIndex = 75;
+			this->rotationZTrackBar->TickFrequency = 120;
+			this->rotationZTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::rotationZTrackBar_ValueChanged);
+			// 
+			// rotationYLabel
+			// 
+			this->rotationYLabel->AutoSize = true;
+			this->rotationYLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->rotationYLabel->Location = System::Drawing::Point(263, 297);
+			this->rotationYLabel->Name = L"rotationYLabel";
+			this->rotationYLabel->Size = System::Drawing::Size(28, 13);
+			this->rotationYLabel->TabIndex = 74;
+			this->rotationYLabel->Text = L"0.00";
+			// 
+			// rotationYTitleLabel
+			// 
+			this->rotationYTitleLabel->AutoSize = true;
+			this->rotationYTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->rotationYTitleLabel->Location = System::Drawing::Point(79, 287);
+			this->rotationYTitleLabel->Name = L"rotationYTitleLabel";
+			this->rotationYTitleLabel->Size = System::Drawing::Size(15, 13);
+			this->rotationYTitleLabel->TabIndex = 73;
+			this->rotationYTitleLabel->Text = L"Y:";
+			// 
+			// rotationYTrackBar
+			// 
+			this->rotationYTrackBar->LargeChange = 10;
+			this->rotationYTrackBar->Location = System::Drawing::Point(102, 287);
+			this->rotationYTrackBar->Maximum = 720;
+			this->rotationYTrackBar->Minimum = -720;
+			this->rotationYTrackBar->Name = L"rotationYTrackBar";
+			this->rotationYTrackBar->Size = System::Drawing::Size(158, 45);
+			this->rotationYTrackBar->TabIndex = 72;
+			this->rotationYTrackBar->TickFrequency = 120;
+			this->rotationYTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::rotationYTrackBar_ValueChanged);
+			// 
+			// rotationTitleLabel
+			// 
+			this->rotationTitleLabel->AutoSize = true;
+			this->rotationTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->rotationTitleLabel->Location = System::Drawing::Point(4, 225);
+			this->rotationTitleLabel->Name = L"rotationTitleLabel";
+			this->rotationTitleLabel->Size = System::Drawing::Size(90, 13);
+			this->rotationTitleLabel->TabIndex = 71;
+			this->rotationTitleLabel->Text = L"Rotation Offset:";
+			// 
+			// rotationXLabel
+			// 
+			this->rotationXLabel->AutoSize = true;
+			this->rotationXLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->rotationXLabel->Location = System::Drawing::Point(263, 255);
+			this->rotationXLabel->Name = L"rotationXLabel";
+			this->rotationXLabel->Size = System::Drawing::Size(28, 13);
+			this->rotationXLabel->TabIndex = 70;
+			this->rotationXLabel->Text = L"0.00";
+			// 
+			// rotationXTitleLabel
+			// 
+			this->rotationXTitleLabel->AutoSize = true;
+			this->rotationXTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->rotationXTitleLabel->Location = System::Drawing::Point(80, 245);
+			this->rotationXTitleLabel->Name = L"rotationXTitleLabel";
+			this->rotationXTitleLabel->Size = System::Drawing::Size(16, 13);
+			this->rotationXTitleLabel->TabIndex = 69;
+			this->rotationXTitleLabel->Text = L"X:";
+			// 
+			// rotationXTrackBar
+			// 
+			this->rotationXTrackBar->LargeChange = 10;
+			this->rotationXTrackBar->Location = System::Drawing::Point(102, 245);
+			this->rotationXTrackBar->Maximum = 720;
+			this->rotationXTrackBar->Minimum = -720;
+			this->rotationXTrackBar->Name = L"rotationXTrackBar";
+			this->rotationXTrackBar->Size = System::Drawing::Size(158, 45);
+			this->rotationXTrackBar->TabIndex = 68;
+			this->rotationXTrackBar->TickFrequency = 120;
+			this->rotationXTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::rotationXTrackBar_ValueChanged);
+			// 
+			// positionZLabel
+			// 
+			this->positionZLabel->AutoSize = true;
+			this->positionZLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->positionZLabel->Location = System::Drawing::Point(263, 207);
+			this->positionZLabel->Name = L"positionZLabel";
+			this->positionZLabel->Size = System::Drawing::Size(46, 13);
+			this->positionZLabel->TabIndex = 67;
+			this->positionZLabel->Text = L"0.000 m";
+			// 
+			// positionZTitleLabel
+			// 
+			this->positionZTitleLabel->AutoSize = true;
+			this->positionZTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->positionZTitleLabel->Location = System::Drawing::Point(79, 196);
+			this->positionZTitleLabel->Name = L"positionZTitleLabel";
+			this->positionZTitleLabel->Size = System::Drawing::Size(16, 13);
+			this->positionZTitleLabel->TabIndex = 66;
+			this->positionZTitleLabel->Text = L"Z:";
+			// 
+			// positionZTrackBar
+			// 
+			this->positionZTrackBar->LargeChange = 1000;
+			this->positionZTrackBar->Location = System::Drawing::Point(102, 196);
+			this->positionZTrackBar->Maximum = 5000;
+			this->positionZTrackBar->Minimum = -5000;
+			this->positionZTrackBar->Name = L"positionZTrackBar";
+			this->positionZTrackBar->Size = System::Drawing::Size(158, 45);
+			this->positionZTrackBar->TabIndex = 65;
+			this->positionZTrackBar->TickFrequency = 1000;
+			this->positionZTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::positionZTrackBar_ValueChanged);
+			// 
+			// positionYLabel
+			// 
+			this->positionYLabel->AutoSize = true;
+			this->positionYLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->positionYLabel->Location = System::Drawing::Point(263, 161);
+			this->positionYLabel->Name = L"positionYLabel";
+			this->positionYLabel->Size = System::Drawing::Size(46, 13);
+			this->positionYLabel->TabIndex = 64;
+			this->positionYLabel->Text = L"0.000 m";
+			// 
+			// positionYTitleLabel
+			// 
+			this->positionYTitleLabel->AutoSize = true;
+			this->positionYTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->positionYTitleLabel->Location = System::Drawing::Point(79, 151);
+			this->positionYTitleLabel->Name = L"positionYTitleLabel";
+			this->positionYTitleLabel->Size = System::Drawing::Size(15, 13);
+			this->positionYTitleLabel->TabIndex = 63;
+			this->positionYTitleLabel->Text = L"Y:";
+			// 
+			// positionYTrackBar
+			// 
+			this->positionYTrackBar->LargeChange = 1000;
+			this->positionYTrackBar->Location = System::Drawing::Point(102, 151);
+			this->positionYTrackBar->Maximum = 5000;
+			this->positionYTrackBar->Minimum = -5000;
+			this->positionYTrackBar->Name = L"positionYTrackBar";
+			this->positionYTrackBar->Size = System::Drawing::Size(158, 45);
+			this->positionYTrackBar->TabIndex = 62;
+			this->positionYTrackBar->TickFrequency = 1000;
+			this->positionYTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::positionYTrackBar_ValueChanged);
 			// 
 			// positionTitleLabel
 			// 
@@ -960,171 +1231,6 @@ namespace ProjectDR {
 			this->backgroundWorker1->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainForm::backgroundWorker1_DoWork);
 			this->backgroundWorker1->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MainForm::backgroundWorker1_RunWorkerCompleted);
 			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->label1->Location = System::Drawing::Point(263, 161);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(46, 13);
-			this->label1->TabIndex = 64;
-			this->label1->Text = L"0.000 m";
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->label2->Location = System::Drawing::Point(79, 151);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(15, 13);
-			this->label2->TabIndex = 63;
-			this->label2->Text = L"Y:";
-			// 
-			// trackBar1
-			// 
-			this->trackBar1->LargeChange = 1000;
-			this->trackBar1->Location = System::Drawing::Point(102, 151);
-			this->trackBar1->Maximum = 5000;
-			this->trackBar1->Minimum = -5000;
-			this->trackBar1->Name = L"trackBar1";
-			this->trackBar1->Size = System::Drawing::Size(158, 45);
-			this->trackBar1->TabIndex = 62;
-			this->trackBar1->TickFrequency = 1000;
-			// 
-			// label3
-			// 
-			this->label3->AutoSize = true;
-			this->label3->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->label3->Location = System::Drawing::Point(263, 207);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(46, 13);
-			this->label3->TabIndex = 67;
-			this->label3->Text = L"0.000 m";
-			// 
-			// label4
-			// 
-			this->label4->AutoSize = true;
-			this->label4->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->label4->Location = System::Drawing::Point(79, 196);
-			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(16, 13);
-			this->label4->TabIndex = 66;
-			this->label4->Text = L"Z:";
-			// 
-			// trackBar2
-			// 
-			this->trackBar2->LargeChange = 1000;
-			this->trackBar2->Location = System::Drawing::Point(102, 196);
-			this->trackBar2->Maximum = 5000;
-			this->trackBar2->Minimum = -5000;
-			this->trackBar2->Name = L"trackBar2";
-			this->trackBar2->Size = System::Drawing::Size(158, 45);
-			this->trackBar2->TabIndex = 65;
-			this->trackBar2->TickFrequency = 1000;
-			// 
-			// label5
-			// 
-			this->label5->AutoSize = true;
-			this->label5->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->label5->Location = System::Drawing::Point(263, 343);
-			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(46, 13);
-			this->label5->TabIndex = 77;
-			this->label5->Text = L"0.000 m";
-			// 
-			// label6
-			// 
-			this->label6->AutoSize = true;
-			this->label6->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->label6->Location = System::Drawing::Point(79, 332);
-			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(16, 13);
-			this->label6->TabIndex = 76;
-			this->label6->Text = L"Z:";
-			// 
-			// trackBar3
-			// 
-			this->trackBar3->LargeChange = 1000;
-			this->trackBar3->Location = System::Drawing::Point(102, 332);
-			this->trackBar3->Maximum = 5000;
-			this->trackBar3->Minimum = -5000;
-			this->trackBar3->Name = L"trackBar3";
-			this->trackBar3->Size = System::Drawing::Size(158, 45);
-			this->trackBar3->TabIndex = 75;
-			this->trackBar3->TickFrequency = 1000;
-			// 
-			// label7
-			// 
-			this->label7->AutoSize = true;
-			this->label7->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->label7->Location = System::Drawing::Point(263, 297);
-			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(46, 13);
-			this->label7->TabIndex = 74;
-			this->label7->Text = L"0.000 m";
-			// 
-			// label8
-			// 
-			this->label8->AutoSize = true;
-			this->label8->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->label8->Location = System::Drawing::Point(79, 287);
-			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(15, 13);
-			this->label8->TabIndex = 73;
-			this->label8->Text = L"Y:";
-			// 
-			// trackBar4
-			// 
-			this->trackBar4->LargeChange = 1000;
-			this->trackBar4->Location = System::Drawing::Point(102, 287);
-			this->trackBar4->Maximum = 5000;
-			this->trackBar4->Minimum = -5000;
-			this->trackBar4->Name = L"trackBar4";
-			this->trackBar4->Size = System::Drawing::Size(158, 45);
-			this->trackBar4->TabIndex = 72;
-			this->trackBar4->TickFrequency = 1000;
-			// 
-			// label9
-			// 
-			this->label9->AutoSize = true;
-			this->label9->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->label9->Location = System::Drawing::Point(4, 225);
-			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(90, 13);
-			this->label9->TabIndex = 71;
-			this->label9->Text = L"Rotation Offset:";
-			// 
-			// label10
-			// 
-			this->label10->AutoSize = true;
-			this->label10->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->label10->Location = System::Drawing::Point(263, 255);
-			this->label10->Name = L"label10";
-			this->label10->Size = System::Drawing::Size(46, 13);
-			this->label10->TabIndex = 70;
-			this->label10->Text = L"0.000 m";
-			// 
-			// label11
-			// 
-			this->label11->AutoSize = true;
-			this->label11->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->label11->Location = System::Drawing::Point(80, 245);
-			this->label11->Name = L"label11";
-			this->label11->Size = System::Drawing::Size(16, 13);
-			this->label11->TabIndex = 69;
-			this->label11->Text = L"X:";
-			// 
-			// trackBar5
-			// 
-			this->trackBar5->LargeChange = 1000;
-			this->trackBar5->Location = System::Drawing::Point(102, 245);
-			this->trackBar5->Maximum = 5000;
-			this->trackBar5->Minimum = -5000;
-			this->trackBar5->Name = L"trackBar5";
-			this->trackBar5->Size = System::Drawing::Size(158, 45);
-			this->trackBar5->TabIndex = 68;
-			this->trackBar5->TickFrequency = 1000;
-			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -1158,18 +1264,19 @@ namespace ProjectDR {
 			this->optiTrackSubSplitContainer->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackDataGridView))->EndInit();
 			this->SceneTab->ResumeLayout(false);
+			this->rigidBodyGroupBox->ResumeLayout(false);
 			this->volumePropertiesGroupBox->ResumeLayout(false);
 			this->volumePropertiesGroupBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->rotationZTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->rotationYTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->rotationXTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->positionZTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->positionYTrackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->positionXTrackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->volumeScaleTrackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->minIsoValueTrackBar))->EndInit();
 			this->loadVolumeGroupBox->ResumeLayout(false);
 			this->loadVolumeGroupBox->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar2))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar3))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar4))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar5))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -1345,6 +1452,25 @@ namespace ProjectDR {
 					this->optiTrackRigidBodyVector->push_back(it->second);
 				}
 
+				 this->rigidBodyListView->View = View::Details;
+				 this->rigidBodyListView->Columns->Add("ID", 50, HorizontalAlignment::Left ); 
+				 this->rigidBodyListView->Columns->Add("Name", 150, HorizontalAlignment::Left ); 
+
+				 // Clear any previous entries in the list view
+				 this->rigidBodyListView->Items->Clear();
+				 
+				 // Loop through all Rigid Body's
+				 for (RigidBody_iterator it = bodyMap.begin(); it != bodyMap.end(); ++it)
+				 {
+					 { // Add Rigid Body's for Camera
+						 String^ rigidBodyID = Convert::ToString(it->second->getID());
+						 String^ rigidBodyName = gcnew String(it->second->getName());
+						 ListViewItem^ listViewItem = gcnew ListViewItem(rigidBodyID); 
+						 listViewItem->SubItems->Add(rigidBodyName);
+						 this->rigidBodyListView->Items->Add(listViewItem);
+					 }
+				 }
+
 				ClientHandler::getInstance()->unlock();
 			}
 	public: System::Void optiTrackUpdateData() {
@@ -1514,12 +1640,68 @@ namespace ProjectDR {
 	private: System::Void volumeScaleTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 				 float size = (float)this->volumeScaleTrackBar->Value/1000.f;
 				 this->volumeScaleLabel->Text = size.ToString("f3") + " m";
-				 //VolumeRenderManager::getInstance()->setMinIsoValue((float)this->volumeScaleTrackBar->Value/1000.f);
+				 VolumeRenderManager::getInstance()->setScale(size);
 			 }
 	private: System::Void positionXTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 				 float value = (float)this->positionXTrackBar->Value/1000.f;
 				 this->positionXLabel->Text = value.ToString("f3") + " m";
+				 VolumeRenderManager::getInstance()->setPositionX(value);
 			 }
+	private: System::Void positionYTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->positionYTrackBar->Value/1000.f;
+				 this->positionYLabel->Text = value.ToString("f3") + " m";
+				 VolumeRenderManager::getInstance()->setPositionY(value);
+			 }
+	private: System::Void positionZTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->positionZTrackBar->Value/1000.f;
+				 this->positionZLabel->Text = value.ToString("f3") + " m";
+				 VolumeRenderManager::getInstance()->setPositionZ(value);
+			 }
+	private: System::Void rotationXTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->rotationXTrackBar->Value/4.f;
+				 this->rotationXLabel->Text = value.ToString("f2");
+				 VolumeRenderManager::getInstance()->setRotationX(value);
+			 }
+	private: System::Void rotationYTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->rotationYTrackBar->Value/4.f;
+				 this->rotationYLabel->Text = value.ToString("f2");
+				 VolumeRenderManager::getInstance()->setRotationY(value);
+			 }
+	private: System::Void rotationZTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->rotationZTrackBar->Value/4.f;
+				 this->rotationZLabel->Text = value.ToString("f2");
+				 VolumeRenderManager::getInstance()->setRotationZ(value);
+			 }
+	private: System::Void selectRigidBodyAsVolumeBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				 if (this->rigidBodyListView->SelectedItems->Count > 0) {
+					 int id = System::Int32::Parse(this->rigidBodyListView->SelectedItems[0]->Text);
+
+					 if (id < 0)
+						 return;
+
+					 if (!ClientHandler::getInstance()->lock())
+						 return;
+
+					 RigidBody* body = ClientHandler::getInstance()->getRigidBody(id);
+
+					 if (body)
+					 {
+						 String^ message = gcnew String(body->getName());
+						 message = message + " is the rigid body selected to be the volume.";
+
+						 this->volumeSelectedLabel->Text = message;
+					 }
+
+					 ClientHandler::getInstance()->unlock();
+
+					 VolumeRenderManager::getInstance()->setRigidBody(id);
+
+
+				 }
+				 else {
+					 this->volumeSelectedLabel->Text = "No rigid body is selected to be the volume.";
+				 }
+			}
 };
 }
 
