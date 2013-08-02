@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProjectDR", "ProjectDR\ProjectDR.vcxproj", "{47378E22-AE77-4A2D-BD06-62D3A30B2E3A}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{A1554993-9594-4135-9951-C0579BCEF9BE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DICOMConverter", "DICOMConverter\DICOMConverter.vcxproj", "{9386C297-8BDB-49D0-B0C2-FA1E73CEAD62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +17,12 @@ Global
 		{47378E22-AE77-4A2D-BD06-62D3A30B2E3A}.Debug|Win32.Build.0 = Debug|Win32
 		{47378E22-AE77-4A2D-BD06-62D3A30B2E3A}.Release|Win32.ActiveCfg = Release|Win32
 		{47378E22-AE77-4A2D-BD06-62D3A30B2E3A}.Release|Win32.Build.0 = Release|Win32
+		{A1554993-9594-4135-9951-C0579BCEF9BE}.Debug|Win32.ActiveCfg = Debug
+		{A1554993-9594-4135-9951-C0579BCEF9BE}.Release|Win32.ActiveCfg = Release
+		{9386C297-8BDB-49D0-B0C2-FA1E73CEAD62}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9386C297-8BDB-49D0-B0C2-FA1E73CEAD62}.Debug|Win32.Build.0 = Debug|Win32
+		{9386C297-8BDB-49D0-B0C2-FA1E73CEAD62}.Release|Win32.ActiveCfg = Release|Win32
+		{9386C297-8BDB-49D0-B0C2-FA1E73CEAD62}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

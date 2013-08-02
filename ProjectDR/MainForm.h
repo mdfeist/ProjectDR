@@ -164,6 +164,19 @@ private: System::Windows::Forms::Label^  volumeSelectedLabel;
 
 private: System::Windows::Forms::Button^  selectRigidBodyAsVolumeBtn;
 private: System::Windows::Forms::Label^  volumeSelectLabel;
+private: System::Windows::Forms::GroupBox^  dicomConverterGroupBox;
+private: System::Windows::Forms::Button^  browseOutputBtn;
+private: System::Windows::Forms::TextBox^  outputTextBox;
+private: System::Windows::Forms::Label^  pathToOutputLabel;
+private: System::Windows::Forms::Button^  convertDICOMBtn;
+private: System::Windows::Forms::Button^  browseDICOMBtn;
+private: System::Windows::Forms::TextBox^  DICOMTextBox;
+private: System::Windows::Forms::Label^  pathToDICOMLabel;
+private: System::ComponentModel::BackgroundWorker^  backgroundWorker2;
+private: System::Windows::Forms::GroupBox^  cameraGroupBox;
+private: System::Windows::Forms::Label^  fovLabel;
+private: System::Windows::Forms::Label^  fovTitleLabel;
+private: System::Windows::Forms::TrackBar^  fovTrackBar;
 
 
 
@@ -186,8 +199,8 @@ private: System::Windows::Forms::Label^  volumeSelectLabel;
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->menuStrip = (gcnew System::Windows::Forms::MenuStrip());
 			this->projectDRToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -227,6 +240,18 @@ private: System::Windows::Forms::Label^  volumeSelectLabel;
 			this->optiTrackServerTitleLabel = (gcnew System::Windows::Forms::Label());
 			this->optiTrackPropertiesLabel = (gcnew System::Windows::Forms::Label());
 			this->SceneTab = (gcnew System::Windows::Forms::TabPage());
+			this->cameraGroupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->fovLabel = (gcnew System::Windows::Forms::Label());
+			this->fovTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->fovTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->dicomConverterGroupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->browseOutputBtn = (gcnew System::Windows::Forms::Button());
+			this->outputTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->pathToOutputLabel = (gcnew System::Windows::Forms::Label());
+			this->convertDICOMBtn = (gcnew System::Windows::Forms::Button());
+			this->browseDICOMBtn = (gcnew System::Windows::Forms::Button());
+			this->DICOMTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->pathToDICOMLabel = (gcnew System::Windows::Forms::Label());
 			this->rigidBodyGroupBox = (gcnew System::Windows::Forms::GroupBox());
 			this->volumeSelectedLabel = (gcnew System::Windows::Forms::Label());
 			this->selectRigidBodyAsVolumeBtn = (gcnew System::Windows::Forms::Button());
@@ -267,6 +292,7 @@ private: System::Windows::Forms::Label^  volumeSelectLabel;
 			this->volumePathTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->volumePathLabel = (gcnew System::Windows::Forms::Label());
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
+			this->backgroundWorker2 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->menuStrip->SuspendLayout();
 			this->tabControl->SuspendLayout();
 			this->optiTrackPage->SuspendLayout();
@@ -280,6 +306,9 @@ private: System::Windows::Forms::Label^  volumeSelectLabel;
 			this->optiTrackSubSplitContainer->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackDataGridView))->BeginInit();
 			this->SceneTab->SuspendLayout();
+			this->cameraGroupBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->fovTrackBar))->BeginInit();
+			this->dicomConverterGroupBox->SuspendLayout();
 			this->rigidBodyGroupBox->SuspendLayout();
 			this->volumePropertiesGroupBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->rotationZTrackBar))->BeginInit();
@@ -423,10 +452,10 @@ private: System::Windows::Forms::Label^  volumeSelectLabel;
 			this->optiTrackDataGridView->AllowUserToDeleteRows = false;
 			this->optiTrackDataGridView->AllowUserToResizeColumns = false;
 			this->optiTrackDataGridView->AllowUserToResizeRows = false;
-			dataGridViewCellStyle3->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(234)), 
+			dataGridViewCellStyle1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(234)), 
 				static_cast<System::Int32>(static_cast<System::Byte>(234)), static_cast<System::Int32>(static_cast<System::Byte>(255)));
-			dataGridViewCellStyle3->ForeColor = System::Drawing::Color::Black;
-			this->optiTrackDataGridView->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle1->ForeColor = System::Drawing::Color::Black;
+			this->optiTrackDataGridView->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			this->optiTrackDataGridView->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
 			this->optiTrackDataGridView->BackgroundColor = System::Drawing::SystemColors::ButtonFace;
 			this->optiTrackDataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
@@ -446,8 +475,8 @@ private: System::Windows::Forms::Label^  volumeSelectLabel;
 			this->optiTrackDataGridView->RowHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
 			this->optiTrackDataGridView->RowHeadersWidth = 25;
 			this->optiTrackDataGridView->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
-			dataGridViewCellStyle4->ForeColor = System::Drawing::Color::Black;
-			this->optiTrackDataGridView->RowsDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle2->ForeColor = System::Drawing::Color::Black;
+			this->optiTrackDataGridView->RowsDefaultCellStyle = dataGridViewCellStyle2;
 			this->optiTrackDataGridView->ShowCellErrors = false;
 			this->optiTrackDataGridView->ShowCellToolTips = false;
 			this->optiTrackDataGridView->ShowEditingIcon = false;
@@ -750,6 +779,8 @@ private: System::Windows::Forms::Label^  volumeSelectLabel;
 			// SceneTab
 			// 
 			this->SceneTab->BackColor = System::Drawing::Color::WhiteSmoke;
+			this->SceneTab->Controls->Add(this->cameraGroupBox);
+			this->SceneTab->Controls->Add(this->dicomConverterGroupBox);
 			this->SceneTab->Controls->Add(this->rigidBodyGroupBox);
 			this->SceneTab->Controls->Add(this->volumePropertiesGroupBox);
 			this->SceneTab->Controls->Add(this->loadVolumeGroupBox);
@@ -759,6 +790,151 @@ private: System::Windows::Forms::Label^  volumeSelectLabel;
 			this->SceneTab->Size = System::Drawing::Size(792, 548);
 			this->SceneTab->TabIndex = 1;
 			this->SceneTab->Text = L"Scene";
+			// 
+			// cameraGroupBox
+			// 
+			this->cameraGroupBox->Controls->Add(this->fovLabel);
+			this->cameraGroupBox->Controls->Add(this->fovTitleLabel);
+			this->cameraGroupBox->Controls->Add(this->fovTrackBar);
+			this->cameraGroupBox->Location = System::Drawing::Point(323, 440);
+			this->cameraGroupBox->Name = L"cameraGroupBox";
+			this->cameraGroupBox->Size = System::Drawing::Size(461, 100);
+			this->cameraGroupBox->TabIndex = 52;
+			this->cameraGroupBox->TabStop = false;
+			this->cameraGroupBox->Text = L"Camera";
+			// 
+			// fovLabel
+			// 
+			this->fovLabel->AutoSize = true;
+			this->fovLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->fovLabel->Location = System::Drawing::Point(214, 28);
+			this->fovLabel->Name = L"fovLabel";
+			this->fovLabel->Size = System::Drawing::Size(28, 13);
+			this->fovLabel->TabIndex = 60;
+			this->fovLabel->Text = L"45.0";
+			// 
+			// fovTitleLabel
+			// 
+			this->fovTitleLabel->AutoSize = true;
+			this->fovTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->fovTitleLabel->Location = System::Drawing::Point(11, 18);
+			this->fovTitleLabel->Name = L"fovTitleLabel";
+			this->fovTitleLabel->Size = System::Drawing::Size(32, 13);
+			this->fovTitleLabel->TabIndex = 59;
+			this->fovTitleLabel->Text = L"FOV:";
+			// 
+			// fovTrackBar
+			// 
+			this->fovTrackBar->LargeChange = 10;
+			this->fovTrackBar->Location = System::Drawing::Point(53, 18);
+			this->fovTrackBar->Maximum = 2000;
+			this->fovTrackBar->Minimum = 1;
+			this->fovTrackBar->Name = L"fovTrackBar";
+			this->fovTrackBar->Size = System::Drawing::Size(158, 45);
+			this->fovTrackBar->TabIndex = 58;
+			this->fovTrackBar->TickFrequency = 10;
+			this->fovTrackBar->Value = 450;
+			this->fovTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::fovTrackBar_ValueChanged);
+			// 
+			// dicomConverterGroupBox
+			// 
+			this->dicomConverterGroupBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->dicomConverterGroupBox->Controls->Add(this->browseOutputBtn);
+			this->dicomConverterGroupBox->Controls->Add(this->outputTextBox);
+			this->dicomConverterGroupBox->Controls->Add(this->pathToOutputLabel);
+			this->dicomConverterGroupBox->Controls->Add(this->convertDICOMBtn);
+			this->dicomConverterGroupBox->Controls->Add(this->browseDICOMBtn);
+			this->dicomConverterGroupBox->Controls->Add(this->DICOMTextBox);
+			this->dicomConverterGroupBox->Controls->Add(this->pathToDICOMLabel);
+			this->dicomConverterGroupBox->Location = System::Drawing::Point(331, 6);
+			this->dicomConverterGroupBox->Name = L"dicomConverterGroupBox";
+			this->dicomConverterGroupBox->Size = System::Drawing::Size(453, 114);
+			this->dicomConverterGroupBox->TabIndex = 51;
+			this->dicomConverterGroupBox->TabStop = false;
+			this->dicomConverterGroupBox->Text = L"DICOM Converter";
+			// 
+			// browseOutputBtn
+			// 
+			this->browseOutputBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->browseOutputBtn->BackColor = System::Drawing::Color::Transparent;
+			this->browseOutputBtn->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"browseOutputBtn.BackgroundImage")));
+			this->browseOutputBtn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->browseOutputBtn->FlatAppearance->BorderColor = System::Drawing::Color::White;
+			this->browseOutputBtn->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->browseOutputBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->browseOutputBtn->Location = System::Drawing::Point(415, 39);
+			this->browseOutputBtn->Name = L"browseOutputBtn";
+			this->browseOutputBtn->Size = System::Drawing::Size(32, 32);
+			this->browseOutputBtn->TabIndex = 57;
+			this->browseOutputBtn->UseVisualStyleBackColor = false;
+			this->browseOutputBtn->Click += gcnew System::EventHandler(this, &MainForm::browseOutputBtn_Click);
+			// 
+			// outputTextBox
+			// 
+			this->outputTextBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->outputTextBox->Location = System::Drawing::Point(136, 43);
+			this->outputTextBox->Name = L"outputTextBox";
+			this->outputTextBox->Size = System::Drawing::Size(273, 22);
+			this->outputTextBox->TabIndex = 56;
+			// 
+			// pathToOutputLabel
+			// 
+			this->pathToOutputLabel->AutoSize = true;
+			this->pathToOutputLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->pathToOutputLabel->Location = System::Drawing::Point(6, 46);
+			this->pathToOutputLabel->Name = L"pathToOutputLabel";
+			this->pathToOutputLabel->Size = System::Drawing::Size(69, 13);
+			this->pathToOutputLabel->TabIndex = 55;
+			this->pathToOutputLabel->Text = L"Output File:";
+			// 
+			// convertDICOMBtn
+			// 
+			this->convertDICOMBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->convertDICOMBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->convertDICOMBtn->Location = System::Drawing::Point(6, 82);
+			this->convertDICOMBtn->Name = L"convertDICOMBtn";
+			this->convertDICOMBtn->Size = System::Drawing::Size(76, 23);
+			this->convertDICOMBtn->TabIndex = 54;
+			this->convertDICOMBtn->Text = L"Convert";
+			this->convertDICOMBtn->UseVisualStyleBackColor = false;
+			this->convertDICOMBtn->Click += gcnew System::EventHandler(this, &MainForm::convertDICOMBtn_Click);
+			// 
+			// browseDICOMBtn
+			// 
+			this->browseDICOMBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->browseDICOMBtn->BackColor = System::Drawing::Color::Transparent;
+			this->browseDICOMBtn->BackgroundImage = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"browseDICOMBtn.BackgroundImage")));
+			this->browseDICOMBtn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->browseDICOMBtn->FlatAppearance->BorderColor = System::Drawing::Color::White;
+			this->browseDICOMBtn->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->browseDICOMBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->browseDICOMBtn->Location = System::Drawing::Point(415, 11);
+			this->browseDICOMBtn->Name = L"browseDICOMBtn";
+			this->browseDICOMBtn->Size = System::Drawing::Size(32, 32);
+			this->browseDICOMBtn->TabIndex = 53;
+			this->browseDICOMBtn->UseVisualStyleBackColor = false;
+			this->browseDICOMBtn->Click += gcnew System::EventHandler(this, &MainForm::browseDICOMBtn_Click);
+			// 
+			// DICOMTextBox
+			// 
+			this->DICOMTextBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->DICOMTextBox->Location = System::Drawing::Point(136, 15);
+			this->DICOMTextBox->Name = L"DICOMTextBox";
+			this->DICOMTextBox->Size = System::Drawing::Size(273, 22);
+			this->DICOMTextBox->TabIndex = 52;
+			// 
+			// pathToDICOMLabel
+			// 
+			this->pathToDICOMLabel->AutoSize = true;
+			this->pathToDICOMLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->pathToDICOMLabel->Location = System::Drawing::Point(6, 18);
+			this->pathToDICOMLabel->Name = L"pathToDICOMLabel";
+			this->pathToDICOMLabel->Size = System::Drawing::Size(124, 13);
+			this->pathToDICOMLabel->TabIndex = 51;
+			this->pathToDICOMLabel->Text = L"Path To DICOM Folder:";
 			// 
 			// rigidBodyGroupBox
 			// 
@@ -1231,6 +1407,11 @@ private: System::Windows::Forms::Label^  volumeSelectLabel;
 			this->backgroundWorker1->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainForm::backgroundWorker1_DoWork);
 			this->backgroundWorker1->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MainForm::backgroundWorker1_RunWorkerCompleted);
 			// 
+			// backgroundWorker2
+			// 
+			this->backgroundWorker2->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainForm::backgroundWorker2_DoWork);
+			this->backgroundWorker2->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MainForm::backgroundWorker2_RunWorkerCompleted);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -1264,6 +1445,11 @@ private: System::Windows::Forms::Label^  volumeSelectLabel;
 			this->optiTrackSubSplitContainer->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackDataGridView))->EndInit();
 			this->SceneTab->ResumeLayout(false);
+			this->cameraGroupBox->ResumeLayout(false);
+			this->cameraGroupBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->fovTrackBar))->EndInit();
+			this->dicomConverterGroupBox->ResumeLayout(false);
+			this->dicomConverterGroupBox->PerformLayout();
 			this->rigidBodyGroupBox->ResumeLayout(false);
 			this->volumePropertiesGroupBox->ResumeLayout(false);
 			this->volumePropertiesGroupBox->PerformLayout();
@@ -1282,9 +1468,10 @@ private: System::Windows::Forms::Label^  volumeSelectLabel;
 
 		}
 #pragma endregion
-		// Local Variables
+			// Local Variables
 	private: std::vector<RigidBody*>* optiTrackRigidBodyVector;
 	private: ProgressSpinner^ spinner;
+	private: ProgressSpinner^ spinner2;
 			 // Abstract Delegate
 	private: delegate System::Void SetDelegate();
 			 // Abstract Delegate to change text
@@ -1319,6 +1506,15 @@ private: System::Windows::Forms::Label^  volumeSelectLabel;
 					 this->loadVolumeBtn->Location.Y + 5);
 				 this->spinner->Enable = false;
 				 this->loadVolumeGroupBox->Controls->Add(this->spinner);
+
+				 this->spinner2 = gcnew ProgressSpinner();
+				 this->spinner2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left));
+				 this->spinner2->Location = 
+					 System::Drawing::Point(
+					 this->convertDICOMBtn->Location.X + this->convertDICOMBtn->Size.Width + 10, 
+					 this->convertDICOMBtn->Location.Y + 5);
+				 this->spinner2->Enable = false;
+				 this->dicomConverterGroupBox->Controls->Add(this->spinner2);
 
 				 this->volumeRemoveBtn->Enabled = false;
 			 }
@@ -1701,7 +1897,53 @@ private: System::Windows::Forms::Label^  volumeSelectLabel;
 				 else {
 					 this->volumeSelectedLabel->Text = "No rigid body is selected to be the volume.";
 				 }
-			}
+			 }
+	private: System::Void browseDICOMBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				 FolderBrowserDialog^ dialog = gcnew FolderBrowserDialog;
+
+				 if ( dialog->ShowDialog() == ::DialogResult::OK )
+				 {
+					 this->DICOMTextBox->Text = dialog->SelectedPath;
+				 }
+			 }
+	private: System::Void browseOutputBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				 SaveFileDialog^ dialog = gcnew SaveFileDialog;
+
+				 dialog->DefaultExt = "raw";
+				 dialog->Filter = "raw files (*.raw)|*.raw|All files (*.*)|*.*";
+				 dialog->FilterIndex = 1;
+				 dialog->RestoreDirectory = true;
+
+				 if ( dialog->ShowDialog() == ::DialogResult::OK )
+				 {
+					 this->outputTextBox->Text = dialog->FileName;
+				 }
+			 }
+	private: System::Void convertDICOMBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				 this->convertDICOMBtn->Enabled = false;
+				 this->spinner2->Enable = true;
+
+				 this->backgroundWorker2->RunWorkerAsync();
+			 }
+
+	private: System::Void backgroundWorker2_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e) {
+				 ProcessStartInfo^ oStartInfo = gcnew ProcessStartInfo("DICOMConverter.exe");
+				 oStartInfo->Arguments = "\"" + this->DICOMTextBox->Text + "\" \"" + this->outputTextBox->Text + "\"";
+				 oStartInfo->UseShellExecute = false;
+				 oStartInfo->RedirectStandardOutput = true;
+
+				 Process^ process = Process::Start(oStartInfo);
+				 process->WaitForExit();
+			 }
+	private: System::Void backgroundWorker2_RunWorkerCompleted(System::Object^  sender, System::ComponentModel::RunWorkerCompletedEventArgs^  e) {
+				 this->convertDICOMBtn->Enabled = true;
+				 this->spinner2->Enable = false;
+			 }
+	private: System::Void fovTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->fovTrackBar->Value/10.f;
+				 this->fovLabel->Text = value.ToString("f1");
+				 VolumeRenderManager::getInstance()->setFOV(value);
+			 }
 };
 }
 

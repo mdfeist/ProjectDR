@@ -21,6 +21,8 @@ public:
 	VolumeRenderManager(void);
 	void initFusion();
 
+	void setFOV(float);
+
 	Volume* loadVolume(const char*);
 	void addVolumeToScene();
 	void removeVolumeFromScene();

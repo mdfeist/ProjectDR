@@ -73,6 +73,20 @@ void VolumeRenderManager::initFusion() {
 	}
 }
 
+void VolumeRenderManager::setFOV(float value) {
+	createForm();
+
+	Renderer^ renderer = form->GetRenderer();
+	if (renderer) {
+		renderer->getActiveCamera()->setFOV(value);
+	} else {
+		std::cout << "Failed."<< std::endl;
+		std::cout <<"************************" <<std::endl;
+		std::cout << "Form Renderer was NULL" << std::endl;
+		std::cout <<"************************" <<std::endl;
+	}
+}
+
 void VolumeRenderManager::setRigidBody(int id) {
 	rigidBodyID = id;
 }
