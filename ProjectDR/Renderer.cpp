@@ -259,7 +259,10 @@ System::Void Renderer::Render(System::Void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glLoadIdentity();												// Load Identity
-	glTranslatef(0, 0, -1.0);										// Set Camera Position
+	glTranslatef(													// Set Camera Position
+		camera->getPosition().x(), 
+		camera->getPosition().y(),
+		camera->getPosition().z());		
 	
 	manager->render(camera);										// Render scene
 }

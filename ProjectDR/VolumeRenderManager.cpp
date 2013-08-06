@@ -79,6 +79,8 @@ void VolumeRenderManager::setFOV(float value) {
 	Renderer^ renderer = form->GetRenderer();
 	if (renderer) {
 		renderer->getActiveCamera()->setFOV(value);
+		renderer->getActiveCamera()->setPosition(0.f, 0.1669f, -1.1462f);
+		renderer->getActiveCamera()->lookAt(0.f, 0.f, 0.f);
 	} else {
 		std::cout << "Failed."<< std::endl;
 		std::cout <<"************************" <<std::endl;
@@ -181,14 +183,14 @@ void VolumeRenderManager::updateVolume() {
 			matrix(i,j) = rotationMatrix(i,j);
 	
 	matrix(0,3) = x_offset;
-	matrix(1,3) = y_offset;
-	matrix(2,3) = z_offset;
+	matrix(1,3) = -z_offset;
+	matrix(2,3) = -y_offset;
 
 	RigidBody* rb = ClientHandler::getInstance()->getRigidBody(rigidBodyID);
 
 	if (rb) {
 		// Get Rigid Body Information
-		Eigen::Quaternionf quat = Eigen::Quaternionf(rb->qw(), rb->qx(), rb->qy(), rb->qz());
+		Eigen::Quaternionf quat = Eigen::Quaternionf(rb->qw(), rb->qx(), -rb->qy(), -rb->qz());
 		Eigen::Vector3f pos = rb->getPosition();
 
 		Eigen::Matrix3f rotationMatrix;
@@ -201,8 +203,8 @@ void VolumeRenderManager::updateVolume() {
 				rb_matrix(i,j) = rotationMatrix(i,j);
 
 		rb_matrix(0,3) = pos(0);
-		rb_matrix(1,3) = pos(1);
-		rb_matrix(2,3) = pos(2);
+		rb_matrix(1,3) = -pos(1);
+		rb_matrix(2,3) = -pos(2);
 	}
 
 	matrix = scaleMatrix * matrix;

@@ -13,6 +13,7 @@
 #include "RigidBody.h"
 #pragma managed
 
+#include "CalibrationGrid.h"
 #include "CameraCalibrationFormController.h"
 #include "VolumeRenderManager.h"
 
@@ -177,6 +178,7 @@ private: System::Windows::Forms::GroupBox^  cameraGroupBox;
 private: System::Windows::Forms::Label^  fovLabel;
 private: System::Windows::Forms::Label^  fovTitleLabel;
 private: System::Windows::Forms::TrackBar^  fovTrackBar;
+private: System::Windows::Forms::Button^  showGridBtn;
 
 
 
@@ -293,6 +295,7 @@ private: System::Windows::Forms::TrackBar^  fovTrackBar;
 			this->volumePathLabel = (gcnew System::Windows::Forms::Label());
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->backgroundWorker2 = (gcnew System::ComponentModel::BackgroundWorker());
+			this->showGridBtn = (gcnew System::Windows::Forms::Button());
 			this->menuStrip->SuspendLayout();
 			this->tabControl->SuspendLayout();
 			this->optiTrackPage->SuspendLayout();
@@ -793,6 +796,7 @@ private: System::Windows::Forms::TrackBar^  fovTrackBar;
 			// 
 			// cameraGroupBox
 			// 
+			this->cameraGroupBox->Controls->Add(this->showGridBtn);
 			this->cameraGroupBox->Controls->Add(this->fovLabel);
 			this->cameraGroupBox->Controls->Add(this->fovTitleLabel);
 			this->cameraGroupBox->Controls->Add(this->fovTrackBar);
@@ -1412,6 +1416,18 @@ private: System::Windows::Forms::TrackBar^  fovTrackBar;
 			this->backgroundWorker2->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainForm::backgroundWorker2_DoWork);
 			this->backgroundWorker2->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MainForm::backgroundWorker2_RunWorkerCompleted);
 			// 
+			// showGridBtn
+			// 
+			this->showGridBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->showGridBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->showGridBtn->Location = System::Drawing::Point(8, 69);
+			this->showGridBtn->Name = L"showGridBtn";
+			this->showGridBtn->Size = System::Drawing::Size(76, 23);
+			this->showGridBtn->TabIndex = 61;
+			this->showGridBtn->Text = L"Grid";
+			this->showGridBtn->UseVisualStyleBackColor = false;
+			this->showGridBtn->Click += gcnew System::EventHandler(this, &MainForm::showGridBtn_Click);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -1943,6 +1959,10 @@ private: System::Windows::Forms::TrackBar^  fovTrackBar;
 				 float value = (float)this->fovTrackBar->Value/10.f;
 				 this->fovLabel->Text = value.ToString("f1");
 				 VolumeRenderManager::getInstance()->setFOV(value);
+			 }
+	private: System::Void showGridBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				 CalibrationGrid^ grid = gcnew CalibrationGrid();
+				 grid->Show();
 			 }
 };
 }
