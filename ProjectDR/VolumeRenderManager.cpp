@@ -79,7 +79,7 @@ void VolumeRenderManager::setFOV(float value) {
 	Renderer^ renderer = form->GetRenderer();
 	if (renderer) {
 		renderer->getActiveCamera()->setFOV(value);
-		renderer->getActiveCamera()->setPosition(0.f, 0.1669f, -1.1462f);
+		renderer->getActiveCamera()->setPosition(0.016f, 0.1992f, -1.2545f);
 		renderer->getActiveCamera()->lookAt(0.f, 0.f, 0.f);
 	} else {
 		std::cout << "Failed."<< std::endl;
@@ -108,7 +108,7 @@ Volume* VolumeRenderManager::loadVolume(const char* volumeFile) {
 	}
 
 	volume = new Volume();
-	volume->setAxisAngle(-(float)M_PI/2.0f, 1.f, 0.f, 0.f);
+	//volume->setAxisAngle(-(float)M_PI/2.0f, 1.f, 0.f, 0.f);
 	volume->setVolumeData(volumeLoader);
 	volume->setup();
 
@@ -183,8 +183,8 @@ void VolumeRenderManager::updateVolume() {
 			matrix(i,j) = rotationMatrix(i,j);
 	
 	matrix(0,3) = x_offset;
-	matrix(1,3) = -z_offset;
-	matrix(2,3) = -y_offset;
+	matrix(1,3) = -y_offset;
+	matrix(2,3) = -z_offset;
 
 	RigidBody* rb = ClientHandler::getInstance()->getRigidBody(rigidBodyID);
 
