@@ -174,11 +174,28 @@ private: System::Windows::Forms::Button^  browseDICOMBtn;
 private: System::Windows::Forms::TextBox^  DICOMTextBox;
 private: System::Windows::Forms::Label^  pathToDICOMLabel;
 private: System::ComponentModel::BackgroundWorker^  backgroundWorker2;
+private: System::Windows::Forms::TabPage^  cameraPage;
 private: System::Windows::Forms::GroupBox^  cameraGroupBox;
+private: System::Windows::Forms::Button^  showGridBtn;
 private: System::Windows::Forms::Label^  fovLabel;
 private: System::Windows::Forms::Label^  fovTitleLabel;
 private: System::Windows::Forms::TrackBar^  fovTrackBar;
-private: System::Windows::Forms::Button^  showGridBtn;
+private: System::Windows::Forms::Label^  cameraZLabel;
+private: System::Windows::Forms::Label^  cameraZTitleLabel;
+private: System::Windows::Forms::TrackBar^  cameraZTrackBar;
+private: System::Windows::Forms::Label^  cameraYLabel;
+private: System::Windows::Forms::Label^  cameraYTitleLabel;
+private: System::Windows::Forms::TrackBar^  cameraYTrackBar;
+private: System::Windows::Forms::Label^  cameraPositionLabel;
+private: System::Windows::Forms::Label^  cameraXLabel;
+private: System::Windows::Forms::Label^  cameraXTitleLabel;
+private: System::Windows::Forms::TrackBar^  cameraXTrackBar;
+private: System::Windows::Forms::Button^  toggleGridBtn;
+
+
+
+
+
 
 
 
@@ -242,10 +259,6 @@ private: System::Windows::Forms::Button^  showGridBtn;
 			this->optiTrackServerTitleLabel = (gcnew System::Windows::Forms::Label());
 			this->optiTrackPropertiesLabel = (gcnew System::Windows::Forms::Label());
 			this->SceneTab = (gcnew System::Windows::Forms::TabPage());
-			this->cameraGroupBox = (gcnew System::Windows::Forms::GroupBox());
-			this->fovLabel = (gcnew System::Windows::Forms::Label());
-			this->fovTitleLabel = (gcnew System::Windows::Forms::Label());
-			this->fovTrackBar = (gcnew System::Windows::Forms::TrackBar());
 			this->dicomConverterGroupBox = (gcnew System::Windows::Forms::GroupBox());
 			this->browseOutputBtn = (gcnew System::Windows::Forms::Button());
 			this->outputTextBox = (gcnew System::Windows::Forms::TextBox());
@@ -293,9 +306,25 @@ private: System::Windows::Forms::Button^  showGridBtn;
 			this->browseForVolumeBtn = (gcnew System::Windows::Forms::Button());
 			this->volumePathTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->volumePathLabel = (gcnew System::Windows::Forms::Label());
+			this->cameraPage = (gcnew System::Windows::Forms::TabPage());
+			this->cameraGroupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->cameraZLabel = (gcnew System::Windows::Forms::Label());
+			this->cameraZTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->cameraZTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->cameraYLabel = (gcnew System::Windows::Forms::Label());
+			this->cameraYTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->cameraYTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->cameraPositionLabel = (gcnew System::Windows::Forms::Label());
+			this->cameraXLabel = (gcnew System::Windows::Forms::Label());
+			this->cameraXTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->cameraXTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->showGridBtn = (gcnew System::Windows::Forms::Button());
+			this->fovLabel = (gcnew System::Windows::Forms::Label());
+			this->fovTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->fovTrackBar = (gcnew System::Windows::Forms::TrackBar());
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->backgroundWorker2 = (gcnew System::ComponentModel::BackgroundWorker());
-			this->showGridBtn = (gcnew System::Windows::Forms::Button());
+			this->toggleGridBtn = (gcnew System::Windows::Forms::Button());
 			this->menuStrip->SuspendLayout();
 			this->tabControl->SuspendLayout();
 			this->optiTrackPage->SuspendLayout();
@@ -309,8 +338,6 @@ private: System::Windows::Forms::Button^  showGridBtn;
 			this->optiTrackSubSplitContainer->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackDataGridView))->BeginInit();
 			this->SceneTab->SuspendLayout();
-			this->cameraGroupBox->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->fovTrackBar))->BeginInit();
 			this->dicomConverterGroupBox->SuspendLayout();
 			this->rigidBodyGroupBox->SuspendLayout();
 			this->volumePropertiesGroupBox->SuspendLayout();
@@ -323,6 +350,12 @@ private: System::Windows::Forms::Button^  showGridBtn;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->volumeScaleTrackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->minIsoValueTrackBar))->BeginInit();
 			this->loadVolumeGroupBox->SuspendLayout();
+			this->cameraPage->SuspendLayout();
+			this->cameraGroupBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->cameraZTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->cameraYTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->cameraXTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->fovTrackBar))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip
@@ -365,6 +398,7 @@ private: System::Windows::Forms::Button^  showGridBtn;
 			// 
 			this->tabControl->Controls->Add(this->optiTrackPage);
 			this->tabControl->Controls->Add(this->SceneTab);
+			this->tabControl->Controls->Add(this->cameraPage);
 			this->tabControl->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->tabControl->HotTrack = true;
 			this->tabControl->ImeMode = System::Windows::Forms::ImeMode::NoControl;
@@ -782,7 +816,6 @@ private: System::Windows::Forms::Button^  showGridBtn;
 			// SceneTab
 			// 
 			this->SceneTab->BackColor = System::Drawing::Color::WhiteSmoke;
-			this->SceneTab->Controls->Add(this->cameraGroupBox);
 			this->SceneTab->Controls->Add(this->dicomConverterGroupBox);
 			this->SceneTab->Controls->Add(this->rigidBodyGroupBox);
 			this->SceneTab->Controls->Add(this->volumePropertiesGroupBox);
@@ -793,52 +826,6 @@ private: System::Windows::Forms::Button^  showGridBtn;
 			this->SceneTab->Size = System::Drawing::Size(792, 548);
 			this->SceneTab->TabIndex = 1;
 			this->SceneTab->Text = L"Scene";
-			// 
-			// cameraGroupBox
-			// 
-			this->cameraGroupBox->Controls->Add(this->showGridBtn);
-			this->cameraGroupBox->Controls->Add(this->fovLabel);
-			this->cameraGroupBox->Controls->Add(this->fovTitleLabel);
-			this->cameraGroupBox->Controls->Add(this->fovTrackBar);
-			this->cameraGroupBox->Location = System::Drawing::Point(323, 440);
-			this->cameraGroupBox->Name = L"cameraGroupBox";
-			this->cameraGroupBox->Size = System::Drawing::Size(461, 100);
-			this->cameraGroupBox->TabIndex = 52;
-			this->cameraGroupBox->TabStop = false;
-			this->cameraGroupBox->Text = L"Camera";
-			// 
-			// fovLabel
-			// 
-			this->fovLabel->AutoSize = true;
-			this->fovLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->fovLabel->Location = System::Drawing::Point(214, 28);
-			this->fovLabel->Name = L"fovLabel";
-			this->fovLabel->Size = System::Drawing::Size(28, 13);
-			this->fovLabel->TabIndex = 60;
-			this->fovLabel->Text = L"45.0";
-			// 
-			// fovTitleLabel
-			// 
-			this->fovTitleLabel->AutoSize = true;
-			this->fovTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->fovTitleLabel->Location = System::Drawing::Point(11, 18);
-			this->fovTitleLabel->Name = L"fovTitleLabel";
-			this->fovTitleLabel->Size = System::Drawing::Size(32, 13);
-			this->fovTitleLabel->TabIndex = 59;
-			this->fovTitleLabel->Text = L"FOV:";
-			// 
-			// fovTrackBar
-			// 
-			this->fovTrackBar->LargeChange = 10;
-			this->fovTrackBar->Location = System::Drawing::Point(53, 18);
-			this->fovTrackBar->Maximum = 2000;
-			this->fovTrackBar->Minimum = 1;
-			this->fovTrackBar->Name = L"fovTrackBar";
-			this->fovTrackBar->Size = System::Drawing::Size(158, 45);
-			this->fovTrackBar->TabIndex = 58;
-			this->fovTrackBar->TickFrequency = 10;
-			this->fovTrackBar->Value = 450;
-			this->fovTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::fovTrackBar_ValueChanged);
 			// 
 			// dicomConverterGroupBox
 			// 
@@ -1406,6 +1393,197 @@ private: System::Windows::Forms::Button^  showGridBtn;
 			this->volumePathLabel->TabIndex = 47;
 			this->volumePathLabel->Text = L"Path To Volume:";
 			// 
+			// cameraPage
+			// 
+			this->cameraPage->Controls->Add(this->cameraGroupBox);
+			this->cameraPage->Location = System::Drawing::Point(4, 24);
+			this->cameraPage->Name = L"cameraPage";
+			this->cameraPage->Padding = System::Windows::Forms::Padding(3);
+			this->cameraPage->Size = System::Drawing::Size(792, 548);
+			this->cameraPage->TabIndex = 2;
+			this->cameraPage->Text = L"Camera";
+			this->cameraPage->UseVisualStyleBackColor = true;
+			// 
+			// cameraGroupBox
+			// 
+			this->cameraGroupBox->Controls->Add(this->toggleGridBtn);
+			this->cameraGroupBox->Controls->Add(this->cameraZLabel);
+			this->cameraGroupBox->Controls->Add(this->cameraZTitleLabel);
+			this->cameraGroupBox->Controls->Add(this->cameraZTrackBar);
+			this->cameraGroupBox->Controls->Add(this->cameraYLabel);
+			this->cameraGroupBox->Controls->Add(this->cameraYTitleLabel);
+			this->cameraGroupBox->Controls->Add(this->cameraYTrackBar);
+			this->cameraGroupBox->Controls->Add(this->cameraPositionLabel);
+			this->cameraGroupBox->Controls->Add(this->cameraXLabel);
+			this->cameraGroupBox->Controls->Add(this->cameraXTitleLabel);
+			this->cameraGroupBox->Controls->Add(this->cameraXTrackBar);
+			this->cameraGroupBox->Controls->Add(this->showGridBtn);
+			this->cameraGroupBox->Controls->Add(this->fovLabel);
+			this->cameraGroupBox->Controls->Add(this->fovTitleLabel);
+			this->cameraGroupBox->Controls->Add(this->fovTrackBar);
+			this->cameraGroupBox->Location = System::Drawing::Point(3, 6);
+			this->cameraGroupBox->Name = L"cameraGroupBox";
+			this->cameraGroupBox->Size = System::Drawing::Size(461, 295);
+			this->cameraGroupBox->TabIndex = 53;
+			this->cameraGroupBox->TabStop = false;
+			this->cameraGroupBox->Text = L"Camera";
+			// 
+			// cameraZLabel
+			// 
+			this->cameraZLabel->AutoSize = true;
+			this->cameraZLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->cameraZLabel->Location = System::Drawing::Point(265, 167);
+			this->cameraZLabel->Name = L"cameraZLabel";
+			this->cameraZLabel->Size = System::Drawing::Size(50, 13);
+			this->cameraZLabel->TabIndex = 77;
+			this->cameraZLabel->Text = L"-1.000 m";
+			// 
+			// cameraZTitleLabel
+			// 
+			this->cameraZTitleLabel->AutoSize = true;
+			this->cameraZTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->cameraZTitleLabel->Location = System::Drawing::Point(81, 156);
+			this->cameraZTitleLabel->Name = L"cameraZTitleLabel";
+			this->cameraZTitleLabel->Size = System::Drawing::Size(16, 13);
+			this->cameraZTitleLabel->TabIndex = 76;
+			this->cameraZTitleLabel->Text = L"Z:";
+			// 
+			// cameraZTrackBar
+			// 
+			this->cameraZTrackBar->BackColor = System::Drawing::SystemColors::Window;
+			this->cameraZTrackBar->LargeChange = 1000;
+			this->cameraZTrackBar->Location = System::Drawing::Point(104, 156);
+			this->cameraZTrackBar->Maximum = 5000;
+			this->cameraZTrackBar->Minimum = -5000;
+			this->cameraZTrackBar->Name = L"cameraZTrackBar";
+			this->cameraZTrackBar->Size = System::Drawing::Size(158, 45);
+			this->cameraZTrackBar->TabIndex = 75;
+			this->cameraZTrackBar->TickFrequency = 1000;
+			this->cameraZTrackBar->Value = -1000;
+			this->cameraZTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::cameraZTrackBar_ValueChanged);
+			// 
+			// cameraYLabel
+			// 
+			this->cameraYLabel->AutoSize = true;
+			this->cameraYLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->cameraYLabel->Location = System::Drawing::Point(265, 121);
+			this->cameraYLabel->Name = L"cameraYLabel";
+			this->cameraYLabel->Size = System::Drawing::Size(46, 13);
+			this->cameraYLabel->TabIndex = 74;
+			this->cameraYLabel->Text = L"0.000 m";
+			// 
+			// cameraYTitleLabel
+			// 
+			this->cameraYTitleLabel->AutoSize = true;
+			this->cameraYTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->cameraYTitleLabel->Location = System::Drawing::Point(81, 111);
+			this->cameraYTitleLabel->Name = L"cameraYTitleLabel";
+			this->cameraYTitleLabel->Size = System::Drawing::Size(15, 13);
+			this->cameraYTitleLabel->TabIndex = 73;
+			this->cameraYTitleLabel->Text = L"Y:";
+			// 
+			// cameraYTrackBar
+			// 
+			this->cameraYTrackBar->BackColor = System::Drawing::SystemColors::Window;
+			this->cameraYTrackBar->LargeChange = 1000;
+			this->cameraYTrackBar->Location = System::Drawing::Point(104, 111);
+			this->cameraYTrackBar->Maximum = 5000;
+			this->cameraYTrackBar->Minimum = -5000;
+			this->cameraYTrackBar->Name = L"cameraYTrackBar";
+			this->cameraYTrackBar->Size = System::Drawing::Size(158, 45);
+			this->cameraYTrackBar->TabIndex = 72;
+			this->cameraYTrackBar->TickFrequency = 1000;
+			this->cameraYTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::cameraYTrackBar_ValueChanged);
+			// 
+			// cameraPositionLabel
+			// 
+			this->cameraPositionLabel->AutoSize = true;
+			this->cameraPositionLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->cameraPositionLabel->Location = System::Drawing::Point(11, 50);
+			this->cameraPositionLabel->Name = L"cameraPositionLabel";
+			this->cameraPositionLabel->Size = System::Drawing::Size(87, 13);
+			this->cameraPositionLabel->TabIndex = 71;
+			this->cameraPositionLabel->Text = L"Position Offset:";
+			// 
+			// cameraXLabel
+			// 
+			this->cameraXLabel->AutoSize = true;
+			this->cameraXLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->cameraXLabel->Location = System::Drawing::Point(265, 79);
+			this->cameraXLabel->Name = L"cameraXLabel";
+			this->cameraXLabel->Size = System::Drawing::Size(46, 13);
+			this->cameraXLabel->TabIndex = 70;
+			this->cameraXLabel->Text = L"0.000 m";
+			// 
+			// cameraXTitleLabel
+			// 
+			this->cameraXTitleLabel->AutoSize = true;
+			this->cameraXTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->cameraXTitleLabel->Location = System::Drawing::Point(82, 69);
+			this->cameraXTitleLabel->Name = L"cameraXTitleLabel";
+			this->cameraXTitleLabel->Size = System::Drawing::Size(16, 13);
+			this->cameraXTitleLabel->TabIndex = 69;
+			this->cameraXTitleLabel->Text = L"X:";
+			// 
+			// cameraXTrackBar
+			// 
+			this->cameraXTrackBar->BackColor = System::Drawing::SystemColors::Window;
+			this->cameraXTrackBar->LargeChange = 1000;
+			this->cameraXTrackBar->Location = System::Drawing::Point(104, 69);
+			this->cameraXTrackBar->Maximum = 5000;
+			this->cameraXTrackBar->Minimum = -5000;
+			this->cameraXTrackBar->Name = L"cameraXTrackBar";
+			this->cameraXTrackBar->Size = System::Drawing::Size(158, 45);
+			this->cameraXTrackBar->TabIndex = 68;
+			this->cameraXTrackBar->TickFrequency = 1000;
+			this->cameraXTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::cameraXTrackBar_ValueChanged);
+			// 
+			// showGridBtn
+			// 
+			this->showGridBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->showGridBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->showGridBtn->Location = System::Drawing::Point(379, 23);
+			this->showGridBtn->Name = L"showGridBtn";
+			this->showGridBtn->Size = System::Drawing::Size(76, 23);
+			this->showGridBtn->TabIndex = 61;
+			this->showGridBtn->Text = L"Grid View";
+			this->showGridBtn->UseVisualStyleBackColor = false;
+			this->showGridBtn->Click += gcnew System::EventHandler(this, &MainForm::showGridBtn_Click);
+			// 
+			// fovLabel
+			// 
+			this->fovLabel->AutoSize = true;
+			this->fovLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->fovLabel->Location = System::Drawing::Point(267, 28);
+			this->fovLabel->Name = L"fovLabel";
+			this->fovLabel->Size = System::Drawing::Size(28, 13);
+			this->fovLabel->TabIndex = 60;
+			this->fovLabel->Text = L"45.0";
+			// 
+			// fovTitleLabel
+			// 
+			this->fovTitleLabel->AutoSize = true;
+			this->fovTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->fovTitleLabel->Location = System::Drawing::Point(64, 18);
+			this->fovTitleLabel->Name = L"fovTitleLabel";
+			this->fovTitleLabel->Size = System::Drawing::Size(32, 13);
+			this->fovTitleLabel->TabIndex = 59;
+			this->fovTitleLabel->Text = L"FOV:";
+			// 
+			// fovTrackBar
+			// 
+			this->fovTrackBar->BackColor = System::Drawing::SystemColors::Window;
+			this->fovTrackBar->LargeChange = 10;
+			this->fovTrackBar->Location = System::Drawing::Point(106, 18);
+			this->fovTrackBar->Maximum = 2000;
+			this->fovTrackBar->Minimum = 1;
+			this->fovTrackBar->Name = L"fovTrackBar";
+			this->fovTrackBar->Size = System::Drawing::Size(158, 45);
+			this->fovTrackBar->TabIndex = 58;
+			this->fovTrackBar->TickFrequency = 100;
+			this->fovTrackBar->Value = 450;
+			this->fovTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::fovTrackBar_ValueChanged);
+			// 
 			// backgroundWorker1
 			// 
 			this->backgroundWorker1->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainForm::backgroundWorker1_DoWork);
@@ -1416,17 +1594,17 @@ private: System::Windows::Forms::Button^  showGridBtn;
 			this->backgroundWorker2->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainForm::backgroundWorker2_DoWork);
 			this->backgroundWorker2->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MainForm::backgroundWorker2_RunWorkerCompleted);
 			// 
-			// showGridBtn
+			// toggleGridBtn
 			// 
-			this->showGridBtn->BackColor = System::Drawing::Color::Gainsboro;
-			this->showGridBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->showGridBtn->Location = System::Drawing::Point(8, 69);
-			this->showGridBtn->Name = L"showGridBtn";
-			this->showGridBtn->Size = System::Drawing::Size(76, 23);
-			this->showGridBtn->TabIndex = 61;
-			this->showGridBtn->Text = L"Grid";
-			this->showGridBtn->UseVisualStyleBackColor = false;
-			this->showGridBtn->Click += gcnew System::EventHandler(this, &MainForm::showGridBtn_Click);
+			this->toggleGridBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->toggleGridBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->toggleGridBtn->Location = System::Drawing::Point(379, 59);
+			this->toggleGridBtn->Name = L"toggleGridBtn";
+			this->toggleGridBtn->Size = System::Drawing::Size(76, 23);
+			this->toggleGridBtn->TabIndex = 78;
+			this->toggleGridBtn->Text = L"Toggle Grid";
+			this->toggleGridBtn->UseVisualStyleBackColor = false;
+			this->toggleGridBtn->Click += gcnew System::EventHandler(this, &MainForm::toggleGridBtn_Click);
 			// 
 			// MainForm
 			// 
@@ -1461,9 +1639,6 @@ private: System::Windows::Forms::Button^  showGridBtn;
 			this->optiTrackSubSplitContainer->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->optiTrackDataGridView))->EndInit();
 			this->SceneTab->ResumeLayout(false);
-			this->cameraGroupBox->ResumeLayout(false);
-			this->cameraGroupBox->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->fovTrackBar))->EndInit();
 			this->dicomConverterGroupBox->ResumeLayout(false);
 			this->dicomConverterGroupBox->PerformLayout();
 			this->rigidBodyGroupBox->ResumeLayout(false);
@@ -1479,6 +1654,13 @@ private: System::Windows::Forms::Button^  showGridBtn;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->minIsoValueTrackBar))->EndInit();
 			this->loadVolumeGroupBox->ResumeLayout(false);
 			this->loadVolumeGroupBox->PerformLayout();
+			this->cameraPage->ResumeLayout(false);
+			this->cameraGroupBox->ResumeLayout(false);
+			this->cameraGroupBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->cameraZTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->cameraYTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->cameraXTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->fovTrackBar))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -1533,6 +1715,8 @@ private: System::Windows::Forms::Button^  showGridBtn;
 				 this->dicomConverterGroupBox->Controls->Add(this->spinner2);
 
 				 this->volumeRemoveBtn->Enabled = false;
+
+				 VolumeRenderManager::getInstance()->init();
 			 }
 			 // OptiTrack Getters/Setters
 	public: System::Void setOptiTrackLocalIpAddressTextBox(System::String^ text) {
@@ -1963,6 +2147,24 @@ private: System::Windows::Forms::Button^  showGridBtn;
 	private: System::Void showGridBtn_Click(System::Object^  sender, System::EventArgs^  e) {
 				 CalibrationGrid^ grid = gcnew CalibrationGrid();
 				 grid->Show();
+			 }
+	private: System::Void cameraXTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->cameraXTrackBar->Value/1000.f;
+				 this->cameraXLabel->Text = value.ToString("f3") + " m";
+				 VolumeRenderManager::getInstance()->setCameraX(value);
+			 }
+	private: System::Void cameraYTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->cameraYTrackBar->Value/1000.f;
+				 this->cameraYLabel->Text = value.ToString("f3") + " m";
+				 VolumeRenderManager::getInstance()->setCameraY(value);
+			 }
+	private: System::Void cameraZTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->cameraZTrackBar->Value/1000.f;
+				 this->cameraZLabel->Text = value.ToString("f3") + " m";
+				 VolumeRenderManager::getInstance()->setCameraZ(value);
+			 }
+	private: System::Void toggleGridBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				 VolumeRenderManager::getInstance()->toggleGrid();
 			 }
 };
 }

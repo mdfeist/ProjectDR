@@ -221,6 +221,9 @@
     <ClCompile Include="CalibrationGrid.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="ImagePlane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -1132,6 +1135,9 @@
     <ClInclude Include="CalibrationGrid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ImagePlane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc">
@@ -1146,6 +1152,9 @@
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
     <EmbeddedResource Include="OpenGLView.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CalibrationGrid.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
   </ItemGroup>

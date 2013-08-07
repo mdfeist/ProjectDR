@@ -170,6 +170,7 @@
     <ClCompile Include="FormEvents.cpp">
       <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</BasicRuntimeChecks>
     </ClCompile>
+    <ClCompile Include="ImagePlane.cpp" />
     <ClCompile Include="ImageRender.cpp" />
     <ClCompile Include="KeyboardHandler.cpp" />
     <ClCompile Include="KinectFusion.cpp" />
@@ -502,6 +503,7 @@
     <ClInclude Include="Eigen\SVD.h" />
     <ClInclude Include="Eigen\UmfPackSupport.h" />
     <ClInclude Include="FormController.h" />
+    <ClInclude Include="ImagePlane.h" />
     <ClInclude Include="ImageRender.h" />
     <ClInclude Include="KeyboardHandler.h" />
     <ClInclude Include="KinectFusion.h" />

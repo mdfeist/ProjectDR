@@ -15,22 +15,6 @@ extern "C" {
     _declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
 }
 
-#pragma unmanaged
-void updateCamera(Camera* camera) {
-	float w = camera->getRotation().w();
-	float x = camera->getRotation().x();
-	float y = camera->getRotation().y();
-	float z = camera->getRotation().z();
-
-	float scale = sqrt(x * x + y * y + z * z);
-	glRotatef(acos(w) * 2.0f, x / scale, y / scale, z / scale);
-	glTranslatef(													// Set Camera Position
-		camera->getPosition().x(), 
-		camera->getPosition().y(),
-		camera->getPosition().z());
-}
-#pragma managed
-
 Renderer::Renderer(System::Windows::Forms::Form ^ parentForm, 
             GLsizei iWidth, GLsizei iHeight)
 {
@@ -275,7 +259,12 @@ System::Void Renderer::Render(System::Void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glLoadIdentity();												// Load Identity
-	updateCamera(camera);
+	gluLookAt(														// look from camera XYZ
+		camera->getPosition().x(), 
+		camera->getPosition().y(),
+		camera->getPosition().z(),
+		0, 0, 0,													// look at the origin
+		0, 1, 0);													// positive Y up vector
 	
 	manager->render(camera);										// Render scene
 }

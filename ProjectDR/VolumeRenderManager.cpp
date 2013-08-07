@@ -9,21 +9,101 @@
 #include "Volume.h"
 #include "VolumeLoader.h"
 #include "RendererDelegator.h"
+#include "ImagePlane.h"
 #pragma managed
 
 #include "Renderer.h"
 #include "RenderManager.h"
+
+using namespace System::Drawing;
 
 VolumeRenderManager* FormController<VolumeRenderManager, ProjectDR::OpenGLView>::m_pInstance = NULL;
 int RendererCallback::Callback_ID = 0;
 
 VolumeRenderManager::VolumeRenderManager(void) : FormController<VolumeRenderManager, ProjectDR::OpenGLView>() {
 	volume = nullptr;
+	calibrationGrid = nullptr;
+
+	cameraNeedsUpdate = true;
+
+	fov = 45.0f;
+
+	camera_x = 0.f;
+	camera_y = 0.f;
+	camera_z = -1.f;
 	
 	scale = 1.f;
 	x_offset = y_offset = z_offset = 0.f;
 	qx_offset = qy_offset = qz_offset = 0.f;
 	rotation = Eigen::Quaternionf::Identity();
+
+	updateDelegate = nullptr;
+}
+
+void VolumeRenderManager::toggleGrid() {
+	if (calibrationGrid != nullptr)
+		calibrationGrid->toggleShow();
+}
+
+void VolumeRenderManager::init() {
+	createForm();
+
+	if (form && !form->IsDisposed) {
+		Renderer^ renderer = form->GetRenderer();
+		if (renderer != nullptr) {
+			RenderManager* manager = renderer->getManager();
+
+			if (manager) {
+				if (updateDelegate != nullptr) {
+					manager->removeUpdateDelegate(updateDelegate);
+					delete updateDelegate;
+					updateDelegate = nullptr;
+				}
+
+				updateDelegate = new RendererDelegator<VolumeRenderManager>();
+				updateDelegate->RegisterCallback(this, &VolumeRenderManager::update);
+				manager->addUpdateDelegate(updateDelegate);
+
+				if (calibrationGrid == nullptr) {
+					// Create a Bitmap object from an image file.
+					Bitmap^ myBitmap = gcnew Bitmap("images/Grid.png");
+
+					int width = myBitmap->Width;
+					int height = myBitmap->Height;
+
+					std::cout << "Width: " << width << std::endl;
+					std::cout << "Height: " << height << std::endl;
+
+					calibrationGrid = new ImagePlane();
+					calibrationGrid->createImage(width, height);
+
+					GLubyte* data = calibrationGrid->getImageData();
+
+					for (int j = 0; j < height; j++) {
+						for (int i = 0; i < width; i++) {
+							// Get the color of a pixel within myBitmap.
+							data[4*(j*width + i) + 0] = (GLubyte)myBitmap->GetPixel(i, j).R;
+							data[4*(j*width + i) + 1] = (GLubyte)myBitmap->GetPixel(i, j).G;
+							data[4*(j*width + i) + 2] = (GLubyte)myBitmap->GetPixel(i, j).B;
+							data[4*(j*width + i) + 3] = (GLubyte)myBitmap->GetPixel(i, j).A;
+						}
+					}
+
+					manager->addActor(calibrationGrid);
+				}
+			} else {
+				std::cout << "Failed."<< std::endl;
+				std::cout <<"************************" <<std::endl;
+				std::cout << "RenderManager was NULL" << std::endl;
+				std::cout << "***********************" <<std::endl;
+			}
+		} else {
+			std::cout << "Failed."<< std::endl;
+			std::cout <<"************************" <<std::endl;
+			std::cout << "Form Renderer was NULL" << std::endl;
+			std::cout <<"************************" <<std::endl;
+		}
+	}
 }
 
 void VolumeRenderManager::initFusion() {
@@ -74,19 +154,23 @@ void VolumeRenderManager::initFusion() {
 }
 
 void VolumeRenderManager::setFOV(float value) {
-	createForm();
+	fov = value;
+	cameraNeedsUpdate = true;
+}
 
-	Renderer^ renderer = form->GetRenderer();
-	if (renderer) {
-		renderer->getActiveCamera()->setFOV(value);
-		renderer->getActiveCamera()->setPosition(0.016f, 0.1992f, -1.2545f);
-		renderer->getActiveCamera()->lookAt(0.f, 0.f, 0.f);
-	} else {
-		std::cout << "Failed."<< std::endl;
-		std::cout <<"************************" <<std::endl;
-		std::cout << "Form Renderer was NULL" << std::endl;
-		std::cout <<"************************" <<std::endl;
-	}
+void VolumeRenderManager::setCameraX(float value) {
+	camera_x = value;
+	cameraNeedsUpdate = true;
+}
+
+void VolumeRenderManager::setCameraY(float value) {
+	camera_y = value;
+	cameraNeedsUpdate = true;
+}
+
+void VolumeRenderManager::setCameraZ(float value) {
+	camera_z = value;
+	cameraNeedsUpdate = true;
 }
 
 void VolumeRenderManager::setRigidBody(int id) {
@@ -102,18 +186,11 @@ Volume* VolumeRenderManager::loadVolume(const char* volumeFile) {
 
 		delete volume;
 		volume = nullptr;
-
-		delete updateVolumeDelegate;
-		updateVolumeDelegate = nullptr;
 	}
 
 	volume = new Volume();
-	//volume->setAxisAngle(-(float)M_PI/2.0f, 1.f, 0.f, 0.f);
 	volume->setVolumeData(volumeLoader);
 	volume->setup();
-
-	updateVolumeDelegate = new RendererDelegator<VolumeRenderManager>();
-	updateVolumeDelegate->RegisterCallback(VolumeRenderManager::getInstance(), &VolumeRenderManager::updateVolume);
 	
 	return volume;
 }
@@ -126,7 +203,6 @@ void VolumeRenderManager::addVolumeToScene() {
 		RenderManager* manager = renderer->getManager();
 		
 		if (manager) {
-			manager->addUpdateDelegate(updateVolumeDelegate);
 			manager->addActor(volume);
 		} else {
 			std::cout << "Failed."<< std::endl;
@@ -151,7 +227,6 @@ void VolumeRenderManager::removeVolumeFromScene() {
 		RenderManager* manager = renderer->getManager();
 		
 		if (manager) {
-			manager->removeUpdateDelegate(updateVolumeDelegate);
 			manager->removeActor(volume);
 		} else {
 			std::cout << "Failed."<< std::endl;
@@ -167,6 +242,28 @@ void VolumeRenderManager::removeVolumeFromScene() {
 		std::cout <<"************************" <<std::endl;
 	}
 }
+
+void VolumeRenderManager::update() {
+	if (cameraNeedsUpdate) {
+		if (form && !form->IsDisposed) {
+			Renderer^ renderer = form->GetRenderer();
+			if (renderer != nullptr) {
+				renderer->getActiveCamera()->setFOV(fov);
+				renderer->getActiveCamera()->setPosition(camera_x, camera_y, camera_z);
+
+				cameraNeedsUpdate = false;
+			} else {
+				std::cout << "Failed."<< std::endl;
+				std::cout <<"************************" <<std::endl;
+				std::cout << "Form Renderer was NULL" << std::endl;
+				std::cout <<"************************" <<std::endl;
+			}
+		}
+	}
+
+	updateVolume();
+}
+
 
 void VolumeRenderManager::updateVolume() {
 	Eigen::Matrix4f rb_matrix = Eigen::Matrix4f::Identity();

@@ -11,6 +11,7 @@
 
 class Volume;
 class RenderManager;
+class ImagePlane;
 
 public class VolumeRenderManager :
 	public FormController<VolumeRenderManager, ProjectDR::OpenGLView>
@@ -23,32 +24,50 @@ public:
 
 	void setFOV(float);
 
+	void setCameraX(float);
+	void setCameraY(float);
+	void setCameraZ(float);
+
 	Volume* loadVolume(const char*);
 	void addVolumeToScene();
 	void removeVolumeFromScene();
 
 	void setRigidBody(int id);
-	void setMinIsoValue(float value);
+	void setMinIsoValue(float);
 
-	void setScale(float value);
+	void setScale(float);
 
-	void setPositionX(float value);
-	void setPositionY(float value);
-	void setPositionZ(float value);
+	void setPositionX(float);
+	void setPositionY(float);
+	void setPositionZ(float);
 
-	void setRotationX(float value);
-	void setRotationY(float value);
-	void setRotationZ(float value);
+	void setRotationX(float);
+	void setRotationY(float);
+	void setRotationZ(float);
+
+	void init();
 
 	void updateVolume();
+	void update();
+
+	void toggleGrid();
 private:
 	Volume*					volume;
 	KinectFusionRender*		fusionImage;
 	CKinectFusion*			fusion;
 
+	ImagePlane*				calibrationGrid;
+
+	float					fov;
+	float					camera_x;
+	float					camera_y;
+	float					camera_z;
+
+	bool					cameraNeedsUpdate;
+
 	int						rigidBodyID;	
 
-	RendererDelegator<VolumeRenderManager>* updateVolumeDelegate;
+	RendererDelegator<VolumeRenderManager>* updateDelegate;
 
 	float					scale;
 
