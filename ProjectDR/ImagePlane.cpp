@@ -25,6 +25,16 @@ void ImagePlane::toggleShow()
 	show = !show;
 }
 
+bool ImagePlane::isShown()
+{
+	return show;
+}
+
+void ImagePlane::setMatrix(const Eigen::Matrix4f& m)
+{
+	matrix = m;
+}
+
 void ImagePlane::init()
 {
 	std::cout << "- Create OpenGL Texture" << std::endl;
@@ -84,6 +94,8 @@ void ImagePlane::render(Camera* camera)
 			camera->getPosition().z(),
 			0, 0, 0, /* look at the origin */
 			0, 1, 0); /* positive Y up vector */
+
+		glMultMatrixf((const GLfloat*)matrix.data());
 
 		// OpenGL setup
 		glClearColor(0,0,0,0);

@@ -14,7 +14,9 @@ public:
 	void init();
 	bool needsInit();
 
+	void setMatrix(const Eigen::Matrix4f& m);
 	void toggleShow();
+	bool isShown();
 
 	void render(Camera*);
 
@@ -28,5 +30,7 @@ protected:
 	bool			show;
 private:
 	GLuint			textureId;
+
+	Eigen::Matrix4f matrix;
 };
 

@@ -191,6 +191,8 @@ private: System::Windows::Forms::Label^  cameraXLabel;
 private: System::Windows::Forms::Label^  cameraXTitleLabel;
 private: System::Windows::Forms::TrackBar^  cameraXTrackBar;
 private: System::Windows::Forms::Button^  toggleGridBtn;
+private: System::Windows::Forms::Label^  gridSelectedLabel;
+private: System::Windows::Forms::Button^  selectRigidBodyAsGridBtn;
 
 
 
@@ -308,6 +310,7 @@ private: System::Windows::Forms::Button^  toggleGridBtn;
 			this->volumePathLabel = (gcnew System::Windows::Forms::Label());
 			this->cameraPage = (gcnew System::Windows::Forms::TabPage());
 			this->cameraGroupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->toggleGridBtn = (gcnew System::Windows::Forms::Button());
 			this->cameraZLabel = (gcnew System::Windows::Forms::Label());
 			this->cameraZTitleLabel = (gcnew System::Windows::Forms::Label());
 			this->cameraZTrackBar = (gcnew System::Windows::Forms::TrackBar());
@@ -324,7 +327,8 @@ private: System::Windows::Forms::Button^  toggleGridBtn;
 			this->fovTrackBar = (gcnew System::Windows::Forms::TrackBar());
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->backgroundWorker2 = (gcnew System::ComponentModel::BackgroundWorker());
-			this->toggleGridBtn = (gcnew System::Windows::Forms::Button());
+			this->gridSelectedLabel = (gcnew System::Windows::Forms::Label());
+			this->selectRigidBodyAsGridBtn = (gcnew System::Windows::Forms::Button());
 			this->menuStrip->SuspendLayout();
 			this->tabControl->SuspendLayout();
 			this->optiTrackPage->SuspendLayout();
@@ -931,13 +935,15 @@ private: System::Windows::Forms::Button^  toggleGridBtn;
 			// 
 			this->rigidBodyGroupBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
 				| System::Windows::Forms::AnchorStyles::Right));
+			this->rigidBodyGroupBox->Controls->Add(this->gridSelectedLabel);
+			this->rigidBodyGroupBox->Controls->Add(this->selectRigidBodyAsGridBtn);
 			this->rigidBodyGroupBox->Controls->Add(this->volumeSelectedLabel);
 			this->rigidBodyGroupBox->Controls->Add(this->selectRigidBodyAsVolumeBtn);
 			this->rigidBodyGroupBox->Controls->Add(this->volumeSelectLabel);
 			this->rigidBodyGroupBox->Controls->Add(this->rigidBodyListView);
 			this->rigidBodyGroupBox->Location = System::Drawing::Point(323, 126);
 			this->rigidBodyGroupBox->Name = L"rigidBodyGroupBox";
-			this->rigidBodyGroupBox->Size = System::Drawing::Size(461, 310);
+			this->rigidBodyGroupBox->Size = System::Drawing::Size(461, 377);
 			this->rigidBodyGroupBox->TabIndex = 50;
 			this->rigidBodyGroupBox->TabStop = false;
 			this->rigidBodyGroupBox->Text = L"Rigid Body";
@@ -963,11 +969,11 @@ private: System::Windows::Forms::Button^  toggleGridBtn;
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->selectRigidBodyAsVolumeBtn->BackColor = System::Drawing::Color::Gainsboro;
 			this->selectRigidBodyAsVolumeBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->selectRigidBodyAsVolumeBtn->Location = System::Drawing::Point(136, 235);
+			this->selectRigidBodyAsVolumeBtn->Location = System::Drawing::Point(120, 235);
 			this->selectRigidBodyAsVolumeBtn->Name = L"selectRigidBodyAsVolumeBtn";
-			this->selectRigidBodyAsVolumeBtn->Size = System::Drawing::Size(189, 23);
+			this->selectRigidBodyAsVolumeBtn->Size = System::Drawing::Size(221, 23);
 			this->selectRigidBodyAsVolumeBtn->TabIndex = 51;
-			this->selectRigidBodyAsVolumeBtn->Text = L"Use Selected Rigid Body";
+			this->selectRigidBodyAsVolumeBtn->Text = L"Use Selected Rigid Body As Volume";
 			this->selectRigidBodyAsVolumeBtn->UseVisualStyleBackColor = false;
 			this->selectRigidBodyAsVolumeBtn->Click += gcnew System::EventHandler(this, &MainForm::selectRigidBodyAsVolumeBtn_Click);
 			// 
@@ -1428,6 +1434,18 @@ private: System::Windows::Forms::Button^  toggleGridBtn;
 			this->cameraGroupBox->TabStop = false;
 			this->cameraGroupBox->Text = L"Camera";
 			// 
+			// toggleGridBtn
+			// 
+			this->toggleGridBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->toggleGridBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->toggleGridBtn->Location = System::Drawing::Point(379, 59);
+			this->toggleGridBtn->Name = L"toggleGridBtn";
+			this->toggleGridBtn->Size = System::Drawing::Size(76, 23);
+			this->toggleGridBtn->TabIndex = 78;
+			this->toggleGridBtn->Text = L"Toggle Grid";
+			this->toggleGridBtn->UseVisualStyleBackColor = false;
+			this->toggleGridBtn->Click += gcnew System::EventHandler(this, &MainForm::toggleGridBtn_Click);
+			// 
 			// cameraZLabel
 			// 
 			this->cameraZLabel->AutoSize = true;
@@ -1594,17 +1612,34 @@ private: System::Windows::Forms::Button^  toggleGridBtn;
 			this->backgroundWorker2->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainForm::backgroundWorker2_DoWork);
 			this->backgroundWorker2->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MainForm::backgroundWorker2_RunWorkerCompleted);
 			// 
-			// toggleGridBtn
+			// gridSelectedLabel
 			// 
-			this->toggleGridBtn->BackColor = System::Drawing::Color::Gainsboro;
-			this->toggleGridBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->toggleGridBtn->Location = System::Drawing::Point(379, 59);
-			this->toggleGridBtn->Name = L"toggleGridBtn";
-			this->toggleGridBtn->Size = System::Drawing::Size(76, 23);
-			this->toggleGridBtn->TabIndex = 78;
-			this->toggleGridBtn->Text = L"Toggle Grid";
-			this->toggleGridBtn->UseVisualStyleBackColor = false;
-			this->toggleGridBtn->Click += gcnew System::EventHandler(this, &MainForm::toggleGridBtn_Click);
+			this->gridSelectedLabel->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->gridSelectedLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->gridSelectedLabel->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->gridSelectedLabel->Location = System::Drawing::Point(5, 337);
+			this->gridSelectedLabel->MaximumSize = System::Drawing::Size(450, 60);
+			this->gridSelectedLabel->Name = L"gridSelectedLabel";
+			this->gridSelectedLabel->Size = System::Drawing::Size(450, 31);
+			this->gridSelectedLabel->TabIndex = 54;
+			this->gridSelectedLabel->Text = L"No rigid body is selected to be the grid.";
+			this->gridSelectedLabel->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// selectRigidBodyAsGridBtn
+			// 
+			this->selectRigidBodyAsGridBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->selectRigidBodyAsGridBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->selectRigidBodyAsGridBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->selectRigidBodyAsGridBtn->Location = System::Drawing::Point(120, 303);
+			this->selectRigidBodyAsGridBtn->Name = L"selectRigidBodyAsGridBtn";
+			this->selectRigidBodyAsGridBtn->Size = System::Drawing::Size(221, 23);
+			this->selectRigidBodyAsGridBtn->TabIndex = 53;
+			this->selectRigidBodyAsGridBtn->Text = L"Use Selected Rigid Body As Grid";
+			this->selectRigidBodyAsGridBtn->UseVisualStyleBackColor = false;
+			this->selectRigidBodyAsGridBtn->Click += gcnew System::EventHandler(this, &MainForm::selectRigidBodyAsGridBtn_Click);
 			// 
 			// MainForm
 			// 
@@ -2098,6 +2133,35 @@ private: System::Windows::Forms::Button^  toggleGridBtn;
 					 this->volumeSelectedLabel->Text = "No rigid body is selected to be the volume.";
 				 }
 			 }
+	private: System::Void selectRigidBodyAsGridBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				  if (this->rigidBodyListView->SelectedItems->Count > 0) {
+					 int id = System::Int32::Parse(this->rigidBodyListView->SelectedItems[0]->Text);
+
+					 if (id < 0)
+						 return;
+
+					 if (!ClientHandler::getInstance()->lock())
+						 return;
+
+					 RigidBody* body = ClientHandler::getInstance()->getRigidBody(id);
+
+					 if (body)
+					 {
+						 String^ message = gcnew String(body->getName());
+						 message = message + " is the rigid body selected to be the grid.";
+
+						 this->gridSelectedLabel->Text = message;
+					 }
+
+					 ClientHandler::getInstance()->unlock();
+
+					 VolumeRenderManager::getInstance()->setGridRigidBody(id);
+
+				 }
+				 else {
+					 this->gridSelectedLabel->Text = "No rigid body is selected to be the grid.";
+				 }
+			}
 	private: System::Void browseDICOMBtn_Click(System::Object^  sender, System::EventArgs^  e) {
 				 FolderBrowserDialog^ dialog = gcnew FolderBrowserDialog;
 

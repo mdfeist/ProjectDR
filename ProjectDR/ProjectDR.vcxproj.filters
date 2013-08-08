@@ -222,7 +222,7 @@
       <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="ImagePlane.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1136,7 +1136,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ImagePlane.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

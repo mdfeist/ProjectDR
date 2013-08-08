@@ -47,9 +47,11 @@ public:
 
 	void init();
 
+	void updateGrid();
 	void updateVolume();
 	void update();
 
+	void setGridRigidBody(int id);
 	void toggleGrid();
 private:
 	Volume*					volume;
@@ -57,6 +59,7 @@ private:
 	CKinectFusion*			fusion;
 
 	ImagePlane*				calibrationGrid;
+	int						gridRigidBodyID;
 
 	float					fov;
 	float					camera_x;

@@ -40,6 +40,10 @@ VolumeRenderManager::VolumeRenderManager(void) : FormController<VolumeRenderMana
 	updateDelegate = nullptr;
 }
 
+void VolumeRenderManager::setGridRigidBody(int id) {
+	gridRigidBodyID = id;
+}
+
 void VolumeRenderManager::toggleGrid() {
 	if (calibrationGrid != nullptr)
 		calibrationGrid->toggleShow();
@@ -261,7 +265,36 @@ void VolumeRenderManager::update() {
 		}
 	}
 
+	updateGrid();
 	updateVolume();
+}
+
+void VolumeRenderManager::updateGrid() {
+	Eigen::Matrix4f matrix = Eigen::Matrix4f::Identity();
+
+	RigidBody* rb = ClientHandler::getInstance()->getRigidBody(gridRigidBodyID);
+
+	if (rb) {
+		// Get Rigid Body Information
+		Eigen::Quaternionf quat = Eigen::Quaternionf(rb->qw(), rb->qx(), -rb->qy(), -rb->qz());
+		Eigen::Vector3f pos = rb->getPosition();
+
+		Eigen::Matrix3f rotationMatrix;
+
+		// Get Rotation of Camera
+		rotationMatrix = quat.toRotationMatrix();
+
+		for (int j = 0; j < 3; j++)
+			for (int i = 0; i < 3; i++)
+				matrix(i,j) = rotationMatrix(i,j);
+
+		matrix(0,3) = pos(0);
+		matrix(1,3) = -pos(1);
+		matrix(2,3) = -pos(2);
+	}
+
+	if (calibrationGrid)
+		calibrationGrid->setMatrix(matrix);
 }
 
 
