@@ -41,16 +41,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\mdfeist\Documents\opt\lib;C:\Program Files (x86)\NVIDIA Corporation\Cg\lib;$(KINECT_TOOLKIT_DIR)\lib\x86;$(KINECTSDK10_DIR)\lib\x86;$(LibraryPath)</LibraryPath>
-    <ExecutablePath>C:\Users\mdfeist\Documents\opt\bin;C:\Program Files (x86)\NVIDIA Corporation\Cg\bin;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\Users\mdfeist\Documents\opt\include;C:\Program Files (x86)\NVIDIA Corporation\Cg\include;$(KINECT_TOOLKIT_DIR)inc;$(KINECTSDK10_DIR)inc;$(IncludePath)</IncludePath>
+    <LibraryPath>\Users\mdfeist\Documents\opt\lib;C:\Program Files (x86)\NVIDIA Corporation\Cg\lib;$(KINECT_TOOLKIT_DIR)\lib\x86;$(KINECTSDK10_DIR)\lib\x86;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>\Users\mdfeist\Documents\opt\bin;C:\Program Files (x86)\NVIDIA Corporation\Cg\bin;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>\Users\mdfeist\Documents\opt\include;C:\Program Files (x86)\NVIDIA Corporation\Cg\include;$(KINECT_TOOLKIT_DIR)inc;$(KINECTSDK10_DIR)inc;$(IncludePath)</IncludePath>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>D:\Users\mdfeist\Documents\opt\lib;C:\Program Files (x86)\NVIDIA Corporation\Cg\lib;$(KINECT_TOOLKIT_DIR)\lib\x86;$(KINECTSDK10_DIR)\lib\x86;$(LibraryPath)</LibraryPath>
-    <ExecutablePath>D:\Users\mdfeist\Documents\opt\bin;C:\Program Files (x86)\NVIDIA Corporation\Cg\bin;$(VCInstallDir)bin;$(WindowsSdkDir)bin\NETFX 4.0 Tools;$(WindowsSdkDir)bin;$(VSInstallDir)Common7\Tools\bin;$(VSInstallDir)Common7\tools;$(VSInstallDir)Common7\ide;$(ProgramFiles)\HTML Help Workshop;$(FrameworkSDKDir)\bin;$(MSBuildToolsPath32);$(VSInstallDir);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);</ExecutablePath>
-    <IncludePath>D:\Users\mdfeist\Documents\opt\include;C:\Program Files (x86)\NVIDIA Corporation\Cg\include;$(KINECT_TOOLKIT_DIR)inc;$(KINECTSDK10_DIR)inc;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <LibraryPath>\Users\mdfeist\Documents\opt\lib;C:\Program Files (x86)\NVIDIA Corporation\Cg\lib;$(KINECT_TOOLKIT_DIR)\lib\x86;$(KINECTSDK10_DIR)\lib\x86;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>\Users\mdfeist\Documents\opt\bin;C:\Program Files (x86)\NVIDIA Corporation\Cg\bin;$(VCInstallDir)bin;$(WindowsSdkDir)bin\NETFX 4.0 Tools;$(WindowsSdkDir)bin;$(VSInstallDir)Common7\Tools\bin;$(VSInstallDir)Common7\tools;$(VSInstallDir)Common7\ide;$(ProgramFiles)\HTML Help Workshop;$(FrameworkSDKDir)\bin;$(MSBuildToolsPath32);$(VSInstallDir);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);</ExecutablePath>
+    <IncludePath>\Users\mdfeist\Documents\opt\include;C:\Program Files (x86)\NVIDIA Corporation\Cg\include;$(KINECT_TOOLKIT_DIR)inc;$(KINECTSDK10_DIR)inc;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
