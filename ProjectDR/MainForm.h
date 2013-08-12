@@ -193,6 +193,25 @@ private: System::Windows::Forms::TrackBar^  cameraXTrackBar;
 private: System::Windows::Forms::Button^  toggleGridBtn;
 private: System::Windows::Forms::Label^  gridSelectedLabel;
 private: System::Windows::Forms::Button^  selectRigidBodyAsGridBtn;
+private: System::Windows::Forms::CheckBox^  useKMatrixCheckBox;
+private: System::Windows::Forms::TextBox^  k44TextBox;
+private: System::Windows::Forms::TextBox^  k34TextBox;
+private: System::Windows::Forms::TextBox^  k24TextBox;
+private: System::Windows::Forms::TextBox^  k14TextBox;
+private: System::Windows::Forms::TextBox^  k43TextBox;
+private: System::Windows::Forms::TextBox^  k33TextBox;
+private: System::Windows::Forms::TextBox^  k23TextBox;
+private: System::Windows::Forms::TextBox^  k13TextBox;
+private: System::Windows::Forms::TextBox^  k42TextBox;
+private: System::Windows::Forms::TextBox^  k32TextBox;
+private: System::Windows::Forms::TextBox^  k22TextBox;
+private: System::Windows::Forms::TextBox^  k12TextBox;
+private: System::Windows::Forms::TextBox^  k41TextBox;
+private: System::Windows::Forms::TextBox^  k31TextBox;
+private: System::Windows::Forms::TextBox^  k21TextBox;
+private: System::Windows::Forms::TextBox^  k11TextBox;
+private: System::Windows::Forms::Label^  kMatrixLabel;
+private: System::Windows::Forms::Button^  updateKBtn;
 
 
 
@@ -270,6 +289,8 @@ private: System::Windows::Forms::Button^  selectRigidBodyAsGridBtn;
 			this->DICOMTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->pathToDICOMLabel = (gcnew System::Windows::Forms::Label());
 			this->rigidBodyGroupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->gridSelectedLabel = (gcnew System::Windows::Forms::Label());
+			this->selectRigidBodyAsGridBtn = (gcnew System::Windows::Forms::Button());
 			this->volumeSelectedLabel = (gcnew System::Windows::Forms::Label());
 			this->selectRigidBodyAsVolumeBtn = (gcnew System::Windows::Forms::Button());
 			this->volumeSelectLabel = (gcnew System::Windows::Forms::Label());
@@ -310,6 +331,24 @@ private: System::Windows::Forms::Button^  selectRigidBodyAsGridBtn;
 			this->volumePathLabel = (gcnew System::Windows::Forms::Label());
 			this->cameraPage = (gcnew System::Windows::Forms::TabPage());
 			this->cameraGroupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->useKMatrixCheckBox = (gcnew System::Windows::Forms::CheckBox());
+			this->k44TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k34TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k24TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k14TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k43TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k33TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k23TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k13TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k42TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k32TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k22TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k12TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k41TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k31TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k21TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->k11TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->kMatrixLabel = (gcnew System::Windows::Forms::Label());
 			this->toggleGridBtn = (gcnew System::Windows::Forms::Button());
 			this->cameraZLabel = (gcnew System::Windows::Forms::Label());
 			this->cameraZTitleLabel = (gcnew System::Windows::Forms::Label());
@@ -327,8 +366,7 @@ private: System::Windows::Forms::Button^  selectRigidBodyAsGridBtn;
 			this->fovTrackBar = (gcnew System::Windows::Forms::TrackBar());
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->backgroundWorker2 = (gcnew System::ComponentModel::BackgroundWorker());
-			this->gridSelectedLabel = (gcnew System::Windows::Forms::Label());
-			this->selectRigidBodyAsGridBtn = (gcnew System::Windows::Forms::Button());
+			this->updateKBtn = (gcnew System::Windows::Forms::Button());
 			this->menuStrip->SuspendLayout();
 			this->tabControl->SuspendLayout();
 			this->optiTrackPage->SuspendLayout();
@@ -948,6 +986,35 @@ private: System::Windows::Forms::Button^  selectRigidBodyAsGridBtn;
 			this->rigidBodyGroupBox->TabStop = false;
 			this->rigidBodyGroupBox->Text = L"Rigid Body";
 			// 
+			// gridSelectedLabel
+			// 
+			this->gridSelectedLabel->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->gridSelectedLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->gridSelectedLabel->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->gridSelectedLabel->Location = System::Drawing::Point(5, 337);
+			this->gridSelectedLabel->MaximumSize = System::Drawing::Size(450, 60);
+			this->gridSelectedLabel->Name = L"gridSelectedLabel";
+			this->gridSelectedLabel->Size = System::Drawing::Size(450, 31);
+			this->gridSelectedLabel->TabIndex = 54;
+			this->gridSelectedLabel->Text = L"No rigid body is selected to be the grid.";
+			this->gridSelectedLabel->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// selectRigidBodyAsGridBtn
+			// 
+			this->selectRigidBodyAsGridBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->selectRigidBodyAsGridBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->selectRigidBodyAsGridBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->selectRigidBodyAsGridBtn->Location = System::Drawing::Point(120, 303);
+			this->selectRigidBodyAsGridBtn->Name = L"selectRigidBodyAsGridBtn";
+			this->selectRigidBodyAsGridBtn->Size = System::Drawing::Size(221, 23);
+			this->selectRigidBodyAsGridBtn->TabIndex = 53;
+			this->selectRigidBodyAsGridBtn->Text = L"Use Selected Rigid Body As Grid";
+			this->selectRigidBodyAsGridBtn->UseVisualStyleBackColor = false;
+			this->selectRigidBodyAsGridBtn->Click += gcnew System::EventHandler(this, &MainForm::selectRigidBodyAsGridBtn_Click);
+			// 
 			// volumeSelectedLabel
 			// 
 			this->volumeSelectedLabel->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
@@ -1412,6 +1479,25 @@ private: System::Windows::Forms::Button^  selectRigidBodyAsGridBtn;
 			// 
 			// cameraGroupBox
 			// 
+			this->cameraGroupBox->Controls->Add(this->updateKBtn);
+			this->cameraGroupBox->Controls->Add(this->useKMatrixCheckBox);
+			this->cameraGroupBox->Controls->Add(this->k44TextBox);
+			this->cameraGroupBox->Controls->Add(this->k34TextBox);
+			this->cameraGroupBox->Controls->Add(this->k24TextBox);
+			this->cameraGroupBox->Controls->Add(this->k14TextBox);
+			this->cameraGroupBox->Controls->Add(this->k43TextBox);
+			this->cameraGroupBox->Controls->Add(this->k33TextBox);
+			this->cameraGroupBox->Controls->Add(this->k23TextBox);
+			this->cameraGroupBox->Controls->Add(this->k13TextBox);
+			this->cameraGroupBox->Controls->Add(this->k42TextBox);
+			this->cameraGroupBox->Controls->Add(this->k32TextBox);
+			this->cameraGroupBox->Controls->Add(this->k22TextBox);
+			this->cameraGroupBox->Controls->Add(this->k12TextBox);
+			this->cameraGroupBox->Controls->Add(this->k41TextBox);
+			this->cameraGroupBox->Controls->Add(this->k31TextBox);
+			this->cameraGroupBox->Controls->Add(this->k21TextBox);
+			this->cameraGroupBox->Controls->Add(this->k11TextBox);
+			this->cameraGroupBox->Controls->Add(this->kMatrixLabel);
 			this->cameraGroupBox->Controls->Add(this->toggleGridBtn);
 			this->cameraGroupBox->Controls->Add(this->cameraZLabel);
 			this->cameraGroupBox->Controls->Add(this->cameraZTitleLabel);
@@ -1429,16 +1515,165 @@ private: System::Windows::Forms::Button^  selectRigidBodyAsGridBtn;
 			this->cameraGroupBox->Controls->Add(this->fovTrackBar);
 			this->cameraGroupBox->Location = System::Drawing::Point(3, 6);
 			this->cameraGroupBox->Name = L"cameraGroupBox";
-			this->cameraGroupBox->Size = System::Drawing::Size(461, 295);
+			this->cameraGroupBox->Size = System::Drawing::Size(781, 295);
 			this->cameraGroupBox->TabIndex = 53;
 			this->cameraGroupBox->TabStop = false;
 			this->cameraGroupBox->Text = L"Camera";
+			// 
+			// useKMatrixCheckBox
+			// 
+			this->useKMatrixCheckBox->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->useKMatrixCheckBox->Location = System::Drawing::Point(333, 167);
+			this->useKMatrixCheckBox->Name = L"useKMatrixCheckBox";
+			this->useKMatrixCheckBox->Size = System::Drawing::Size(154, 34);
+			this->useKMatrixCheckBox->TabIndex = 97;
+			this->useKMatrixCheckBox->Text = L"Use K Matrix";
+			this->useKMatrixCheckBox->UseVisualStyleBackColor = true;
+			this->useKMatrixCheckBox->CheckedChanged += gcnew System::EventHandler(this, &MainForm::useKMatrixCheckBox_CheckedChanged);
+			// 
+			// k44TextBox
+			// 
+			this->k44TextBox->Location = System::Drawing::Point(573, 132);
+			this->k44TextBox->Name = L"k44TextBox";
+			this->k44TextBox->Size = System::Drawing::Size(74, 22);
+			this->k44TextBox->TabIndex = 95;
+			this->k44TextBox->Text = L"1.0";
+			// 
+			// k34TextBox
+			// 
+			this->k34TextBox->Location = System::Drawing::Point(493, 132);
+			this->k34TextBox->Name = L"k34TextBox";
+			this->k34TextBox->Size = System::Drawing::Size(74, 22);
+			this->k34TextBox->TabIndex = 94;
+			this->k34TextBox->Text = L"0.0";
+			// 
+			// k24TextBox
+			// 
+			this->k24TextBox->Location = System::Drawing::Point(413, 132);
+			this->k24TextBox->Name = L"k24TextBox";
+			this->k24TextBox->Size = System::Drawing::Size(74, 22);
+			this->k24TextBox->TabIndex = 93;
+			this->k24TextBox->Text = L"0.0";
+			// 
+			// k14TextBox
+			// 
+			this->k14TextBox->Location = System::Drawing::Point(333, 133);
+			this->k14TextBox->Name = L"k14TextBox";
+			this->k14TextBox->Size = System::Drawing::Size(74, 22);
+			this->k14TextBox->TabIndex = 92;
+			this->k14TextBox->Text = L"0.0";
+			// 
+			// k43TextBox
+			// 
+			this->k43TextBox->Location = System::Drawing::Point(573, 104);
+			this->k43TextBox->Name = L"k43TextBox";
+			this->k43TextBox->Size = System::Drawing::Size(74, 22);
+			this->k43TextBox->TabIndex = 91;
+			this->k43TextBox->Text = L"0.0";
+			// 
+			// k33TextBox
+			// 
+			this->k33TextBox->Location = System::Drawing::Point(493, 104);
+			this->k33TextBox->Name = L"k33TextBox";
+			this->k33TextBox->Size = System::Drawing::Size(74, 22);
+			this->k33TextBox->TabIndex = 90;
+			this->k33TextBox->Text = L"1.0";
+			// 
+			// k23TextBox
+			// 
+			this->k23TextBox->Location = System::Drawing::Point(413, 104);
+			this->k23TextBox->Name = L"k23TextBox";
+			this->k23TextBox->Size = System::Drawing::Size(74, 22);
+			this->k23TextBox->TabIndex = 89;
+			this->k23TextBox->Text = L"0.0";
+			// 
+			// k13TextBox
+			// 
+			this->k13TextBox->Location = System::Drawing::Point(333, 105);
+			this->k13TextBox->Name = L"k13TextBox";
+			this->k13TextBox->Size = System::Drawing::Size(74, 22);
+			this->k13TextBox->TabIndex = 88;
+			this->k13TextBox->Text = L"0.0";
+			// 
+			// k42TextBox
+			// 
+			this->k42TextBox->Location = System::Drawing::Point(573, 76);
+			this->k42TextBox->Name = L"k42TextBox";
+			this->k42TextBox->Size = System::Drawing::Size(74, 22);
+			this->k42TextBox->TabIndex = 87;
+			this->k42TextBox->Text = L"0.0";
+			// 
+			// k32TextBox
+			// 
+			this->k32TextBox->Location = System::Drawing::Point(493, 76);
+			this->k32TextBox->Name = L"k32TextBox";
+			this->k32TextBox->Size = System::Drawing::Size(74, 22);
+			this->k32TextBox->TabIndex = 86;
+			this->k32TextBox->Text = L"0.0";
+			// 
+			// k22TextBox
+			// 
+			this->k22TextBox->Location = System::Drawing::Point(413, 76);
+			this->k22TextBox->Name = L"k22TextBox";
+			this->k22TextBox->Size = System::Drawing::Size(74, 22);
+			this->k22TextBox->TabIndex = 85;
+			this->k22TextBox->Text = L"1.0";
+			// 
+			// k12TextBox
+			// 
+			this->k12TextBox->Location = System::Drawing::Point(333, 77);
+			this->k12TextBox->Name = L"k12TextBox";
+			this->k12TextBox->Size = System::Drawing::Size(74, 22);
+			this->k12TextBox->TabIndex = 84;
+			this->k12TextBox->Text = L"0.0";
+			// 
+			// k41TextBox
+			// 
+			this->k41TextBox->Location = System::Drawing::Point(573, 51);
+			this->k41TextBox->Name = L"k41TextBox";
+			this->k41TextBox->Size = System::Drawing::Size(74, 22);
+			this->k41TextBox->TabIndex = 83;
+			this->k41TextBox->Text = L"0.0";
+			// 
+			// k31TextBox
+			// 
+			this->k31TextBox->Location = System::Drawing::Point(493, 51);
+			this->k31TextBox->Name = L"k31TextBox";
+			this->k31TextBox->Size = System::Drawing::Size(74, 22);
+			this->k31TextBox->TabIndex = 82;
+			this->k31TextBox->Text = L"0.0";
+			// 
+			// k21TextBox
+			// 
+			this->k21TextBox->Location = System::Drawing::Point(413, 51);
+			this->k21TextBox->Name = L"k21TextBox";
+			this->k21TextBox->Size = System::Drawing::Size(74, 22);
+			this->k21TextBox->TabIndex = 81;
+			this->k21TextBox->Text = L"0.0";
+			// 
+			// k11TextBox
+			// 
+			this->k11TextBox->Location = System::Drawing::Point(333, 52);
+			this->k11TextBox->Name = L"k11TextBox";
+			this->k11TextBox->Size = System::Drawing::Size(74, 22);
+			this->k11TextBox->TabIndex = 80;
+			this->k11TextBox->Text = L"1.0";
+			// 
+			// kMatrixLabel
+			// 
+			this->kMatrixLabel->AutoSize = true;
+			this->kMatrixLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->kMatrixLabel->Location = System::Drawing::Point(330, 28);
+			this->kMatrixLabel->Name = L"kMatrixLabel";
+			this->kMatrixLabel->Size = System::Drawing::Size(51, 13);
+			this->kMatrixLabel->TabIndex = 79;
+			this->kMatrixLabel->Text = L"K Matrix:";
 			// 
 			// toggleGridBtn
 			// 
 			this->toggleGridBtn->BackColor = System::Drawing::Color::Gainsboro;
 			this->toggleGridBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->toggleGridBtn->Location = System::Drawing::Point(379, 59);
+			this->toggleGridBtn->Location = System::Drawing::Point(665, 86);
 			this->toggleGridBtn->Name = L"toggleGridBtn";
 			this->toggleGridBtn->Size = System::Drawing::Size(76, 23);
 			this->toggleGridBtn->TabIndex = 78;
@@ -1560,7 +1795,7 @@ private: System::Windows::Forms::Button^  selectRigidBodyAsGridBtn;
 			// 
 			this->showGridBtn->BackColor = System::Drawing::Color::Gainsboro;
 			this->showGridBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->showGridBtn->Location = System::Drawing::Point(379, 23);
+			this->showGridBtn->Location = System::Drawing::Point(665, 50);
 			this->showGridBtn->Name = L"showGridBtn";
 			this->showGridBtn->Size = System::Drawing::Size(76, 23);
 			this->showGridBtn->TabIndex = 61;
@@ -1612,34 +1847,17 @@ private: System::Windows::Forms::Button^  selectRigidBodyAsGridBtn;
 			this->backgroundWorker2->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainForm::backgroundWorker2_DoWork);
 			this->backgroundWorker2->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MainForm::backgroundWorker2_RunWorkerCompleted);
 			// 
-			// gridSelectedLabel
+			// updateKBtn
 			// 
-			this->gridSelectedLabel->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
-				| System::Windows::Forms::AnchorStyles::Right));
-			this->gridSelectedLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
-				static_cast<System::Byte>(0)));
-			this->gridSelectedLabel->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->gridSelectedLabel->Location = System::Drawing::Point(5, 337);
-			this->gridSelectedLabel->MaximumSize = System::Drawing::Size(450, 60);
-			this->gridSelectedLabel->Name = L"gridSelectedLabel";
-			this->gridSelectedLabel->Size = System::Drawing::Size(450, 31);
-			this->gridSelectedLabel->TabIndex = 54;
-			this->gridSelectedLabel->Text = L"No rigid body is selected to be the grid.";
-			this->gridSelectedLabel->TextAlign = System::Drawing::ContentAlignment::TopCenter;
-			// 
-			// selectRigidBodyAsGridBtn
-			// 
-			this->selectRigidBodyAsGridBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
-				| System::Windows::Forms::AnchorStyles::Right));
-			this->selectRigidBodyAsGridBtn->BackColor = System::Drawing::Color::Gainsboro;
-			this->selectRigidBodyAsGridBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->selectRigidBodyAsGridBtn->Location = System::Drawing::Point(120, 303);
-			this->selectRigidBodyAsGridBtn->Name = L"selectRigidBodyAsGridBtn";
-			this->selectRigidBodyAsGridBtn->Size = System::Drawing::Size(221, 23);
-			this->selectRigidBodyAsGridBtn->TabIndex = 53;
-			this->selectRigidBodyAsGridBtn->Text = L"Use Selected Rigid Body As Grid";
-			this->selectRigidBodyAsGridBtn->UseVisualStyleBackColor = false;
-			this->selectRigidBodyAsGridBtn->Click += gcnew System::EventHandler(this, &MainForm::selectRigidBodyAsGridBtn_Click);
+			this->updateKBtn->BackColor = System::Drawing::Color::Gainsboro;
+			this->updateKBtn->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->updateKBtn->Location = System::Drawing::Point(665, 121);
+			this->updateKBtn->Name = L"updateKBtn";
+			this->updateKBtn->Size = System::Drawing::Size(76, 23);
+			this->updateKBtn->TabIndex = 98;
+			this->updateKBtn->Text = L"Update K";
+			this->updateKBtn->UseVisualStyleBackColor = false;
+			this->updateKBtn->Click += gcnew System::EventHandler(this, &MainForm::updateKBtn_Click);
 			// 
 			// MainForm
 			// 
@@ -2229,6 +2447,36 @@ private: System::Windows::Forms::Button^  selectRigidBodyAsGridBtn;
 			 }
 	private: System::Void toggleGridBtn_Click(System::Object^  sender, System::EventArgs^  e) {
 				 VolumeRenderManager::getInstance()->toggleGrid();
+			 }
+	private: System::Void useKMatrixCheckBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+				 VolumeRenderManager::getInstance()->setUseIntrinsic(useKMatrixCheckBox->Checked);
+			 }
+	private: System::Void updateKBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+				 float* k = new float[16];
+
+				 k[0] = Convert::ToDouble(k11TextBox->Text);
+				 k[1] = Convert::ToDouble(k12TextBox->Text);
+				 k[2] = Convert::ToDouble(k13TextBox->Text);
+				 k[3] = Convert::ToDouble(k14TextBox->Text);
+
+				 k[4] = Convert::ToDouble(k21TextBox->Text);
+				 k[5] = Convert::ToDouble(k22TextBox->Text);
+				 k[6] = Convert::ToDouble(k23TextBox->Text);
+				 k[7] = Convert::ToDouble(k24TextBox->Text);
+
+				 k[8] = Convert::ToDouble(k31TextBox->Text);
+				 k[9] = Convert::ToDouble(k32TextBox->Text);
+				 k[10] = Convert::ToDouble(k33TextBox->Text);
+				 k[11] = Convert::ToDouble(k34TextBox->Text);
+
+				 k[12] = Convert::ToDouble(k41TextBox->Text);
+				 k[13] = Convert::ToDouble(k42TextBox->Text);
+				 k[14] = Convert::ToDouble(k43TextBox->Text);
+				 k[15] = Convert::ToDouble(k44TextBox->Text);
+
+				 VolumeRenderManager::getInstance()->setIntrinsicMatrix(k);
+
+				 delete[] k;
 			 }
 };
 }

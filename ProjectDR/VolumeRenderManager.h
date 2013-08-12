@@ -9,6 +9,7 @@
 
 #include "KinectFusion.h"
 
+class Camera;
 class Volume;
 class RenderManager;
 class ImagePlane;
@@ -21,6 +22,9 @@ public:
 
 	VolumeRenderManager(void);
 	void initFusion();
+
+	void setIntrinsicMatrix(float*);
+	void setUseIntrinsic(bool);
 
 	void setFOV(float);
 
@@ -47,6 +51,7 @@ public:
 
 	void init();
 
+	void updateCamera(Camera*);
 	void updateGrid();
 	void updateVolume();
 	void update();
@@ -60,6 +65,9 @@ private:
 
 	ImagePlane*				calibrationGrid;
 	int						gridRigidBodyID;
+
+	float*					intrinsicMatrix;
+	bool					useIntrinsic;
 
 	float					fov;
 	float					camera_x;

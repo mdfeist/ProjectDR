@@ -9,6 +9,9 @@ Camera::Camera(void)
 	height = 1;
 	nearClipping = 0.01f;
 	farClipping = 400.0f;
+	
+	intrinsicMatrix = Eigen::Matrix4f::Identity();
+	useIntrinsic = false;
 }
 
 
@@ -22,6 +25,26 @@ void Camera::setFOV(float value) {
 
 float Camera::getFOV() {
 	return fov;
+}
+
+void Camera::setIntrinsicMatrix(Eigen::Matrix4f &value) {
+	intrinsicMatrix = value;
+}
+
+Eigen::Matrix4f Camera::getIntrinsicMatrix() {
+	return intrinsicMatrix;
+}
+
+float* Camera::getIntrinsicMatrixData() {
+	return intrinsicMatrix.data();
+}
+
+void Camera::useIntrinsicMatrix(bool yes) {
+	useIntrinsic = yes;
+}
+
+bool Camera::shouldUseIntrinsicMatrix() {
+	return useIntrinsic;
 }
 
 void Camera::setWidth(int value) {

@@ -77,14 +77,6 @@ void ImagePlane::render(Camera* camera)
 	if (show) {
 		// Camera setup
 		glViewport(0, 0, camera->getWidth(), camera->getHeight());
-		glMatrixMode(GL_PROJECTION);												// Select The Projection Matrix
-		glPushMatrix();
-		glLoadIdentity();															// Reset The Projection Matrix
-		gluPerspective(camera->getFOV(),											// Set Field of View
-			(GLfloat)camera->getWidth()/(GLfloat)camera->getHeight(),				// Set aspect ratio
-			camera->getNearClipping(),												// Set near clipping
-			camera->getFarClipping());												// Set far clipping
-		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
 		glLoadIdentity();
 
@@ -114,10 +106,6 @@ void ImagePlane::render(Camera* camera)
 			glTexCoord2f(0.0f, 1.0f);
 			glVertex3f(-0.5f, 0.0f, 0.5f);
 		glEnd();
-
-		glMatrixMode(GL_PROJECTION);
-		glPopMatrix();
-		glMatrixMode(GL_MODELVIEW);
 		glPopMatrix();
 	}
 }

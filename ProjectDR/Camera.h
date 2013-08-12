@@ -14,6 +14,13 @@ public:
 	void setFOV(float value);
 	float getFOV();
 
+	void setIntrinsicMatrix(Eigen::Matrix4f &value);
+	Eigen::Matrix4f getIntrinsicMatrix();
+	float* getIntrinsicMatrixData();
+
+	void useIntrinsicMatrix(bool yes);
+	bool shouldUseIntrinsicMatrix();
+
 	void setWidth(int value);
 	int getWidth();
 
@@ -53,6 +60,9 @@ public:
 
 private:
 	float fov;								// Field of View
+
+	Eigen::Matrix4f intrinsicMatrix;
+	bool useIntrinsic;
 
 	int width;								// Screen Width
 	int height;								// Screen Height

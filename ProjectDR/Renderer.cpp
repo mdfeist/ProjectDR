@@ -238,12 +238,17 @@ System::Void Renderer::Update(System::Void)
 		camera->setHeight(height);				// Update camera height
 
 		glViewport(0, 0, width, height);		// Set Viewport
-		double aspect_ratio = (double)width / (double) height;
 		glMatrixMode(GL_PROJECTION);			// Select The Projection Matrix
 		glLoadIdentity();						// Reset The Projection Matrix
-
-		// Calculate The Aspect Ratio Of The Window
-		gluPerspective(camera->getFOV(), aspect_ratio, 0.1f, 100.0f);
+		
+		if (camera->shouldUseIntrinsicMatrix()) {
+			//glOrtho(0, 0, width, height, 0.1f, 100.0f);
+			glLoadMatrixf((const GLfloat*)camera->getIntrinsicMatrixData());
+		} else {
+			double aspect_ratio =					// Calculate The Aspect Ratio Of The Window
+				(double)width / (double) height;
+			gluPerspective(camera->getFOV(), aspect_ratio, 0.1f, 100.0f);
+		}
 
 		glMatrixMode(GL_MODELVIEW);				// Select The Modelview Matrix
 		glLoadIdentity();						// Reset The Modelview Matrix

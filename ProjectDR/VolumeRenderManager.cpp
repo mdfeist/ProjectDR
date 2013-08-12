@@ -26,6 +26,9 @@ VolumeRenderManager::VolumeRenderManager(void) : FormController<VolumeRenderMana
 
 	cameraNeedsUpdate = true;
 
+	intrinsicMatrix = new float[16];
+	useIntrinsic = false;
+
 	fov = 45.0f;
 
 	camera_x = 0.f;
@@ -157,6 +160,18 @@ void VolumeRenderManager::initFusion() {
 	}
 }
 
+void VolumeRenderManager::setIntrinsicMatrix(float* matrix) {
+	for (int i = 0; i < 16; i++)
+		intrinsicMatrix[i] = matrix[i];
+
+	cameraNeedsUpdate = true;
+}
+
+void VolumeRenderManager::setUseIntrinsic(bool value) {
+	useIntrinsic = value;
+	cameraNeedsUpdate = true;
+}
+
 void VolumeRenderManager::setFOV(float value) {
 	fov = value;
 	cameraNeedsUpdate = true;
@@ -252,9 +267,7 @@ void VolumeRenderManager::update() {
 		if (form && !form->IsDisposed) {
 			Renderer^ renderer = form->GetRenderer();
 			if (renderer != nullptr) {
-				renderer->getActiveCamera()->setFOV(fov);
-				renderer->getActiveCamera()->setPosition(camera_x, camera_y, camera_z);
-
+				updateCamera(renderer->getActiveCamera());
 				cameraNeedsUpdate = false;
 			} else {
 				std::cout << "Failed."<< std::endl;
@@ -269,6 +282,22 @@ void VolumeRenderManager::update() {
 	updateVolume();
 }
 
+void VolumeRenderManager::updateCamera(Camera* camera) {
+	if (useIntrinsic) {
+		camera->useIntrinsicMatrix(true);
+
+		Eigen::Matrix4f k(intrinsicMatrix);
+		camera->setIntrinsicMatrix(k);
+
+		std::cout << k << std::endl;
+	} else {
+		camera->useIntrinsicMatrix(false);
+		camera->setFOV(fov);
+	}
+
+	camera->setPosition(camera_x, camera_y, camera_z);
+}
+
 void VolumeRenderManager::updateGrid() {
 	Eigen::Matrix4f matrix = Eigen::Matrix4f::Identity();
 
@@ -276,7 +305,7 @@ void VolumeRenderManager::updateGrid() {
 
 	if (rb) {
 		// Get Rigid Body Information
-		Eigen::Quaternionf quat = Eigen::Quaternionf(rb->qw(), rb->qx(), -rb->qy(), -rb->qz());
+		Eigen::Quaternionf quat = Eigen::Quaternionf(rb->qw(), -rb->qx(), rb->qy(), -rb->qz());
 		Eigen::Vector3f pos = rb->getPosition();
 
 		Eigen::Matrix3f rotationMatrix;
@@ -288,15 +317,14 @@ void VolumeRenderManager::updateGrid() {
 			for (int i = 0; i < 3; i++)
 				matrix(i,j) = rotationMatrix(i,j);
 
-		matrix(0,3) = pos(0);
-		matrix(1,3) = -pos(1);
+		matrix(0,3) = -pos(0);
+		matrix(1,3) = pos(1);
 		matrix(2,3) = -pos(2);
 	}
 
 	if (calibrationGrid)
 		calibrationGrid->setMatrix(matrix);
 }
-
 
 void VolumeRenderManager::updateVolume() {
 	Eigen::Matrix4f rb_matrix = Eigen::Matrix4f::Identity();

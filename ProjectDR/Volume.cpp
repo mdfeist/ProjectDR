@@ -658,11 +658,6 @@ void Volume::render(Camera* camera) {
 	glViewport(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT);		// Set Viewport
 	glMatrixMode(GL_PROJECTION);							// Update projection
 	glPushMatrix();
-	glLoadIdentity();										// Load Identity
-	gluPerspective(camera->getFOV(),						// Set Field of View
-		(GLfloat)viewWidth/(GLfloat)viewHeight,				// Set aspect ratio
-		camera->getNearClipping(),							// Set near clipping
-		camera->getFarClipping());							// Set far clipping
 	glMatrixMode(GL_MODELVIEW);								// Change back to model view mode
 	
 	glPushMatrix();											// set where to start the current object
