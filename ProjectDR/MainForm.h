@@ -194,24 +194,66 @@ private: System::Windows::Forms::Button^  toggleGridBtn;
 private: System::Windows::Forms::Label^  gridSelectedLabel;
 private: System::Windows::Forms::Button^  selectRigidBodyAsGridBtn;
 private: System::Windows::Forms::CheckBox^  useKMatrixCheckBox;
-private: System::Windows::Forms::TextBox^  k44TextBox;
-private: System::Windows::Forms::TextBox^  k34TextBox;
-private: System::Windows::Forms::TextBox^  k24TextBox;
-private: System::Windows::Forms::TextBox^  k14TextBox;
-private: System::Windows::Forms::TextBox^  k43TextBox;
-private: System::Windows::Forms::TextBox^  k33TextBox;
-private: System::Windows::Forms::TextBox^  k23TextBox;
-private: System::Windows::Forms::TextBox^  k13TextBox;
-private: System::Windows::Forms::TextBox^  k42TextBox;
-private: System::Windows::Forms::TextBox^  k32TextBox;
-private: System::Windows::Forms::TextBox^  k22TextBox;
-private: System::Windows::Forms::TextBox^  k12TextBox;
-private: System::Windows::Forms::TextBox^  k41TextBox;
-private: System::Windows::Forms::TextBox^  k31TextBox;
-private: System::Windows::Forms::TextBox^  k21TextBox;
-private: System::Windows::Forms::TextBox^  k11TextBox;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 private: System::Windows::Forms::Label^  kMatrixLabel;
-private: System::Windows::Forms::Button^  updateKBtn;
+
+private: System::Windows::Forms::Label^  pPointYLabel;
+
+private: System::Windows::Forms::Label^  pPointYTitleLabel;
+private: System::Windows::Forms::TrackBar^  pPointYTrackBar;
+private: System::Windows::Forms::Label^  pPointXLabel;
+
+
+
+private: System::Windows::Forms::Label^  pPointXTitleLabel;
+private: System::Windows::Forms::TrackBar^  pPointXTrackBar;
+private: System::Windows::Forms::Label^  skewLabel;
+
+
+
+private: System::Windows::Forms::Label^  skewTitleLabel;
+private: System::Windows::Forms::TrackBar^  skewTrackBar;
+private: System::Windows::Forms::Label^  betaLabel;
+
+
+
+private: System::Windows::Forms::Label^  betaTitleLabel;
+private: System::Windows::Forms::TrackBar^  betaTrackBar;
+private: System::Windows::Forms::Label^  alphaLabel;
+
+
+
+private: System::Windows::Forms::Label^  alphaTitleLabel;
+private: System::Windows::Forms::TrackBar^  alphaTrackBar;
+private: System::Windows::Forms::Label^  farLabel;
+
+
+
+private: System::Windows::Forms::Label^  farTitleLabel;
+private: System::Windows::Forms::TrackBar^  farTrackBar;
+private: System::Windows::Forms::Label^  nearLabel;
+
+
+
+private: System::Windows::Forms::Label^  nearTitleLabel;
+private: System::Windows::Forms::TrackBar^  nearTrackBar;
+
+
 
 
 
@@ -331,23 +373,28 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			this->volumePathLabel = (gcnew System::Windows::Forms::Label());
 			this->cameraPage = (gcnew System::Windows::Forms::TabPage());
 			this->cameraGroupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->farLabel = (gcnew System::Windows::Forms::Label());
+			this->farTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->farTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->nearLabel = (gcnew System::Windows::Forms::Label());
+			this->nearTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->nearTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->pPointYLabel = (gcnew System::Windows::Forms::Label());
+			this->pPointYTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->pPointYTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->pPointXLabel = (gcnew System::Windows::Forms::Label());
+			this->pPointXTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->pPointXTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->skewLabel = (gcnew System::Windows::Forms::Label());
+			this->skewTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->skewTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->betaLabel = (gcnew System::Windows::Forms::Label());
+			this->betaTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->betaTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->alphaLabel = (gcnew System::Windows::Forms::Label());
+			this->alphaTitleLabel = (gcnew System::Windows::Forms::Label());
+			this->alphaTrackBar = (gcnew System::Windows::Forms::TrackBar());
 			this->useKMatrixCheckBox = (gcnew System::Windows::Forms::CheckBox());
-			this->k44TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k34TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k24TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k14TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k43TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k33TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k23TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k13TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k42TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k32TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k22TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k12TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k41TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k31TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k21TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->k11TextBox = (gcnew System::Windows::Forms::TextBox());
 			this->kMatrixLabel = (gcnew System::Windows::Forms::Label());
 			this->toggleGridBtn = (gcnew System::Windows::Forms::Button());
 			this->cameraZLabel = (gcnew System::Windows::Forms::Label());
@@ -366,7 +413,6 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			this->fovTrackBar = (gcnew System::Windows::Forms::TrackBar());
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->backgroundWorker2 = (gcnew System::ComponentModel::BackgroundWorker());
-			this->updateKBtn = (gcnew System::Windows::Forms::Button());
 			this->menuStrip->SuspendLayout();
 			this->tabControl->SuspendLayout();
 			this->optiTrackPage->SuspendLayout();
@@ -394,6 +440,13 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			this->loadVolumeGroupBox->SuspendLayout();
 			this->cameraPage->SuspendLayout();
 			this->cameraGroupBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->farTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->nearTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pPointYTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pPointXTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->skewTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->betaTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->alphaTrackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->cameraZTrackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->cameraYTrackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->cameraXTrackBar))->BeginInit();
@@ -1479,24 +1532,28 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			// cameraGroupBox
 			// 
-			this->cameraGroupBox->Controls->Add(this->updateKBtn);
+			this->cameraGroupBox->Controls->Add(this->farLabel);
+			this->cameraGroupBox->Controls->Add(this->farTitleLabel);
+			this->cameraGroupBox->Controls->Add(this->farTrackBar);
+			this->cameraGroupBox->Controls->Add(this->nearLabel);
+			this->cameraGroupBox->Controls->Add(this->nearTitleLabel);
+			this->cameraGroupBox->Controls->Add(this->nearTrackBar);
+			this->cameraGroupBox->Controls->Add(this->pPointYLabel);
+			this->cameraGroupBox->Controls->Add(this->pPointYTitleLabel);
+			this->cameraGroupBox->Controls->Add(this->pPointYTrackBar);
+			this->cameraGroupBox->Controls->Add(this->pPointXLabel);
+			this->cameraGroupBox->Controls->Add(this->pPointXTitleLabel);
+			this->cameraGroupBox->Controls->Add(this->pPointXTrackBar);
+			this->cameraGroupBox->Controls->Add(this->skewLabel);
+			this->cameraGroupBox->Controls->Add(this->skewTitleLabel);
+			this->cameraGroupBox->Controls->Add(this->skewTrackBar);
+			this->cameraGroupBox->Controls->Add(this->betaLabel);
+			this->cameraGroupBox->Controls->Add(this->betaTitleLabel);
+			this->cameraGroupBox->Controls->Add(this->betaTrackBar);
+			this->cameraGroupBox->Controls->Add(this->alphaLabel);
+			this->cameraGroupBox->Controls->Add(this->alphaTitleLabel);
+			this->cameraGroupBox->Controls->Add(this->alphaTrackBar);
 			this->cameraGroupBox->Controls->Add(this->useKMatrixCheckBox);
-			this->cameraGroupBox->Controls->Add(this->k44TextBox);
-			this->cameraGroupBox->Controls->Add(this->k34TextBox);
-			this->cameraGroupBox->Controls->Add(this->k24TextBox);
-			this->cameraGroupBox->Controls->Add(this->k14TextBox);
-			this->cameraGroupBox->Controls->Add(this->k43TextBox);
-			this->cameraGroupBox->Controls->Add(this->k33TextBox);
-			this->cameraGroupBox->Controls->Add(this->k23TextBox);
-			this->cameraGroupBox->Controls->Add(this->k13TextBox);
-			this->cameraGroupBox->Controls->Add(this->k42TextBox);
-			this->cameraGroupBox->Controls->Add(this->k32TextBox);
-			this->cameraGroupBox->Controls->Add(this->k22TextBox);
-			this->cameraGroupBox->Controls->Add(this->k12TextBox);
-			this->cameraGroupBox->Controls->Add(this->k41TextBox);
-			this->cameraGroupBox->Controls->Add(this->k31TextBox);
-			this->cameraGroupBox->Controls->Add(this->k21TextBox);
-			this->cameraGroupBox->Controls->Add(this->k11TextBox);
 			this->cameraGroupBox->Controls->Add(this->kMatrixLabel);
 			this->cameraGroupBox->Controls->Add(this->toggleGridBtn);
 			this->cameraGroupBox->Controls->Add(this->cameraZLabel);
@@ -1515,155 +1572,260 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			this->cameraGroupBox->Controls->Add(this->fovTrackBar);
 			this->cameraGroupBox->Location = System::Drawing::Point(3, 6);
 			this->cameraGroupBox->Name = L"cameraGroupBox";
-			this->cameraGroupBox->Size = System::Drawing::Size(781, 295);
+			this->cameraGroupBox->Size = System::Drawing::Size(781, 381);
 			this->cameraGroupBox->TabIndex = 53;
 			this->cameraGroupBox->TabStop = false;
 			this->cameraGroupBox->Text = L"Camera";
 			// 
+			// farLabel
+			// 
+			this->farLabel->AutoSize = true;
+			this->farLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->farLabel->Location = System::Drawing::Point(277, 337);
+			this->farLabel->Name = L"farLabel";
+			this->farLabel->Size = System::Drawing::Size(40, 13);
+			this->farLabel->TabIndex = 119;
+			this->farLabel->Text = L"100.00";
+			// 
+			// farTitleLabel
+			// 
+			this->farTitleLabel->AutoSize = true;
+			this->farTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->farTitleLabel->Location = System::Drawing::Point(73, 326);
+			this->farTitleLabel->Name = L"farTitleLabel";
+			this->farTitleLabel->Size = System::Drawing::Size(24, 13);
+			this->farTitleLabel->TabIndex = 118;
+			this->farTitleLabel->Text = L"far:";
+			// 
+			// farTrackBar
+			// 
+			this->farTrackBar->BackColor = System::Drawing::SystemColors::Window;
+			this->farTrackBar->LargeChange = 100;
+			this->farTrackBar->Location = System::Drawing::Point(116, 326);
+			this->farTrackBar->Maximum = 100000;
+			this->farTrackBar->Name = L"farTrackBar";
+			this->farTrackBar->Size = System::Drawing::Size(158, 45);
+			this->farTrackBar->TabIndex = 117;
+			this->farTrackBar->TickFrequency = 10000;
+			this->farTrackBar->Value = 10000;
+			this->farTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::farTrackBar_ValueChanged);
+			// 
+			// nearLabel
+			// 
+			this->nearLabel->AutoSize = true;
+			this->nearLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->nearLabel->Location = System::Drawing::Point(277, 297);
+			this->nearLabel->Name = L"nearLabel";
+			this->nearLabel->Size = System::Drawing::Size(28, 13);
+			this->nearLabel->TabIndex = 116;
+			this->nearLabel->Text = L"0.10";
+			// 
+			// nearTitleLabel
+			// 
+			this->nearTitleLabel->AutoSize = true;
+			this->nearTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->nearTitleLabel->Location = System::Drawing::Point(64, 286);
+			this->nearTitleLabel->Name = L"nearTitleLabel";
+			this->nearTitleLabel->Size = System::Drawing::Size(33, 13);
+			this->nearTitleLabel->TabIndex = 115;
+			this->nearTitleLabel->Text = L"near:";
+			// 
+			// nearTrackBar
+			// 
+			this->nearTrackBar->BackColor = System::Drawing::SystemColors::Window;
+			this->nearTrackBar->LargeChange = 100;
+			this->nearTrackBar->Location = System::Drawing::Point(116, 286);
+			this->nearTrackBar->Maximum = 100000;
+			this->nearTrackBar->Name = L"nearTrackBar";
+			this->nearTrackBar->Size = System::Drawing::Size(158, 45);
+			this->nearTrackBar->TabIndex = 114;
+			this->nearTrackBar->TickFrequency = 10000;
+			this->nearTrackBar->Value = 100;
+			this->nearTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::nearTrackBar_ValueChanged);
+			// 
+			// pPointYLabel
+			// 
+			this->pPointYLabel->AutoSize = true;
+			this->pPointYLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->pPointYLabel->Location = System::Drawing::Point(277, 259);
+			this->pPointYLabel->Name = L"pPointYLabel";
+			this->pPointYLabel->Size = System::Drawing::Size(34, 13);
+			this->pPointYLabel->TabIndex = 113;
+			this->pPointYLabel->Text = L"0.000";
+			// 
+			// pPointYTitleLabel
+			// 
+			this->pPointYTitleLabel->AutoSize = true;
+			this->pPointYTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->pPointYTitleLabel->Location = System::Drawing::Point(3, 248);
+			this->pPointYTitleLabel->Name = L"pPointYTitleLabel";
+			this->pPointYTitleLabel->Size = System::Drawing::Size(94, 13);
+			this->pPointYTitleLabel->TabIndex = 112;
+			this->pPointYTitleLabel->Text = L"principal point y:";
+			// 
+			// pPointYTrackBar
+			// 
+			this->pPointYTrackBar->BackColor = System::Drawing::SystemColors::Window;
+			this->pPointYTrackBar->LargeChange = 1000;
+			this->pPointYTrackBar->Location = System::Drawing::Point(116, 248);
+			this->pPointYTrackBar->Maximum = 5000;
+			this->pPointYTrackBar->Minimum = -5000;
+			this->pPointYTrackBar->Name = L"pPointYTrackBar";
+			this->pPointYTrackBar->Size = System::Drawing::Size(158, 45);
+			this->pPointYTrackBar->TabIndex = 111;
+			this->pPointYTrackBar->TickFrequency = 1000;
+			this->pPointYTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::pPointYTrackBar_ValueChanged);
+			// 
+			// pPointXLabel
+			// 
+			this->pPointXLabel->AutoSize = true;
+			this->pPointXLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->pPointXLabel->Location = System::Drawing::Point(280, 220);
+			this->pPointXLabel->Name = L"pPointXLabel";
+			this->pPointXLabel->Size = System::Drawing::Size(34, 13);
+			this->pPointXLabel->TabIndex = 110;
+			this->pPointXLabel->Text = L"0.000";
+			// 
+			// pPointXTitleLabel
+			// 
+			this->pPointXTitleLabel->AutoSize = true;
+			this->pPointXTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->pPointXTitleLabel->Location = System::Drawing::Point(6, 209);
+			this->pPointXTitleLabel->Name = L"pPointXTitleLabel";
+			this->pPointXTitleLabel->Size = System::Drawing::Size(94, 13);
+			this->pPointXTitleLabel->TabIndex = 109;
+			this->pPointXTitleLabel->Text = L"principal point x:";
+			// 
+			// pPointXTrackBar
+			// 
+			this->pPointXTrackBar->BackColor = System::Drawing::SystemColors::Window;
+			this->pPointXTrackBar->LargeChange = 1000;
+			this->pPointXTrackBar->Location = System::Drawing::Point(119, 209);
+			this->pPointXTrackBar->Maximum = 5000;
+			this->pPointXTrackBar->Minimum = -5000;
+			this->pPointXTrackBar->Name = L"pPointXTrackBar";
+			this->pPointXTrackBar->Size = System::Drawing::Size(158, 45);
+			this->pPointXTrackBar->TabIndex = 108;
+			this->pPointXTrackBar->TickFrequency = 1000;
+			this->pPointXTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::pPointXTrackBar_ValueChanged);
+			// 
+			// skewLabel
+			// 
+			this->skewLabel->AutoSize = true;
+			this->skewLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->skewLabel->Location = System::Drawing::Point(280, 179);
+			this->skewLabel->Name = L"skewLabel";
+			this->skewLabel->Size = System::Drawing::Size(34, 13);
+			this->skewLabel->TabIndex = 107;
+			this->skewLabel->Text = L"0.000";
+			// 
+			// skewTitleLabel
+			// 
+			this->skewTitleLabel->AutoSize = true;
+			this->skewTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->skewTitleLabel->Location = System::Drawing::Point(64, 168);
+			this->skewTitleLabel->Name = L"skewTitleLabel";
+			this->skewTitleLabel->Size = System::Drawing::Size(36, 13);
+			this->skewTitleLabel->TabIndex = 106;
+			this->skewTitleLabel->Text = L"skew:";
+			// 
+			// skewTrackBar
+			// 
+			this->skewTrackBar->BackColor = System::Drawing::SystemColors::Window;
+			this->skewTrackBar->LargeChange = 1000;
+			this->skewTrackBar->Location = System::Drawing::Point(119, 168);
+			this->skewTrackBar->Maximum = 5000;
+			this->skewTrackBar->Minimum = -5000;
+			this->skewTrackBar->Name = L"skewTrackBar";
+			this->skewTrackBar->Size = System::Drawing::Size(158, 45);
+			this->skewTrackBar->TabIndex = 105;
+			this->skewTrackBar->TickFrequency = 1000;
+			this->skewTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::skewTrackBar_ValueChanged);
+			// 
+			// betaLabel
+			// 
+			this->betaLabel->AutoSize = true;
+			this->betaLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->betaLabel->Location = System::Drawing::Point(280, 133);
+			this->betaLabel->Name = L"betaLabel";
+			this->betaLabel->Size = System::Drawing::Size(34, 13);
+			this->betaLabel->TabIndex = 104;
+			this->betaLabel->Text = L"1.000";
+			// 
+			// betaTitleLabel
+			// 
+			this->betaTitleLabel->AutoSize = true;
+			this->betaTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->betaTitleLabel->Location = System::Drawing::Point(67, 126);
+			this->betaTitleLabel->Name = L"betaTitleLabel";
+			this->betaTitleLabel->Size = System::Drawing::Size(33, 13);
+			this->betaTitleLabel->TabIndex = 103;
+			this->betaTitleLabel->Text = L"beta:";
+			// 
+			// betaTrackBar
+			// 
+			this->betaTrackBar->BackColor = System::Drawing::SystemColors::Window;
+			this->betaTrackBar->LargeChange = 1000;
+			this->betaTrackBar->Location = System::Drawing::Point(119, 123);
+			this->betaTrackBar->Maximum = 5000;
+			this->betaTrackBar->Minimum = -5000;
+			this->betaTrackBar->Name = L"betaTrackBar";
+			this->betaTrackBar->Size = System::Drawing::Size(158, 45);
+			this->betaTrackBar->TabIndex = 102;
+			this->betaTrackBar->TickFrequency = 1000;
+			this->betaTrackBar->Value = 1000;
+			this->betaTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::betaTrackBar_ValueChanged);
+			// 
+			// alphaLabel
+			// 
+			this->alphaLabel->AutoSize = true;
+			this->alphaLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->alphaLabel->Location = System::Drawing::Point(280, 91);
+			this->alphaLabel->Name = L"alphaLabel";
+			this->alphaLabel->Size = System::Drawing::Size(34, 13);
+			this->alphaLabel->TabIndex = 101;
+			this->alphaLabel->Text = L"1.000";
+			// 
+			// alphaTitleLabel
+			// 
+			this->alphaTitleLabel->AutoSize = true;
+			this->alphaTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
+			this->alphaTitleLabel->Location = System::Drawing::Point(67, 81);
+			this->alphaTitleLabel->Name = L"alphaTitleLabel";
+			this->alphaTitleLabel->Size = System::Drawing::Size(39, 13);
+			this->alphaTitleLabel->TabIndex = 100;
+			this->alphaTitleLabel->Text = L"alpha:";
+			// 
+			// alphaTrackBar
+			// 
+			this->alphaTrackBar->BackColor = System::Drawing::SystemColors::Window;
+			this->alphaTrackBar->LargeChange = 1000;
+			this->alphaTrackBar->Location = System::Drawing::Point(119, 81);
+			this->alphaTrackBar->Maximum = 5000;
+			this->alphaTrackBar->Minimum = -5000;
+			this->alphaTrackBar->Name = L"alphaTrackBar";
+			this->alphaTrackBar->Size = System::Drawing::Size(158, 45);
+			this->alphaTrackBar->TabIndex = 99;
+			this->alphaTrackBar->TickFrequency = 1000;
+			this->alphaTrackBar->Value = 1000;
+			this->alphaTrackBar->ValueChanged += gcnew System::EventHandler(this, &MainForm::alphaTrackBar_ValueChanged);
+			// 
 			// useKMatrixCheckBox
 			// 
 			this->useKMatrixCheckBox->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->useKMatrixCheckBox->Location = System::Drawing::Point(333, 167);
+			this->useKMatrixCheckBox->Location = System::Drawing::Point(433, 210);
 			this->useKMatrixCheckBox->Name = L"useKMatrixCheckBox";
-			this->useKMatrixCheckBox->Size = System::Drawing::Size(154, 34);
+			this->useKMatrixCheckBox->Size = System::Drawing::Size(110, 34);
 			this->useKMatrixCheckBox->TabIndex = 97;
 			this->useKMatrixCheckBox->Text = L"Use K Matrix";
 			this->useKMatrixCheckBox->UseVisualStyleBackColor = true;
 			this->useKMatrixCheckBox->CheckedChanged += gcnew System::EventHandler(this, &MainForm::useKMatrixCheckBox_CheckedChanged);
 			// 
-			// k44TextBox
-			// 
-			this->k44TextBox->Location = System::Drawing::Point(573, 132);
-			this->k44TextBox->Name = L"k44TextBox";
-			this->k44TextBox->Size = System::Drawing::Size(74, 22);
-			this->k44TextBox->TabIndex = 95;
-			this->k44TextBox->Text = L"1.0";
-			// 
-			// k34TextBox
-			// 
-			this->k34TextBox->Location = System::Drawing::Point(493, 132);
-			this->k34TextBox->Name = L"k34TextBox";
-			this->k34TextBox->Size = System::Drawing::Size(74, 22);
-			this->k34TextBox->TabIndex = 94;
-			this->k34TextBox->Text = L"0.0";
-			// 
-			// k24TextBox
-			// 
-			this->k24TextBox->Location = System::Drawing::Point(413, 132);
-			this->k24TextBox->Name = L"k24TextBox";
-			this->k24TextBox->Size = System::Drawing::Size(74, 22);
-			this->k24TextBox->TabIndex = 93;
-			this->k24TextBox->Text = L"0.0";
-			// 
-			// k14TextBox
-			// 
-			this->k14TextBox->Location = System::Drawing::Point(333, 133);
-			this->k14TextBox->Name = L"k14TextBox";
-			this->k14TextBox->Size = System::Drawing::Size(74, 22);
-			this->k14TextBox->TabIndex = 92;
-			this->k14TextBox->Text = L"0.0";
-			// 
-			// k43TextBox
-			// 
-			this->k43TextBox->Location = System::Drawing::Point(573, 104);
-			this->k43TextBox->Name = L"k43TextBox";
-			this->k43TextBox->Size = System::Drawing::Size(74, 22);
-			this->k43TextBox->TabIndex = 91;
-			this->k43TextBox->Text = L"0.0";
-			// 
-			// k33TextBox
-			// 
-			this->k33TextBox->Location = System::Drawing::Point(493, 104);
-			this->k33TextBox->Name = L"k33TextBox";
-			this->k33TextBox->Size = System::Drawing::Size(74, 22);
-			this->k33TextBox->TabIndex = 90;
-			this->k33TextBox->Text = L"1.0";
-			// 
-			// k23TextBox
-			// 
-			this->k23TextBox->Location = System::Drawing::Point(413, 104);
-			this->k23TextBox->Name = L"k23TextBox";
-			this->k23TextBox->Size = System::Drawing::Size(74, 22);
-			this->k23TextBox->TabIndex = 89;
-			this->k23TextBox->Text = L"0.0";
-			// 
-			// k13TextBox
-			// 
-			this->k13TextBox->Location = System::Drawing::Point(333, 105);
-			this->k13TextBox->Name = L"k13TextBox";
-			this->k13TextBox->Size = System::Drawing::Size(74, 22);
-			this->k13TextBox->TabIndex = 88;
-			this->k13TextBox->Text = L"0.0";
-			// 
-			// k42TextBox
-			// 
-			this->k42TextBox->Location = System::Drawing::Point(573, 76);
-			this->k42TextBox->Name = L"k42TextBox";
-			this->k42TextBox->Size = System::Drawing::Size(74, 22);
-			this->k42TextBox->TabIndex = 87;
-			this->k42TextBox->Text = L"0.0";
-			// 
-			// k32TextBox
-			// 
-			this->k32TextBox->Location = System::Drawing::Point(493, 76);
-			this->k32TextBox->Name = L"k32TextBox";
-			this->k32TextBox->Size = System::Drawing::Size(74, 22);
-			this->k32TextBox->TabIndex = 86;
-			this->k32TextBox->Text = L"0.0";
-			// 
-			// k22TextBox
-			// 
-			this->k22TextBox->Location = System::Drawing::Point(413, 76);
-			this->k22TextBox->Name = L"k22TextBox";
-			this->k22TextBox->Size = System::Drawing::Size(74, 22);
-			this->k22TextBox->TabIndex = 85;
-			this->k22TextBox->Text = L"1.0";
-			// 
-			// k12TextBox
-			// 
-			this->k12TextBox->Location = System::Drawing::Point(333, 77);
-			this->k12TextBox->Name = L"k12TextBox";
-			this->k12TextBox->Size = System::Drawing::Size(74, 22);
-			this->k12TextBox->TabIndex = 84;
-			this->k12TextBox->Text = L"0.0";
-			// 
-			// k41TextBox
-			// 
-			this->k41TextBox->Location = System::Drawing::Point(573, 51);
-			this->k41TextBox->Name = L"k41TextBox";
-			this->k41TextBox->Size = System::Drawing::Size(74, 22);
-			this->k41TextBox->TabIndex = 83;
-			this->k41TextBox->Text = L"0.0";
-			// 
-			// k31TextBox
-			// 
-			this->k31TextBox->Location = System::Drawing::Point(493, 51);
-			this->k31TextBox->Name = L"k31TextBox";
-			this->k31TextBox->Size = System::Drawing::Size(74, 22);
-			this->k31TextBox->TabIndex = 82;
-			this->k31TextBox->Text = L"0.0";
-			// 
-			// k21TextBox
-			// 
-			this->k21TextBox->Location = System::Drawing::Point(413, 51);
-			this->k21TextBox->Name = L"k21TextBox";
-			this->k21TextBox->Size = System::Drawing::Size(74, 22);
-			this->k21TextBox->TabIndex = 81;
-			this->k21TextBox->Text = L"0.0";
-			// 
-			// k11TextBox
-			// 
-			this->k11TextBox->Location = System::Drawing::Point(333, 52);
-			this->k11TextBox->Name = L"k11TextBox";
-			this->k11TextBox->Size = System::Drawing::Size(74, 22);
-			this->k11TextBox->TabIndex = 80;
-			this->k11TextBox->Text = L"1.0";
-			// 
 			// kMatrixLabel
 			// 
 			this->kMatrixLabel->AutoSize = true;
 			this->kMatrixLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->kMatrixLabel->Location = System::Drawing::Point(330, 28);
+			this->kMatrixLabel->Location = System::Drawing::Point(6, 50);
 			this->kMatrixLabel->Name = L"kMatrixLabel";
 			this->kMatrixLabel->Size = System::Drawing::Size(51, 13);
 			this->kMatrixLabel->TabIndex = 79;
@@ -1673,7 +1835,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->toggleGridBtn->BackColor = System::Drawing::Color::Gainsboro;
 			this->toggleGridBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->toggleGridBtn->Location = System::Drawing::Point(665, 86);
+			this->toggleGridBtn->Location = System::Drawing::Point(563, 175);
 			this->toggleGridBtn->Name = L"toggleGridBtn";
 			this->toggleGridBtn->Size = System::Drawing::Size(76, 23);
 			this->toggleGridBtn->TabIndex = 78;
@@ -1685,7 +1847,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->cameraZLabel->AutoSize = true;
 			this->cameraZLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->cameraZLabel->Location = System::Drawing::Point(265, 167);
+			this->cameraZLabel->Location = System::Drawing::Point(614, 135);
 			this->cameraZLabel->Name = L"cameraZLabel";
 			this->cameraZLabel->Size = System::Drawing::Size(50, 13);
 			this->cameraZLabel->TabIndex = 77;
@@ -1695,7 +1857,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->cameraZTitleLabel->AutoSize = true;
 			this->cameraZTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->cameraZTitleLabel->Location = System::Drawing::Point(81, 156);
+			this->cameraZTitleLabel->Location = System::Drawing::Point(430, 124);
 			this->cameraZTitleLabel->Name = L"cameraZTitleLabel";
 			this->cameraZTitleLabel->Size = System::Drawing::Size(16, 13);
 			this->cameraZTitleLabel->TabIndex = 76;
@@ -1705,7 +1867,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->cameraZTrackBar->BackColor = System::Drawing::SystemColors::Window;
 			this->cameraZTrackBar->LargeChange = 1000;
-			this->cameraZTrackBar->Location = System::Drawing::Point(104, 156);
+			this->cameraZTrackBar->Location = System::Drawing::Point(453, 124);
 			this->cameraZTrackBar->Maximum = 5000;
 			this->cameraZTrackBar->Minimum = -5000;
 			this->cameraZTrackBar->Name = L"cameraZTrackBar";
@@ -1719,7 +1881,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->cameraYLabel->AutoSize = true;
 			this->cameraYLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->cameraYLabel->Location = System::Drawing::Point(265, 121);
+			this->cameraYLabel->Location = System::Drawing::Point(614, 89);
 			this->cameraYLabel->Name = L"cameraYLabel";
 			this->cameraYLabel->Size = System::Drawing::Size(46, 13);
 			this->cameraYLabel->TabIndex = 74;
@@ -1729,7 +1891,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->cameraYTitleLabel->AutoSize = true;
 			this->cameraYTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->cameraYTitleLabel->Location = System::Drawing::Point(81, 111);
+			this->cameraYTitleLabel->Location = System::Drawing::Point(430, 79);
 			this->cameraYTitleLabel->Name = L"cameraYTitleLabel";
 			this->cameraYTitleLabel->Size = System::Drawing::Size(15, 13);
 			this->cameraYTitleLabel->TabIndex = 73;
@@ -1739,7 +1901,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->cameraYTrackBar->BackColor = System::Drawing::SystemColors::Window;
 			this->cameraYTrackBar->LargeChange = 1000;
-			this->cameraYTrackBar->Location = System::Drawing::Point(104, 111);
+			this->cameraYTrackBar->Location = System::Drawing::Point(453, 79);
 			this->cameraYTrackBar->Maximum = 5000;
 			this->cameraYTrackBar->Minimum = -5000;
 			this->cameraYTrackBar->Name = L"cameraYTrackBar";
@@ -1752,7 +1914,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->cameraPositionLabel->AutoSize = true;
 			this->cameraPositionLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->cameraPositionLabel->Location = System::Drawing::Point(11, 50);
+			this->cameraPositionLabel->Location = System::Drawing::Point(360, 18);
 			this->cameraPositionLabel->Name = L"cameraPositionLabel";
 			this->cameraPositionLabel->Size = System::Drawing::Size(87, 13);
 			this->cameraPositionLabel->TabIndex = 71;
@@ -1762,7 +1924,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->cameraXLabel->AutoSize = true;
 			this->cameraXLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->cameraXLabel->Location = System::Drawing::Point(265, 79);
+			this->cameraXLabel->Location = System::Drawing::Point(614, 47);
 			this->cameraXLabel->Name = L"cameraXLabel";
 			this->cameraXLabel->Size = System::Drawing::Size(46, 13);
 			this->cameraXLabel->TabIndex = 70;
@@ -1772,7 +1934,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->cameraXTitleLabel->AutoSize = true;
 			this->cameraXTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->cameraXTitleLabel->Location = System::Drawing::Point(82, 69);
+			this->cameraXTitleLabel->Location = System::Drawing::Point(431, 37);
 			this->cameraXTitleLabel->Name = L"cameraXTitleLabel";
 			this->cameraXTitleLabel->Size = System::Drawing::Size(16, 13);
 			this->cameraXTitleLabel->TabIndex = 69;
@@ -1782,7 +1944,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->cameraXTrackBar->BackColor = System::Drawing::SystemColors::Window;
 			this->cameraXTrackBar->LargeChange = 1000;
-			this->cameraXTrackBar->Location = System::Drawing::Point(104, 69);
+			this->cameraXTrackBar->Location = System::Drawing::Point(453, 37);
 			this->cameraXTrackBar->Maximum = 5000;
 			this->cameraXTrackBar->Minimum = -5000;
 			this->cameraXTrackBar->Name = L"cameraXTrackBar";
@@ -1795,7 +1957,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->showGridBtn->BackColor = System::Drawing::Color::Gainsboro;
 			this->showGridBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->showGridBtn->Location = System::Drawing::Point(665, 50);
+			this->showGridBtn->Location = System::Drawing::Point(434, 174);
 			this->showGridBtn->Name = L"showGridBtn";
 			this->showGridBtn->Size = System::Drawing::Size(76, 23);
 			this->showGridBtn->TabIndex = 61;
@@ -1807,7 +1969,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->fovLabel->AutoSize = true;
 			this->fovLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->fovLabel->Location = System::Drawing::Point(267, 28);
+			this->fovLabel->Location = System::Drawing::Point(286, 28);
 			this->fovLabel->Name = L"fovLabel";
 			this->fovLabel->Size = System::Drawing::Size(28, 13);
 			this->fovLabel->TabIndex = 60;
@@ -1817,7 +1979,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->fovTitleLabel->AutoSize = true;
 			this->fovTitleLabel->ForeColor = System::Drawing::SystemColors::InfoText;
-			this->fovTitleLabel->Location = System::Drawing::Point(64, 18);
+			this->fovTitleLabel->Location = System::Drawing::Point(68, 18);
 			this->fovTitleLabel->Name = L"fovTitleLabel";
 			this->fovTitleLabel->Size = System::Drawing::Size(32, 13);
 			this->fovTitleLabel->TabIndex = 59;
@@ -1827,7 +1989,7 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->fovTrackBar->BackColor = System::Drawing::SystemColors::Window;
 			this->fovTrackBar->LargeChange = 10;
-			this->fovTrackBar->Location = System::Drawing::Point(106, 18);
+			this->fovTrackBar->Location = System::Drawing::Point(125, 18);
 			this->fovTrackBar->Maximum = 2000;
 			this->fovTrackBar->Minimum = 1;
 			this->fovTrackBar->Name = L"fovTrackBar";
@@ -1846,18 +2008,6 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			// 
 			this->backgroundWorker2->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MainForm::backgroundWorker2_DoWork);
 			this->backgroundWorker2->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MainForm::backgroundWorker2_RunWorkerCompleted);
-			// 
-			// updateKBtn
-			// 
-			this->updateKBtn->BackColor = System::Drawing::Color::Gainsboro;
-			this->updateKBtn->ForeColor = System::Drawing::SystemColors::MenuText;
-			this->updateKBtn->Location = System::Drawing::Point(665, 121);
-			this->updateKBtn->Name = L"updateKBtn";
-			this->updateKBtn->Size = System::Drawing::Size(76, 23);
-			this->updateKBtn->TabIndex = 98;
-			this->updateKBtn->Text = L"Update K";
-			this->updateKBtn->UseVisualStyleBackColor = false;
-			this->updateKBtn->Click += gcnew System::EventHandler(this, &MainForm::updateKBtn_Click);
 			// 
 			// MainForm
 			// 
@@ -1910,6 +2060,13 @@ private: System::Windows::Forms::Button^  updateKBtn;
 			this->cameraPage->ResumeLayout(false);
 			this->cameraGroupBox->ResumeLayout(false);
 			this->cameraGroupBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->farTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->nearTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pPointYTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pPointXTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->skewTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->betaTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->alphaTrackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->cameraZTrackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->cameraYTrackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->cameraXTrackBar))->EndInit();
@@ -2451,32 +2608,82 @@ private: System::Windows::Forms::Button^  updateKBtn;
 	private: System::Void useKMatrixCheckBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 				 VolumeRenderManager::getInstance()->setUseIntrinsic(useKMatrixCheckBox->Checked);
 			 }
-	private: System::Void updateKBtn_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void updateKMatrix() {
 				 float* k = new float[16];
 
-				 k[0] = Convert::ToDouble(k11TextBox->Text);
-				 k[1] = Convert::ToDouble(k12TextBox->Text);
-				 k[2] = Convert::ToDouble(k13TextBox->Text);
-				 k[3] = Convert::ToDouble(k14TextBox->Text);
+				 float alpha = (float)this->alphaTrackBar->Value/1000.f;
+				 float beta = (float)this->betaTrackBar->Value/1000.f;
+				 float skew = (float)this->skewTrackBar->Value/1000.f;
+				 float pPointX = (float)this->pPointXTrackBar->Value/1000.f;
+				 float pPointY = (float)this->pPointYTrackBar->Value/1000.f;
+				 float znear = (float)this->nearTrackBar->Value/100.f;
+				 float zfar = (float)this->farTrackBar->Value/100.f;
 
-				 k[4] = Convert::ToDouble(k21TextBox->Text);
-				 k[5] = Convert::ToDouble(k22TextBox->Text);
-				 k[6] = Convert::ToDouble(k23TextBox->Text);
-				 k[7] = Convert::ToDouble(k24TextBox->Text);
+				 k[0] = alpha;
+				 k[1] = skew;
+				 k[2] = pPointX;
+				 k[3] = 0.0f;
 
-				 k[8] = Convert::ToDouble(k31TextBox->Text);
-				 k[9] = Convert::ToDouble(k32TextBox->Text);
-				 k[10] = Convert::ToDouble(k33TextBox->Text);
-				 k[11] = Convert::ToDouble(k34TextBox->Text);
+				 k[4] = 0.0f;
+				 k[5] = beta;
+				 k[6] = pPointY;
+				 k[7] = 0.0f;
 
-				 k[12] = Convert::ToDouble(k41TextBox->Text);
-				 k[13] = Convert::ToDouble(k42TextBox->Text);
-				 k[14] = Convert::ToDouble(k43TextBox->Text);
-				 k[15] = Convert::ToDouble(k44TextBox->Text);
+				 k[8] = 0.0f;
+				 k[9] = 0.0f;
+				 k[10] = (-zfar - znear)/(zfar - znear);
+				 k[11] = -(2.f*zfar*znear)/(zfar - znear);
+
+				 k[12] = 0.0f;
+				 k[13] = 0.0f;
+				 k[14] = -1.0f;
+				 k[15] = 0.0f;
 
 				 VolumeRenderManager::getInstance()->setIntrinsicMatrix(k);
 
 				 delete[] k;
+			 }
+	private: System::Void alphaTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->alphaTrackBar->Value/1000.f;
+				 this->alphaLabel->Text = value.ToString("f3");
+
+				 updateKMatrix();
+			 }
+	private: System::Void betaTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->betaTrackBar->Value/1000.f;
+				 this->betaLabel->Text = value.ToString("f3");
+
+				 updateKMatrix();
+			 }
+	private: System::Void skewTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->skewTrackBar->Value/1000.f;
+				 this->skewLabel->Text = value.ToString("f3");
+
+				 updateKMatrix();
+			 }
+	private: System::Void pPointXTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->pPointXTrackBar->Value/1000.f;
+				 this->pPointXLabel->Text = value.ToString("f3");
+
+				 updateKMatrix();
+			 }
+	private: System::Void pPointYTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->pPointYTrackBar->Value/1000.f;
+				 this->pPointYLabel->Text = value.ToString("f3");
+
+				 updateKMatrix();
+			 }
+	private: System::Void nearTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->nearTrackBar->Value/100.f;
+				 this->nearLabel->Text = value.ToString("f2");
+
+				 updateKMatrix();
+			 }
+	private: System::Void farTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+				 float value = (float)this->farTrackBar->Value/100.f;
+				 this->farLabel->Text = value.ToString("f2");
+
+				 updateKMatrix();
 			 }
 };
 }

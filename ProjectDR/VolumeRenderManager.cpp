@@ -288,8 +288,6 @@ void VolumeRenderManager::updateCamera(Camera* camera) {
 
 		Eigen::Matrix4f k(intrinsicMatrix);
 		camera->setIntrinsicMatrix(k);
-
-		std::cout << k << std::endl;
 	} else {
 		camera->useIntrinsicMatrix(false);
 		camera->setFOV(fov);
