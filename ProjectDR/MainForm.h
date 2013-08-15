@@ -15,7 +15,7 @@
 
 #include "CalibrationGrid.h"
 #include "CameraCalibrationFormController.h"
-#include "VolumeRenderManager.h"
+#include "OpenGLSceneManager.h"
 
 #include "ProgressSpinner.h"
 
@@ -2126,7 +2126,7 @@ private: System::Windows::Forms::TrackBar^  nearTrackBar;
 
 				 this->volumeRemoveBtn->Enabled = false;
 
-				 VolumeRenderManager::getInstance()->init();
+				 OpenGLSceneManager::getInstance()->init();
 			 }
 			 // OptiTrack Getters/Setters
 	public: System::Void setOptiTrackLocalIpAddressTextBox(System::String^ text) {
@@ -2420,12 +2420,12 @@ private: System::Windows::Forms::TrackBar^  nearTrackBar;
 				 msclr::interop::marshal_context context;
 				 std::string pathBuffer = context.marshal_as<std::string>(this->volumePathTextBox->Text);
 
-				 VolumeRenderManager::getInstance()->loadVolume(pathBuffer.c_str());
+				 OpenGLSceneManager::getInstance()->loadVolume(pathBuffer.c_str());
 			 }
 	private: System::Void backgroundWorker1_RunWorkerCompleted(System::Object^  sender, System::ComponentModel::RunWorkerCompletedEventArgs^  e) {
-				 VolumeRenderManager::getInstance()->createForm();
-				 VolumeRenderManager::getInstance()->addVolumeToScene();
-				 VolumeRenderManager::getInstance()->Show();
+				 OpenGLSceneManager::getInstance()->createForm();
+				 OpenGLSceneManager::getInstance()->addVolumeToScene();
+				 OpenGLSceneManager::getInstance()->Show();
 
 				 this->spinner->Enable = false;
 				 this->volumeRemoveBtn->Enabled = true;
@@ -2433,50 +2433,50 @@ private: System::Windows::Forms::TrackBar^  nearTrackBar;
 	private: System::Void volumeRemoveBtn_Click(System::Object^  sender, System::EventArgs^  e) {
 				 this->loadVolumeBtn->Enabled = true;
 				 this->volumeRemoveBtn->Enabled = false;
-				 VolumeRenderManager::getInstance()->removeVolumeFromScene();
+				 OpenGLSceneManager::getInstance()->removeVolumeFromScene();
 			 }
 	private: System::Void showOpenGLViewBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-				 VolumeRenderManager::getInstance()->Show();
+				 OpenGLSceneManager::getInstance()->Show();
 			 }
 	private: System::Void minIsoValueTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 				 float isoValue = 100.f*((float)this->minIsoValueTrackBar->Value/this->minIsoValueTrackBar->Maximum);
 				 this->minIsoValueLabel->Text = isoValue.ToString("f1");
-				 VolumeRenderManager::getInstance()->setMinIsoValue((float)this->minIsoValueTrackBar->Value/this->minIsoValueTrackBar->Maximum);
+				 OpenGLSceneManager::getInstance()->setMinIsoValue((float)this->minIsoValueTrackBar->Value/this->minIsoValueTrackBar->Maximum);
 			 }
 	private: System::Void volumeScaleTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 				 float size = (float)this->volumeScaleTrackBar->Value/1000.f;
 				 this->volumeScaleLabel->Text = size.ToString("f3") + " m";
-				 VolumeRenderManager::getInstance()->setScale(size);
+				 OpenGLSceneManager::getInstance()->setScale(size);
 			 }
 	private: System::Void positionXTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 				 float value = (float)this->positionXTrackBar->Value/1000.f;
 				 this->positionXLabel->Text = value.ToString("f3") + " m";
-				 VolumeRenderManager::getInstance()->setPositionX(value);
+				 OpenGLSceneManager::getInstance()->setPositionX(value);
 			 }
 	private: System::Void positionYTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 				 float value = (float)this->positionYTrackBar->Value/1000.f;
 				 this->positionYLabel->Text = value.ToString("f3") + " m";
-				 VolumeRenderManager::getInstance()->setPositionY(value);
+				 OpenGLSceneManager::getInstance()->setPositionY(value);
 			 }
 	private: System::Void positionZTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 				 float value = (float)this->positionZTrackBar->Value/1000.f;
 				 this->positionZLabel->Text = value.ToString("f3") + " m";
-				 VolumeRenderManager::getInstance()->setPositionZ(value);
+				 OpenGLSceneManager::getInstance()->setPositionZ(value);
 			 }
 	private: System::Void rotationXTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 				 float value = (float)this->rotationXTrackBar->Value/4.f;
 				 this->rotationXLabel->Text = value.ToString("f2");
-				 VolumeRenderManager::getInstance()->setRotationX(value);
+				 OpenGLSceneManager::getInstance()->setRotationX(value);
 			 }
 	private: System::Void rotationYTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 				 float value = (float)this->rotationYTrackBar->Value/4.f;
 				 this->rotationYLabel->Text = value.ToString("f2");
-				 VolumeRenderManager::getInstance()->setRotationY(value);
+				 OpenGLSceneManager::getInstance()->setRotationY(value);
 			 }
 	private: System::Void rotationZTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 				 float value = (float)this->rotationZTrackBar->Value/4.f;
 				 this->rotationZLabel->Text = value.ToString("f2");
-				 VolumeRenderManager::getInstance()->setRotationZ(value);
+				 OpenGLSceneManager::getInstance()->setRotationZ(value);
 			 }
 	private: System::Void selectRigidBodyAsVolumeBtn_Click(System::Object^  sender, System::EventArgs^  e) {
 				 if (this->rigidBodyListView->SelectedItems->Count > 0) {
@@ -2500,7 +2500,7 @@ private: System::Windows::Forms::TrackBar^  nearTrackBar;
 
 					 ClientHandler::getInstance()->unlock();
 
-					 VolumeRenderManager::getInstance()->setRigidBody(id);
+					 OpenGLSceneManager::getInstance()->setRigidBody(id);
 
 
 				 }
@@ -2530,7 +2530,7 @@ private: System::Windows::Forms::TrackBar^  nearTrackBar;
 
 					 ClientHandler::getInstance()->unlock();
 
-					 VolumeRenderManager::getInstance()->setGridRigidBody(id);
+					 OpenGLSceneManager::getInstance()->setGridRigidBody(id);
 
 				 }
 				 else {
@@ -2581,7 +2581,7 @@ private: System::Windows::Forms::TrackBar^  nearTrackBar;
 	private: System::Void fovTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 				 float value = (float)this->fovTrackBar->Value/10.f;
 				 this->fovLabel->Text = value.ToString("f1");
-				 VolumeRenderManager::getInstance()->setFOV(value);
+				 OpenGLSceneManager::getInstance()->setFOV(value);
 			 }
 	private: System::Void showGridBtn_Click(System::Object^  sender, System::EventArgs^  e) {
 				 CalibrationGrid^ grid = gcnew CalibrationGrid();
@@ -2590,23 +2590,23 @@ private: System::Windows::Forms::TrackBar^  nearTrackBar;
 	private: System::Void cameraXTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 				 float value = (float)this->cameraXTrackBar->Value/1000.f;
 				 this->cameraXLabel->Text = value.ToString("f3") + " m";
-				 VolumeRenderManager::getInstance()->setCameraX(value);
+				 OpenGLSceneManager::getInstance()->setCameraX(value);
 			 }
 	private: System::Void cameraYTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 				 float value = (float)this->cameraYTrackBar->Value/1000.f;
 				 this->cameraYLabel->Text = value.ToString("f3") + " m";
-				 VolumeRenderManager::getInstance()->setCameraY(value);
+				 OpenGLSceneManager::getInstance()->setCameraY(value);
 			 }
 	private: System::Void cameraZTrackBar_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 				 float value = (float)this->cameraZTrackBar->Value/1000.f;
 				 this->cameraZLabel->Text = value.ToString("f3") + " m";
-				 VolumeRenderManager::getInstance()->setCameraZ(value);
+				 OpenGLSceneManager::getInstance()->setCameraZ(value);
 			 }
 	private: System::Void toggleGridBtn_Click(System::Object^  sender, System::EventArgs^  e) {
-				 VolumeRenderManager::getInstance()->toggleGrid();
+				 OpenGLSceneManager::getInstance()->toggleGrid();
 			 }
 	private: System::Void useKMatrixCheckBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-				 VolumeRenderManager::getInstance()->setUseIntrinsic(useKMatrixCheckBox->Checked);
+				 OpenGLSceneManager::getInstance()->setUseIntrinsic(useKMatrixCheckBox->Checked);
 			 }
 	private: System::Void updateKMatrix() {
 				 float* k = new float[16];
@@ -2639,7 +2639,7 @@ private: System::Windows::Forms::TrackBar^  nearTrackBar;
 				 k[14] = -1.0f;
 				 k[15] = 0.0f;
 
-				 VolumeRenderManager::getInstance()->setIntrinsicMatrix(k);
+				 OpenGLSceneManager::getInstance()->setIntrinsicMatrix(k);
 
 				 delete[] k;
 			 }
