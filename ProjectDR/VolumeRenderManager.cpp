@@ -20,6 +20,33 @@ using namespace System::Drawing;
 VolumeRenderManager* FormController<VolumeRenderManager, ProjectDR::OpenGLView>::m_pInstance = NULL;
 int RendererCallback::Callback_ID = 0;
 
+Eigen::Matrix4f getMatrixOfBody(int id) {
+	Eigen::Matrix4f matrix = Eigen::Matrix4f::Identity();
+
+	RigidBody* rb = ClientHandler::getInstance()->getRigidBody(id);
+
+	if (rb) {
+		// Get Rigid Body Information
+		Eigen::Quaternionf quat = Eigen::Quaternionf(rb->qw(), -rb->qx(), rb->qy(), -rb->qz());
+		Eigen::Vector3f pos = rb->getPosition();
+
+		Eigen::Matrix3f rotationMatrix;
+
+		// Get Rotation of Camera
+		rotationMatrix = quat.toRotationMatrix();
+
+		for (int j = 0; j < 3; j++)
+			for (int i = 0; i < 3; i++)
+				matrix(i,j) = rotationMatrix(i,j);
+
+		matrix(0,3) = -pos(0);
+		matrix(1,3) = pos(1);
+		matrix(2,3) = -pos(2);
+	}
+
+	return matrix;
+}
+
 VolumeRenderManager::VolumeRenderManager(void) : FormController<VolumeRenderManager, ProjectDR::OpenGLView>() {
 	volume = nullptr;
 	calibrationGrid = nullptr;
@@ -297,35 +324,14 @@ void VolumeRenderManager::updateCamera(Camera* camera) {
 }
 
 void VolumeRenderManager::updateGrid() {
-	Eigen::Matrix4f matrix = Eigen::Matrix4f::Identity();
-
-	RigidBody* rb = ClientHandler::getInstance()->getRigidBody(gridRigidBodyID);
-
-	if (rb) {
-		// Get Rigid Body Information
-		Eigen::Quaternionf quat = Eigen::Quaternionf(rb->qw(), -rb->qx(), rb->qy(), -rb->qz());
-		Eigen::Vector3f pos = rb->getPosition();
-
-		Eigen::Matrix3f rotationMatrix;
-
-		// Get Rotation of Camera
-		rotationMatrix = quat.toRotationMatrix();
-
-		for (int j = 0; j < 3; j++)
-			for (int i = 0; i < 3; i++)
-				matrix(i,j) = rotationMatrix(i,j);
-
-		matrix(0,3) = -pos(0);
-		matrix(1,3) = pos(1);
-		matrix(2,3) = -pos(2);
-	}
+	Eigen::Matrix4f matrix = getMatrixOfBody(gridRigidBodyID);
 
 	if (calibrationGrid)
 		calibrationGrid->setMatrix(matrix);
 }
 
 void VolumeRenderManager::updateVolume() {
-	Eigen::Matrix4f rb_matrix = Eigen::Matrix4f::Identity();
+	Eigen::Matrix4f rb_matrix = getMatrixOfBody(rigidBodyID);
 
 	Eigen::Matrix4f matrix = Eigen::Matrix4f::Identity();
 	Eigen::Matrix4f scaleMatrix = Eigen::Matrix4f::Identity();
@@ -341,27 +347,6 @@ void VolumeRenderManager::updateVolume() {
 	matrix(0,3) = x_offset;
 	matrix(1,3) = -y_offset;
 	matrix(2,3) = -z_offset;
-
-	RigidBody* rb = ClientHandler::getInstance()->getRigidBody(rigidBodyID);
-
-	if (rb) {
-		// Get Rigid Body Information
-		Eigen::Quaternionf quat = Eigen::Quaternionf(rb->qw(), rb->qx(), -rb->qy(), -rb->qz());
-		Eigen::Vector3f pos = rb->getPosition();
-
-		Eigen::Matrix3f rotationMatrix;
-
-		// Get Rotation of Camera
-		rotationMatrix = quat.toRotationMatrix();
-
-		for (int j = 0; j < 3; j++)
-			for (int i = 0; i < 3; i++)
-				rb_matrix(i,j) = rotationMatrix(i,j);
-
-		rb_matrix(0,3) = pos(0);
-		rb_matrix(1,3) = -pos(1);
-		rb_matrix(2,3) = -pos(2);
-	}
 
 	matrix = scaleMatrix * matrix;
 	matrix = rb_matrix * matrix;
