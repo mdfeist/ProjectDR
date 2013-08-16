@@ -227,7 +227,7 @@
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="VolumeRenderManager.cpp" />
+    <ClCompile Include="OpenGLSceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -539,7 +539,7 @@
     <ClInclude Include="Volume.h" />
     <ClInclude Include="VolumeCube.h" />
     <ClInclude Include="VolumeLoader.h" />
-    <ClInclude Include="VolumeRenderManager.h" />
+    <ClInclude Include="OpenGLSceneManager.h" />
     <ClInclude Include="VolumeStructs.h" />
     <ClInclude Include="WizardPages.h" />
   </ItemGroup>

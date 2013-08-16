@@ -14,13 +14,13 @@ class Volume;
 class RenderManager;
 class ImagePlane;
 
-public class VolumeRenderManager :
-	public FormController<VolumeRenderManager, ProjectDR::OpenGLView>
+public class OpenGLSceneManager :
+	public FormController<OpenGLSceneManager, ProjectDR::OpenGLView>
 {
 public:
 	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-	VolumeRenderManager(void);
+	OpenGLSceneManager(void);
 	void initFusion();
 
 	void setIntrinsicMatrix(float*);
@@ -61,7 +61,6 @@ public:
 private:
 	Volume*					volume;
 	KinectFusionRender*		fusionImage;
-	CKinectFusion*			fusion;
 
 	ImagePlane*				calibrationGrid;
 	int						gridRigidBodyID;
@@ -78,7 +77,7 @@ private:
 
 	int						rigidBodyID;	
 
-	RendererDelegator<VolumeRenderManager>* updateDelegate;
+	RendererDelegator<OpenGLSceneManager>* updateDelegate;
 
 	float					scale;
 

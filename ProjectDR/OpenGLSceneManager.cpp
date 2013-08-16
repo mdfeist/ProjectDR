@@ -1,10 +1,10 @@
 #include "StdAfx.h"
-#include "VolumeRenderManager.h"
+#include "OpenGLSceneManager.h"
 
 #include <iostream>
 
 #pragma unmanaged
-#include "ClientHandler.h"
+#include "ClientHandler.h" 
 #include "RigidBody.h"
 #include "Volume.h"
 #include "VolumeLoader.h"
@@ -17,10 +17,12 @@
 
 using namespace System::Drawing;
 
-VolumeRenderManager* FormController<VolumeRenderManager, ProjectDR::OpenGLView>::m_pInstance = NULL;
+OpenGLSceneManager* FormController<OpenGLSceneManager, ProjectDR::OpenGLView>::m_pInstance = NULL;
 int RendererCallback::Callback_ID = 0;
 
-Eigen::Matrix4f getMatrixOfBody(int id) {
+
+Eigen::Matrix4f getRigidBodyMatrix(int id) {
+
 	Eigen::Matrix4f matrix = Eigen::Matrix4f::Identity();
 
 	RigidBody* rb = ClientHandler::getInstance()->getRigidBody(id);
@@ -47,7 +49,7 @@ Eigen::Matrix4f getMatrixOfBody(int id) {
 	return matrix;
 }
 
-VolumeRenderManager::VolumeRenderManager(void) : FormController<VolumeRenderManager, ProjectDR::OpenGLView>() {
+OpenGLSceneManager::OpenGLSceneManager(void) : FormController<OpenGLSceneManager, ProjectDR::OpenGLView>() {
 	volume = nullptr;
 	calibrationGrid = nullptr;
 
@@ -70,16 +72,16 @@ VolumeRenderManager::VolumeRenderManager(void) : FormController<VolumeRenderMana
 	updateDelegate = nullptr;
 }
 
-void VolumeRenderManager::setGridRigidBody(int id) {
+void OpenGLSceneManager::setGridRigidBody(int id) {
 	gridRigidBodyID = id;
 }
 
-void VolumeRenderManager::toggleGrid() {
+void OpenGLSceneManager::toggleGrid() {
 	if (calibrationGrid != nullptr)
 		calibrationGrid->toggleShow();
 }
 
-void VolumeRenderManager::init() {
+void OpenGLSceneManager::init() {
 	createForm();
 
 	if (form && !form->IsDisposed) {
@@ -94,8 +96,8 @@ void VolumeRenderManager::init() {
 					updateDelegate = nullptr;
 				}
 
-				updateDelegate = new RendererDelegator<VolumeRenderManager>();
-				updateDelegate->RegisterCallback(this, &VolumeRenderManager::update);
+				updateDelegate = new RendererDelegator<OpenGLSceneManager>();
+				updateDelegate->RegisterCallback(this, &OpenGLSceneManager::update);
 				manager->addUpdateDelegate(updateDelegate);
 
 				if (calibrationGrid == nullptr) {
@@ -140,31 +142,11 @@ void VolumeRenderManager::init() {
 	}
 }
 
-void VolumeRenderManager::initFusion() {
+void OpenGLSceneManager::initFusion() {
 	createForm();
 
 	fusionImage = new KinectFusionRender();
 	fusionImage->createImage(640, 480);
-	fusionImage->setCameraRigidBodyId(rigidBodyID);
-
-	fusion = new CKinectFusion();
-	fusionImage->attachKinectFusion(fusion);
-
-	// Look for a connected Kinect, and create it if found
-	HRESULT hr = fusion->CreateFirstConnected();	
-	if (FAILED(hr))
-	{
-		fusion->SetInitializeError(true);
-	}
-
-	if (!fusion->GetInitializeError())
-	{
-		hr = fusion->InitializeKinectFusion();
-		if(FAILED(hr))
-		{
-			fusion->SetInitializeError(true);
-		}
-	}
 
 	Renderer^ renderer = form->GetRenderer();
 	if (renderer) {
@@ -187,43 +169,43 @@ void VolumeRenderManager::initFusion() {
 	}
 }
 
-void VolumeRenderManager::setIntrinsicMatrix(float* matrix) {
+void OpenGLSceneManager::setIntrinsicMatrix(float* matrix) {
 	for (int i = 0; i < 16; i++)
 		intrinsicMatrix[i] = matrix[i];
 
 	cameraNeedsUpdate = true;
 }
 
-void VolumeRenderManager::setUseIntrinsic(bool value) {
+void OpenGLSceneManager::setUseIntrinsic(bool value) {
 	useIntrinsic = value;
 	cameraNeedsUpdate = true;
 }
 
-void VolumeRenderManager::setFOV(float value) {
+void OpenGLSceneManager::setFOV(float value) {
 	fov = value;
 	cameraNeedsUpdate = true;
 }
 
-void VolumeRenderManager::setCameraX(float value) {
+void OpenGLSceneManager::setCameraX(float value) {
 	camera_x = value;
 	cameraNeedsUpdate = true;
 }
 
-void VolumeRenderManager::setCameraY(float value) {
+void OpenGLSceneManager::setCameraY(float value) {
 	camera_y = value;
 	cameraNeedsUpdate = true;
 }
 
-void VolumeRenderManager::setCameraZ(float value) {
+void OpenGLSceneManager::setCameraZ(float value) {
 	camera_z = value;
 	cameraNeedsUpdate = true;
 }
 
-void VolumeRenderManager::setRigidBody(int id) {
+void OpenGLSceneManager::setRigidBody(int id) {
 	rigidBodyID = id;
 }
 
-Volume* VolumeRenderManager::loadVolume(const char* volumeFile) {
+Volume* OpenGLSceneManager::loadVolume(const char* volumeFile) {
 	VolumeLoader* volumeLoader = new VolumeLoader();
 	volumeLoader->loadRaw(volumeFile);
 
@@ -241,7 +223,7 @@ Volume* VolumeRenderManager::loadVolume(const char* volumeFile) {
 	return volume;
 }
 
-void VolumeRenderManager::addVolumeToScene() {
+void OpenGLSceneManager::addVolumeToScene() {
 	createForm();
 
 	Renderer^ renderer = form->GetRenderer();
@@ -265,7 +247,7 @@ void VolumeRenderManager::addVolumeToScene() {
 	}
 }
 
-void VolumeRenderManager::removeVolumeFromScene() {
+void OpenGLSceneManager::removeVolumeFromScene() {
 	createForm();
 
 	Renderer^ renderer = form->GetRenderer();
@@ -289,7 +271,7 @@ void VolumeRenderManager::removeVolumeFromScene() {
 	}
 }
 
-void VolumeRenderManager::update() {
+void OpenGLSceneManager::update() {
 	if (cameraNeedsUpdate) {
 		if (form && !form->IsDisposed) {
 			Renderer^ renderer = form->GetRenderer();
@@ -309,7 +291,7 @@ void VolumeRenderManager::update() {
 	updateVolume();
 }
 
-void VolumeRenderManager::updateCamera(Camera* camera) {
+void OpenGLSceneManager::updateCamera(Camera* camera) {
 	if (useIntrinsic) {
 		camera->useIntrinsicMatrix(true);
 
@@ -323,15 +305,13 @@ void VolumeRenderManager::updateCamera(Camera* camera) {
 	camera->setPosition(camera_x, camera_y, camera_z);
 }
 
-void VolumeRenderManager::updateGrid() {
-	Eigen::Matrix4f matrix = getMatrixOfBody(gridRigidBodyID);
-
+void OpenGLSceneManager::updateGrid() {
 	if (calibrationGrid)
-		calibrationGrid->setMatrix(matrix);
+		calibrationGrid->setMatrix(getRigidBodyMatrix(gridRigidBodyID));
 }
 
-void VolumeRenderManager::updateVolume() {
-	Eigen::Matrix4f rb_matrix = getMatrixOfBody(rigidBodyID);
+void OpenGLSceneManager::updateVolume() {
+	Eigen::Matrix4f rb_matrix = getRigidBodyMatrix(rigidBodyID);
 
 	Eigen::Matrix4f matrix = Eigen::Matrix4f::Identity();
 	Eigen::Matrix4f scaleMatrix = Eigen::Matrix4f::Identity();
@@ -355,39 +335,39 @@ void VolumeRenderManager::updateVolume() {
 		volume->setMatrix(matrix);
 }
 
-void VolumeRenderManager::setMinIsoValue(float value) {
+void OpenGLSceneManager::setMinIsoValue(float value) {
 	if (volume) {
 		volume->setIsoValue(value);
 	}
 }
 
-void VolumeRenderManager::setScale(float value) {
+void OpenGLSceneManager::setScale(float value) {
 	scale = value;
 }
 
-void VolumeRenderManager::setPositionX(float value) {
+void OpenGLSceneManager::setPositionX(float value) {
 	x_offset = value;
 }
 
-void VolumeRenderManager::setPositionY(float value) {
+void OpenGLSceneManager::setPositionY(float value) {
 	y_offset = value;
 }
 
-void VolumeRenderManager::setPositionZ(float value) {
+void OpenGLSceneManager::setPositionZ(float value) {
 	z_offset = value;
 }
 
-void VolumeRenderManager::setRotationX(float value) {
+void OpenGLSceneManager::setRotationX(float value) {
 	rotation = rotation * Eigen::AngleAxisf((value - qx_offset) * M_PI/180.f, Eigen::Vector3f::UnitX());
 	qx_offset = value;
 }
 
-void VolumeRenderManager::setRotationY(float value) {
+void OpenGLSceneManager::setRotationY(float value) {
 	rotation = rotation * Eigen::AngleAxisf((value - qy_offset) * M_PI/180.f, Eigen::Vector3f::UnitY());
 	qy_offset = value;
 }
 
-void VolumeRenderManager::setRotationZ(float value) {
+void OpenGLSceneManager::setRotationZ(float value) {
 	rotation = rotation * Eigen::AngleAxisf((value - qz_offset) * M_PI/180.f, Eigen::Vector3f::UnitZ());
 	qz_offset = value;
 }

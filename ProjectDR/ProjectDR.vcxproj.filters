@@ -203,9 +203,6 @@
     <ClCompile Include="RenderManager.cpp">
       <Filter>Source Files\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="VolumeRenderManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ImageRender.cpp">
       <Filter>Source Files\Renderer</Filter>
     </ClCompile>
@@ -223,6 +220,9 @@
     </ClCompile>
     <ClCompile Include="ImagePlane.cpp">
       <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGLSceneManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1105,9 +1105,6 @@
     <ClInclude Include="RenderManager.h">
       <Filter>Header Files\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="VolumeRenderManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ProgressSpinner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1137,6 +1134,9 @@
     </ClInclude>
     <ClInclude Include="ImagePlane.h">
       <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGLSceneManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
